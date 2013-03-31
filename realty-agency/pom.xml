@@ -14,8 +14,54 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-c3p0</artifactId>
+        <version>3.5.4-Final</version>
+    </dependency>
+    <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-core</artifactId>
+        <version>3.5.4-Final</version>
+        <exclusions>
+            <exclusion>
+                <artifactId>javassist</artifactId>
+                <groupId>org.javassist</groupId>
+            </exclusion>
+            <exclusion>
+                <artifactId>antlr</artifactId>
+                <groupId>antlr</groupId>
+            </exclusion>
+            <exclusion>
+                <artifactId>commons-collections</artifactId>
+                <groupId>commons-collections</groupId>
+            </exclusion>
+        </exclusions>
+    </dependency>
+    <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate</artifactId>
+        <version>3.5.4-Final</version>
+        <type>pom</type>
+    </dependency>
+    <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-annotations</artifactId>
+        <version>3.5.4-Final</version>
+    </dependency>
+    <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-commons-annotations</artifactId>
+        <version>3.2.0.Final</version>
+    </dependency>
   </dependencies>
   <build>
     <finalName>realty-agency</finalName>
   </build>
+  <repositories>
+    <repository>
+      <id>jboss</id>
+      <url>https://repository.jboss.org/nexus/content/repositories/releases</url>
+    </repository>
+ </repositories>
 </project>
