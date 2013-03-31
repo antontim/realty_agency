@@ -55,10 +55,9 @@
         <version>3.2.0.Final</version>
     </dependency>
     <dependency>
-        <groupId>org.apache.tomcat</groupId>
-        <artifactId>tomcat-jdbc</artifactId>
-        <version>7.0.35</version>
-        <scope>provided</scope>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>5.1.6</version>
     </dependency>
   </dependencies>
   <build>
