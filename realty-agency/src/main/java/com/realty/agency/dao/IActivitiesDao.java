@@ -1,5 +1,5 @@
 package com.realty.agency.dao;
 
-public interface IActivitiesDao {
+public interface IActivitiesDao extends IDao {
 
 }
