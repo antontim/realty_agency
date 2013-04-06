@@ -1,5 +1,5 @@
 package com.realty.agency.dao;
 
-public interface IGenericDao {
+public interface IDao {
 
 }
