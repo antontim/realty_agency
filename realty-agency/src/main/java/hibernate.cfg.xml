@@ -3,6 +3,28 @@
                                          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
  <session-factory name="sessionFactory">
-    <mapping package="com.realty.agency.domain"/>
+    <mapping class="com.realty.agency.domain.Activities"/>
+    <mapping class="com.realty.agency.domain.ActivityTypes"/>
+    <mapping class="com.realty.agency.domain.Depts"/>
+    <mapping class="com.realty.agency.domain.EmployeeEvaluations"/>
+    <mapping class="com.realty.agency.domain.Employees"/>
+    <mapping class="com.realty.agency.domain.Entities"/>
+    <mapping class="com.realty.agency.domain.EntityClass"/>
+    <mapping class="com.realty.agency.domain.EntityPrices"/>
+    <mapping class="com.realty.agency.domain.EntityPricesId"/>
+    <mapping class="com.realty.agency.domain.EntityTypes"/>
+    <mapping class="com.realty.agency.domain.MeasureImportances"/>
+    <mapping class="com.realty.agency.domain.MeasureImportancesId"/>
+    <mapping class="com.realty.agency.domain.Measures"/>
+    <mapping class="com.realty.agency.domain.MeasureTypes"/>
+    <mapping class="com.realty.agency.domain.Norms"/>
+    <mapping class="com.realty.agency.domain.NormsId"/>
+    <mapping class="com.realty.agency.domain.Positions"/>
+    <mapping class="com.realty.agency.domain.Questions"/>
+    <mapping class="com.realty.agency.domain.Rates"/>
+    <mapping class="com.realty.agency.domain.RatesId"/>
+    <mapping class="com.realty.agency.domain.TestResults"/>
+    <mapping class="com.realty.agency.domain.Tests"/>
+    <mapping class="com.realty.agency.domain.EntityTypes"/>
  </session-factory>
 </hibernate-configuration>
