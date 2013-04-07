@@ -41,4 +41,20 @@
 
     <bean id="activitiesDao" class="com.realty.agency.dao.hibernate.ActivitiesDao"/>
     <bean id="entityTypesDao" class="com.realty.agency.dao.hibernate.EntityTypesDao"/>
+    <bean id="activityTypesDao" class="com.realty.agency.dao.hibernate.ActivityTypesDao"/>
+    <bean id="deptsDao" class="com.realty.agency.dao.hibernate.DeptsDao"/>
+    <bean id="employeeEvaluationsDao" class="com.realty.agency.dao.hibernate.EmployeeEvaluationsDao"/>
+    <bean id="employeesDao" class="com.realty.agency.dao.hibernate.EmployeesDao"/>
+    <bean id="entitiesDao" class="com.realty.agency.dao.hibernate.EntitiesDao"/>
+    <bean id="entityClassDao" class="com.realty.agency.dao.hibernate.EntityClassDao"/>
+    <bean id="entityPricesDao" class="com.realty.agency.dao.hibernate.EntityPricesDao"/>
+    <bean id="measureImportancesDao" class="com.realty.agency.dao.hibernate.MeasureImportancesDao"/>
+    <bean id="measuresDao" class="com.realty.agency.dao.hibernate.MeasuresDao"/>
+    <bean id="measureTypesDao" class="com.realty.agency.dao.hibernate.MeasureTypesDao"/>
+    <bean id="normsDao" class="com.realty.agency.dao.hibernate.NormsDao"/>
+    <bean id="positionsDao" class="com.realty.agency.dao.hibernate.PositionsDao"/>
+    <bean id="questionsDao" class="com.realty.agency.dao.hibernate.QuestionsDao"/>
+    <bean id="ratesDao" class="com.realty.agency.dao.hibernate.RatesDao"/>
+    <bean id="testResultsDao" class="com.realty.agency.dao.hibernate.TestResultsDao"/>
+    <bean id="testsDao" class="com.realty.agency.dao.hibernate.TestsDao"/>
 </beans>

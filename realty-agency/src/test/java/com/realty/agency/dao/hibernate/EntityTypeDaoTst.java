@@ -28,6 +28,30 @@ public class EntityTypeDaoTst {
 
         List<EntityTypes> afterData = this.entityTypesDao.find(et);
         assertNotNull(afterData);
+
+        this.entityTypesDao.delete(afterData.get(0));
+
         assertEquals(1, afterData.size());
+    }
+
+    @Test
+    public void testUpdatingOfRecord() {
+        EntityTypes et = new EntityTypes();
+        et.setName("test update");
+        this.entityTypesDao.add(et);
+
+        List<EntityTypes> afterData = this.entityTypesDao.find(et);
+        assertNotNull(afterData);
+
+        afterData.get(0).setName("test update 1");
+        this.entityTypesDao.update(afterData.get(0));
+
+        EntityTypes etCriteria = new EntityTypes();
+        etCriteria.setName(afterData.get(0).getName());
+        List<EntityTypes> afterUpdate = this.entityTypesDao.find(etCriteria);
+
+        this.entityTypesDao.delete(afterData.get(0));
+
+        assertEquals(1, afterUpdate.size());
     }
 }
