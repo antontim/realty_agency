@@ -1,4 +1,4 @@
-package com.realty.agency.dao;
+package com.realty.agency.dao.hibernate;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
