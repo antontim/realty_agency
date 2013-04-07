@@ -29,7 +29,9 @@ public class EntityTypeDaoTst {
         List<EntityTypes> afterData = this.entityTypesDao.find(et);
         assertNotNull(afterData);
 
-        this.entityTypesDao.delete(afterData.get(0));
+        EntityTypes etToDelete = new EntityTypes();
+        etToDelete.setId(afterData.get(0).getId());
+        this.entityTypesDao.delete(etToDelete);
 
         assertEquals(1, afterData.size());
     }
