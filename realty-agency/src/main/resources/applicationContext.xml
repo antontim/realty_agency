@@ -39,6 +39,6 @@
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
-    <bean id="activitiesDao" class="com.realty.agency.dao.ActivitiesDao"/>
-    <bean id="entityTypesDao" class="com.realty.agency.dao.EntityTypesDao"/>
+    <bean id="activitiesDao" class="com.realty.agency.dao.hibernate.ActivitiesDao"/>
+    <bean id="entityTypesDao" class="com.realty.agency.dao.hibernate.EntityTypesDao"/>
 </beans>
