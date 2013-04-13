@@ -21,6 +21,12 @@ public class EntityTypeDaoTst {
     private IEntityTypesDao entityTypesDao;
 
     @Test
+    public void testFind() {
+        List<EntityTypes> found = this.entityTypesDao.find(new EntityTypes());
+        assertEquals(5,found.size());
+    }
+
+    @Test
     public void testCreationOfRecord() {
         EntityTypes et = new EntityTypes();
         et.setName("test");
