@@ -23,7 +23,7 @@ public class EntityTypeDaoTst {
     @Test
     public void testFind() {
         List<EntityTypes> found = this.entityTypesDao.find(new EntityTypes());
-        assertEquals(5,found.size());
+        assertEquals(6,found.size());
     }
 
     @Test
