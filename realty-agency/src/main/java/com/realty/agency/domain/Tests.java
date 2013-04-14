@@ -8,6 +8,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -23,17 +26,21 @@ public class Tests implements java.io.Serializable {
     private Integer id;
     private String name;
     private String type;
+    private Measures measures;
     private Set<TestResults> testResultses = new HashSet<TestResults>(0);
 
     public Tests() {
     }
 
-    public Tests(String name, String type) {
+    public Tests(String name, String type, Measures measures) {
+        this.measures = measures;
         this.name = name;
         this.type = type;
     }
 
-    public Tests(String name, String type, Set<TestResults> testResultses) {
+    public Tests(String name, String type, Measures measures,
+            Set<TestResults> testResultses) {
+        this.measures = measures;
         this.name = name;
         this.type = type;
         this.testResultses = testResultses;
@@ -77,4 +84,13 @@ public class Tests implements java.io.Serializable {
         this.testResultses = testResultses;
     }
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "measure_id", nullable = false)
+    public Measures getMeasures() {
+        return this.measures;
+    }
+
+    public void setMeasures(Measures measures) {
+        this.measures = measures;
+    }
 }
