@@ -58,5 +58,6 @@
     <bean id="testResultsDao" class="com.realty.agency.dao.hibernate.TestResultsDao"/>
     <bean id="testsDao" class="com.realty.agency.dao.hibernate.TestsDao"/>
 
-
+    <bean id="employeeService" class="com.realty.agency.services.EmployeeService"/>
+    <bean id="entityService" class="com.realty.agency.services.EntityService"/>
 </beans>
