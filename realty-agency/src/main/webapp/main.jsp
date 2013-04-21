@@ -11,7 +11,8 @@
 <link rel="stylesheet" href="css/jquery.dataTables.css" />
 <link rel="stylesheet" href="css/ra.css" />
 <!-- <script type="text/javascript" language="javascript" src="js/jquery.js"></script> -->
-<script class="jsbin" src="http://datatables.net/download/build/jquery.dataTables.nightly.js"></script>
+<script type="text/javascript" language="javascript" src="js/ra.js"></script>
+<script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
   <script type="text/javascript" src="http://jzaefferer.github.com/jquery-validation/jquery.validate.js"></script>
 <script>
 $(function() {
@@ -43,7 +44,6 @@ $(function() {
 /* p { clear: both; } */
 /* .submit { margin-left: 12em; } */
 /* em { font-weight: bold; padding-right: 1em; vertical-align: top; } */
-
 </style>
 </head>
 <body>
@@ -51,10 +51,6 @@ $(function() {
         <ul>
             <li><a href="emp/load.do">Employees</a></li>
             <li><a href="ajax/content1.html">Tab 1</a></li>
-            <li><a href="ajax/content2.html">Tab 2</a></li>
-            <li><a href="ajax/content3-slow.php">Tab 3 (slow)</a></li>
-            <li><a href="ajax/content4-broken.php">Tab 4
-                    (broken)</a></li>
         </ul>
     </div>
 </body>

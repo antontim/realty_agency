@@ -19,15 +19,16 @@ $(document).ready(function(){
 <table id = "empTable" class = "dataTable">
     <thead>
         <tr>
-<!--             <td><span class="delete_icon"></span><span class="edit_icon"></span><span class="confirm_icon"></span></td> -->
+            <td class="sorting_disabled"></td>
             <td class="hidden">id</td>
             <td>Name</td>
             <td>Position</td>
             <td>Department</td>
         </tr>
     </thead>
-    <c:forEach items="${empList}" var="emp">
-        <tr>
+    <c:forEach items="${empList}" var="emp" varStatus="status">
+        <tr id="emp_${emp.id}" ind="${status.index}">
+            <td><div class="delete_icon" onclick="delEmployee(${emp.id});"></div><div class="edit_icon"></div></td>
             <td class="hidden">${emp.id}</td>
             <td>${emp.name}</td>
             <td>${emp.positions.name}</td>
