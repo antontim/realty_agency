@@ -26,4 +26,13 @@
         <servlet-name>springMVC</servlet-name>
         <url-pattern>*.do</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>main</servlet-name>
+        <jsp-file>/main.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>main</servlet-name>
+        <url-pattern>/main</url-pattern>
+    </servlet-mapping>
 </web-app>
