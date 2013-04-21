@@ -16,6 +16,7 @@
                         type: "PUT",
                     }).done(function(data) {
                         $("#empTable").append(data);
+                        $('#empTable').dataTable().fnDraw();
                         $("#dialog-form").dialog("close");
                     });
                 },

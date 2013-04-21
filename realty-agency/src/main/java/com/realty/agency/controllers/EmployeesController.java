@@ -1,9 +1,11 @@
 package com.realty.agency.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
@@ -36,6 +38,7 @@ public class EmployeesController extends MultiActionController {
     }
 
     @RequestMapping("/del")
+    @ResponseStatus(value = HttpStatus.OK)
     public void delete(@RequestParam int id) {
         this.employeeService.deleteEmployee(id);
     }

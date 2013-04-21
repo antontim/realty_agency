@@ -22,3 +22,23 @@
 .hidden {
     display: none;
 }
+
+.sorting_disabled {
+    background: url("");
+}
+
+.delete_icon {
+    background: url("../images/ui-icons_222222_256x240.png");
+    background-position: -80px -128px;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+}
+
+.edit_icon {
+    background: url("../images/ui-icons_222222_256x240.png");
+    background-position: -66px -112px;
+    width: 16px;
+    height: 16px;
+    display: inline-block; 
+}
