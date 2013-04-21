@@ -8,8 +8,14 @@
             width : 350,
             modal : true,
             buttons : {
-                "Create" : function() {
-                    
+
+            "Create" : function() {
+                    $.ajax({
+                        url : "emp/add?name="+$("#name").val()+"&pos="+$("#pos").val()+"&dept="+$("#dept").val(),
+                    }).done(function(data) {
+                        $("#empTable").append(data);
+                        $(this).dialog("close");
+                    });
                 },
                 Cancel : function() {
                     $(this).dialog("close");
