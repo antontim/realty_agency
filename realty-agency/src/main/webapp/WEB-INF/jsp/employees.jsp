@@ -11,22 +11,27 @@ $(document).ready(function(){
 
 </script>
 
-<jsp:include page="dialog.jsp"></jsp:include>
+<jsp:include page="dialog.jsp">
+    <jsp:param value="${posList}" name="posList"/>
+</jsp:include>
 
 <div>
 <table id = "empTable" class = "dataTable">
     <thead>
         <tr>
+<!--             <td><span class="delete_icon"></span><span class="edit_icon"></span><span class="confirm_icon"></span></td> -->
+            <td class="hidden">id</td>
             <td>Name</td>
             <td>Position</td>
             <td>Department</td>
         </tr>
     </thead>
-    <c:forEach items="${param.empList}" var="emp">
+    <c:forEach items="${empList}" var="emp">
         <tr>
+            <td class="hidden">${emp.id}</td>
             <td>${emp.name}</td>
             <td>${emp.positions.name}</td>
-            <td>${emp.depts.name}</td>
+            <td>${emp.positions.depts.name}</td>
         </tr>
     </c:forEach>
 </table>
@@ -34,5 +39,4 @@ $(document).ready(function(){
 
 <div class="footer">
     <button id="addEmpButton">Add</button>
-    <button id="delEmpButton">Remove</button>
 </div>

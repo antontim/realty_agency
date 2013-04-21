@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="css/ra.css" />
 <!-- <script type="text/javascript" language="javascript" src="js/jquery.js"></script> -->
 <script class="jsbin" src="http://datatables.net/download/build/jquery.dataTables.nightly.js"></script>
+  <script type="text/javascript" src="http://jzaefferer.github.com/jquery-validation/jquery.validate.js"></script>
 <script>
 $(function() {
 $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
@@ -36,10 +37,16 @@ $(function() {
 .ui-tabs-vertical .ui-tabs-nav li a { display:block; }
 .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; border-right-width: 1px; }
 .ui-tabs-vertical .ui-tabs-panel { padding: 1em; float: right; width: 40em;}
+
+/* label { width: 10em; float: left; } */
+/* label.error { float: none; color: red; padding-left: .5em; vertical-align: top; } */
+/* p { clear: both; } */
+/* .submit { margin-left: 12em; } */
+/* em { font-weight: bold; padding-right: 1em; vertical-align: top; } */
+
 </style>
 </head>
 <body>
-<center>
     <div id="tabs">
         <ul>
             <li><a href="emp/load.do">Employees</a></li>
@@ -50,6 +57,5 @@ $(function() {
                     (broken)</a></li>
         </ul>
     </div>
-</center>
 </body>
 </html>
