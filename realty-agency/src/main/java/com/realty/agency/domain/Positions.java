@@ -52,7 +52,7 @@ public class Positions implements java.io.Serializable {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "dept_id", nullable = false)
     public Depts getDepts() {
         return this.depts;

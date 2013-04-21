@@ -17,18 +17,36 @@ public class EmployeesController extends MultiActionController {
     @Autowired
     private IEmployeeService employeeService;
 
-
     @RequestMapping("/load")
     public ModelAndView load() {
         ModelAndView mav = new ModelAndView("employees");
-        mav.addObject("empList", this.employeeService.loadEmployees(new Employees()));
+        mav.addObject("empList",
+                this.employeeService.loadEmployees(new Employees()));
+        mav.addObject("posList", this.employeeService.loadAllPositions());
         return mav;
     }
-    
+
     @RequestMapping("/add")
-    public ModelAndView add(@RequestParam String name, @RequestParam int pos, @RequestParam int dept) {
-        ModelAndView mav = new ModelAndView("employees");
-        mav.addObject("emp", this.employeeService.addEmployee(name, pos, dept));
+    public ModelAndView add(@RequestParam String name, @RequestParam int pos) {
+        ModelAndView mav = new ModelAndView("employee");
+        this.employeeService.addEmployee(name, pos);
+
+        mav.addObject("emp", this.employeeService.loadEmployeeByName(name));
+        return mav;
+    }
+
+    @RequestMapping("/del")
+    public void delete(@RequestParam int id) {
+        this.employeeService.deleteEmployee(id);
+    }
+
+    @RequestMapping("/upd")
+    public ModelAndView delete(@RequestParam int id, @RequestParam String name,
+            @RequestParam int pos) {
+        ModelAndView mav = new ModelAndView("employee");
+        this.employeeService.updateEmployee(id, name, pos);
+
+        mav.addObject("emp", this.employeeService.loadEmployeeById(id));
         return mav;
     }
 }
