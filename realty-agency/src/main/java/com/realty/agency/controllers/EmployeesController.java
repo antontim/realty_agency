@@ -3,6 +3,7 @@ package com.realty.agency.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
@@ -21,6 +22,13 @@ public class EmployeesController extends MultiActionController {
     public ModelAndView load() {
         ModelAndView mav = new ModelAndView("employees");
         mav.addObject("empList", this.employeeService.loadEmployees(new Employees()));
+        return mav;
+    }
+    
+    @RequestMapping("/add")
+    public ModelAndView add(@RequestParam String name, @RequestParam int pos, @RequestParam int dept) {
+        ModelAndView mav = new ModelAndView("employees");
+        mav.addObject("emp", this.employeeService.addEmployee(name, pos, dept));
         return mav;
     }
 }
