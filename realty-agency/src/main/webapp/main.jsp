@@ -5,15 +5,24 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
- <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
-<link rel="stylesheet" href="css/jquery.dataTables.css" />
 <link rel="stylesheet" href="css/ra.css" />
-<!-- <script type="text/javascript" language="javascript" src="js/jquery.js"></script> -->
-<script type="text/javascript" language="javascript" src="js/ra.js"></script>
-<script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
-  <script type="text/javascript" src="http://jzaefferer.github.com/jquery-validation/jquery.validate.js"></script>
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/jquery.tablesorter.pager.css" />
+<link type="text/css" href="css/jq.css" rel="stylesheet" />
+<link type="text/css" href="css/jquery-ui-1.10.2.custom.css" rel="stylesheet" />
+<link type="text/css" href="css/style.css" rel="stylesheet" />
+<link type="text/css" href="css/theme.blue.css" rel="stylesheet" />
+
+<script type="text/javascript" src="js/jquery-latest.js"></script>
+<script type="text/javascript" src="js/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="js/jquery-migrate-1.1.1.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.10.2.custom.js"></script>
+<script type="text/javascript" src="js/ra.js"></script>
+<script type="text/javascript" src="js/jquery.validate.js"></script>
+<script type="text/javascript" src="js/__jquery.tablesorter.js"></script>
+<script type="text/javascript" src="js/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="js/_jquery.tablesorter.pager.js"></script>
+
 <script>
 $(function() {
 $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
@@ -30,6 +39,8 @@ $(function() {
    }
   });
 });
+
+
 </script>
 <style>
 .ui-tabs-vertical { width: 55em; }
@@ -44,6 +55,50 @@ $(function() {
 /* p { clear: both; } */
 /* .submit { margin-left: 12em; } */
 /* em { font-weight: bold; padding-right: 1em; vertical-align: top; } */
+
+/* pager wrapper, div */
+.tablesorter-pager {
+  padding: 5px;
+}
+/* pager wrapper, in thead/tfoot */
+td.tablesorter-pager {
+  background-color: #e6eeee;
+  margin: 0; /* needed for bootstrap .pager gets a 18px bottom margin */
+}
+/* pager navigation arrows */
+.tablesorter-pager img {
+  vertical-align: middle;
+  margin-right: 2px;
+  cursor: pointer;
+}
+
+/* pager output text */
+.tablesorter-pager .pagedisplay {
+  padding: 0 5px 0 5px;
+  width: 50px;
+  text-align: center;
+}
+
+/* pager element reset (needed for bootstrap) */
+.tablesorter-pager select {
+  margin: 0;
+  padding: 0;
+}
+
+/*** css used when "updateArrows" option is true ***/
+/* the pager itself gets a disabled class when the number of rows is less than the size */
+.tablesorter-pager.disabled {
+  display: none;
+}
+/* hide or fade out pager arrows when the first or last row is visible */
+.tablesorter-pager .disabled {
+  /* visibility: hidden */
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+  cursor: default;
+}
+
+
 </style>
 </head>
 <body>
