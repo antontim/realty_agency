@@ -15,8 +15,10 @@
                         url : "emp/add.do?name="+$("#name").val()+"&pos="+$("#pos option:selected").val(),
                         type: "PUT",
                     }).done(function(data) {
-                        $("#empTable").append(data);
-                        $('#empTable').dataTable().fnDraw();
+                        $row = $(data);
+                        var t = $('#empTable');
+                            t.find('tbody').append($row).trigger('addRows', [$row]);
+                            t.trigger('update');
                         $("#dialog-form").dialog("close");
                     });
                 },
