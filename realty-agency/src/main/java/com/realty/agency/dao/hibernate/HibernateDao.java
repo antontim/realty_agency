@@ -4,17 +4,20 @@ import static org.hibernate.criterion.Example.create;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.LockOptions;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.realty.agency.dao.IDao;
 import com.realty.agency.domain.EntityTypes;
+import com.realty.agency.domain.IEntity;
 
-public class HibernateDao<T> implements IDao<T> {
+public class HibernateDao<T extends IEntity<?>> implements IDao<T> {
     private static final Logger logger = LoggerFactory
             .getLogger(HibernateDao.class);
     private String entityName;
@@ -26,10 +29,15 @@ public class HibernateDao<T> implements IDao<T> {
     public List<T> find(T criteria) {
         logger.debug("finding instance by example");
         try {
+            
+            Criteria crit = sessionFactory.getCurrentSession()
+                    .createCriteria(this.entityName).add(create(criteria));
+            if(criteria.getId() != null) {
+                crit.add(Restrictions.eq("id", criteria.getId()));
+            }
+
             @SuppressWarnings("unchecked")
-            List<T> results = (List<T>) sessionFactory.getCurrentSession()
-                    .createCriteria(this.entityName).add(create(criteria))
-                    .list();
+            List<T> results = crit.list();
             logger.debug("find by example successful, result size: "
                     + results.size());
             return results;

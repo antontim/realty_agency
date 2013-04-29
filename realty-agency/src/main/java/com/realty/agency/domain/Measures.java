@@ -4,12 +4,10 @@ package com.realty.agency.domain;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -20,9 +18,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "measures", catalog = "agency")
-public class Measures implements java.io.Serializable {
+public class Measures extends BaseEntity<Integer> implements java.io.Serializable, IEntity<Integer> {
 
-    private Integer id;
     private MeasureTypes measureTypes;
     private String name;
     private Set<Questions> questionses = new HashSet<Questions>(0);
@@ -51,17 +48,6 @@ public class Measures implements java.io.Serializable {
         this.measureImportancesesForMeasure2Id = measureImportancesesForMeasure2Id;
         this.measureImportancesesForMeasure1Id = measureImportancesesForMeasure1Id;
         this.rateses = rateses;
-    }
-
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
-    public Integer getId() {
-        return this.id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -3,6 +3,7 @@ package com.realty.agency.domain;
 // Generated Apr 1, 2013 12:12:11 AM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -17,7 +18,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "norms", catalog = "agency")
-public class Norms implements java.io.Serializable {
+public class Norms implements java.io.Serializable, IEntity<NormsId> {
 
     private NormsId id;
     private Date changed;
@@ -32,6 +33,7 @@ public class Norms implements java.io.Serializable {
         this.monthNorm = monthNorm;
     }
 
+    @Override
     @EmbeddedId
     @AttributeOverrides({
             @AttributeOverride(name = "id", column = @Column(name = "id", nullable = false)),
@@ -40,6 +42,7 @@ public class Norms implements java.io.Serializable {
         return this.id;
     }
 
+    @Override
     public void setId(NormsId id) {
         this.id = id;
     }

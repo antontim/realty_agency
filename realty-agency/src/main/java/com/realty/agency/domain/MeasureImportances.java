@@ -17,7 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "measure_importances", catalog = "agency")
-public class MeasureImportances implements java.io.Serializable {
+public class MeasureImportances implements java.io.Serializable, IEntity<MeasureImportancesId> {
 
     private MeasureImportancesId id;
     private Measures measuresByMeasure1Id;

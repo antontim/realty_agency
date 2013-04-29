@@ -5,10 +5,15 @@
     width: 52px;
 }
 
+.icon_refresh {
+    background-image: url("ajax-refresh-icon.gif");
+    background-repeat: no-repeat;
+    height: 16px;
+    width: 16px;
+    display: inline-block;
+}
+
 .footer {
-    position: absolute;
-    bottom: 0px;
-    right: 0px;
 }
 
 .icon.add {
@@ -20,7 +25,7 @@
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 .sorting_disabled {
@@ -42,6 +47,18 @@
     height: 16px;
     display: inline-block; 
 }
+
+.commit_icon {
+    background: url("images/ui-icons_222222_256x240.png");
+    background-position: -66px -144px;
+    width: 16px;
+    height: 16px;
+    display: inline-block; 
+}
+
+
+
+
 
 /* pager wrapper, div */
 .tablesorter-pager {

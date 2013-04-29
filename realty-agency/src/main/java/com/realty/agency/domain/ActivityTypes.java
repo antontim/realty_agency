@@ -18,9 +18,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "activity_types", catalog = "agency")
-public class ActivityTypes implements java.io.Serializable {
+public class ActivityTypes extends BaseEntity<Integer> implements java.io.Serializable, IEntity<Integer> {
 
-    private Integer id;
     private String name;
     private Set<Activities> activitieses = new HashSet<Activities>(0);
 
@@ -34,17 +33,6 @@ public class ActivityTypes implements java.io.Serializable {
     public ActivityTypes(String name, Set<Activities> activitieses) {
         this.name = name;
         this.activitieses = activitieses;
-    }
-
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
-    public Integer getId() {
-        return this.id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     @Column(name = "name", nullable = false, length = 30)
