@@ -1,12 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
-$(document).ready(function(){
-
-    $("#addEmpButton").button().click(function() {
-        $("#dialog-form").dialog("open");
-    });
-});
-
 $(function(){
 
     // **********************************
@@ -82,10 +75,13 @@ $(function(){
         // *********************
         .bind('pagerChange pagerComplete pagerInitialized pageMoved', function(e, c){
         })
+        
 
         // initialize the pager plugin
         // ****************************
-        .tablesorterPager(pagerOptions);
+        .tablesorterPager(pagerOptions)
+
+        ;
 
         // Add two new rows using the "addRows" method
         // the "update" method doesn't work here because not all rows are
@@ -147,10 +143,17 @@ $(function(){
     </thead>
     <tbody>
     <c:forEach items="${empList}" var="emp" varStatus="status">
-        <tr id="emp_${emp.id}">
-            <td><div class="delete_icon" onclick="delEmployee(${emp.id});"></div><div class="edit_icon"></div></td>
-            <td>${emp.name}</td>
-            <td>${emp.positions.name}</td>
+        <tr id="${emp.id}">
+            <td>
+                <div name="edit">
+                    <div class="delete_icon" onclick="delEmployee(event);"></div>
+                    <div class="edit_icon" onclick="preUpdateEmp(this);"></div>
+                    <div class="commit_icon hidden" onclick="updEmployee(event);"></div>
+                </div>
+                <div class="icon_refresh hidden"></div>
+            </td>
+            <td name="name"><label name="name">${emp.name}</label></td>
+            <td name="pos"><label name="pos">${emp.positions.name}</label></td>
             <td>${emp.positions.depts.name}</td>
         </tr>
     </c:forEach>
@@ -159,5 +162,16 @@ $(function(){
 </div>
 
 <div class="footer">
-    <button id="addEmpButton">Add</button>
+        <fieldset>
+            <label for="newEmpName">Name</label><em>*</em>
+                <input type="text" name="newEmpName" id="newEmpName" class="required text ui-widget-content ui-corner-all" />
+            <label for="pos">Position</label><em>*</em> 
+                <jsp:include page="positions.jsp">
+                    <jsp:param value="${posList}" name="posList"/>
+                    <jsp:param name="id" value="pos"/>
+                    <jsp:param name="class" value="required select ui-widget-content ui-corner-all"/>
+                </jsp:include>
+                <button id="addEmpButton" onclick="addEmployee();">Add</button>
+        </fieldset>
+    
 </div>

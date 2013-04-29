@@ -4,12 +4,10 @@ package com.realty.agency.domain;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -18,9 +16,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "entity_class", catalog = "agency")
-public class EntityClass implements java.io.Serializable {
+public class EntityClass extends BaseEntity<Integer> implements java.io.Serializable, IEntity<Integer> {
 
-    private Integer id;
     private String name;
     private float minVal;
     private float maxVal;
@@ -41,17 +38,6 @@ public class EntityClass implements java.io.Serializable {
         this.minVal = minVal;
         this.maxVal = maxVal;
         this.entitieses = entitieses;
-    }
-
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
-    public Integer getId() {
-        return this.id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     @Column(name = "name", nullable = false, length = 30)

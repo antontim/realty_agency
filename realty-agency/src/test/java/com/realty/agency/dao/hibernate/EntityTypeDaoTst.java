@@ -55,7 +55,7 @@ public class EntityTypeDaoTst {
         this.entityTypesDao.update(afterData.get(0));
 
         EntityTypes etCriteria = new EntityTypes();
-        etCriteria.setName(afterData.get(0).getName());
+        etCriteria.setId(afterData.get(0).getId());
         List<EntityTypes> afterUpdate = this.entityTypesDao.find(etCriteria);
 
         this.entityTypesDao.delete(afterData.get(0));

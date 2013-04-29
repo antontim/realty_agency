@@ -44,7 +44,7 @@ public class EmployeesController extends MultiActionController {
     }
 
     @RequestMapping("/upd")
-    public ModelAndView delete(@RequestParam int id, @RequestParam String name,
+    public ModelAndView update(@RequestParam int id, @RequestParam String name,
             @RequestParam int pos) {
         ModelAndView mav = new ModelAndView("employee");
         this.employeeService.updateEmployee(id, name, pos);

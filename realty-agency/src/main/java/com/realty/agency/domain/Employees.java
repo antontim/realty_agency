@@ -22,9 +22,8 @@ import org.springframework.context.annotation.Lazy;
  */
 @Entity
 @Table(name = "employees", catalog = "agency")
-public class Employees implements java.io.Serializable {
+public class Employees extends BaseEntity<Integer> implements java.io.Serializable, IEntity<Integer> {
 
-    private Integer id;
     private Positions positions;
     private String name;
     private float mahResult;
@@ -54,17 +53,6 @@ public class Employees implements java.io.Serializable {
         this.employeeEvaluationses = employeeEvaluationses;
         this.rateses = rateses;
         this.testResultses = testResultses;
-    }
-
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
-    public Integer getId() {
-        return this.id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     @ManyToOne(fetch = FetchType.EAGER)

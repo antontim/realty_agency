@@ -20,9 +20,8 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "employee_evaluations", catalog = "agency")
-public class EmployeeEvaluations implements java.io.Serializable {
+public class EmployeeEvaluations extends BaseEntity<Integer> implements java.io.Serializable, IEntity<Integer> {
 
-    private Integer id;
     private Employees employees;
     private Questions questions;
     private float mark;
@@ -37,17 +36,6 @@ public class EmployeeEvaluations implements java.io.Serializable {
         this.questions = questions;
         this.mark = mark;
         this.created = created;
-    }
-
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
-    public Integer getId() {
-        return this.id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)

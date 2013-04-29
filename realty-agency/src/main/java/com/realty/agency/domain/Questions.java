@@ -20,9 +20,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "questions", catalog = "agency")
-public class Questions implements java.io.Serializable {
+public class Questions extends BaseEntity<Integer> implements java.io.Serializable, IEntity<Integer> {
 
-    private Integer id;
     private Measures measures;
     private String text;
     private Set<EmployeeEvaluations> employeeEvaluationses = new HashSet<EmployeeEvaluations>(
@@ -41,17 +40,6 @@ public class Questions implements java.io.Serializable {
         this.measures = measures;
         this.text = text;
         this.employeeEvaluationses = employeeEvaluationses;
-    }
-
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
-    public Integer getId() {
-        return this.id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)

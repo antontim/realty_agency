@@ -17,8 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "entity_prices", catalog = "agency")
-public class EntityPrices implements java.io.Serializable {
-
+public class EntityPrices implements java.io.Serializable, IEntity<EntityPricesId> {
     private EntityPricesId id;
     private Entities entities;
     private float price;

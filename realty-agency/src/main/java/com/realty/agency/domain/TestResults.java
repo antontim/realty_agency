@@ -17,7 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "test_results", catalog = "agency")
-public class TestResults implements java.io.Serializable {
+public class TestResults implements java.io.Serializable, IEntity<TestResultsId> {
 
     private TestResultsId id;
     private Employees employees;
