@@ -42,7 +42,7 @@ public class Activities extends BaseEntity<Integer> implements java.io.Serializa
         this.orderCreated = orderCreated;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id", nullable = false)
     public Employees getEmployees() {
         return this.employees;
@@ -52,7 +52,7 @@ public class Activities extends BaseEntity<Integer> implements java.io.Serializa
         this.employees = employees;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "activity_type_id", nullable = false)
     public ActivityTypes getActivityTypes() {
         return this.activityTypes;
@@ -62,7 +62,7 @@ public class Activities extends BaseEntity<Integer> implements java.io.Serializa
         this.activityTypes = activityTypes;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "entity_id", nullable = false)
     public Entities getEntities() {
         return this.entities;

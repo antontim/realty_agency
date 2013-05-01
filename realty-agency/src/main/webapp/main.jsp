@@ -105,7 +105,7 @@ td.tablesorter-pager {
     <div id="tabs">
         <ul>
             <li><a href="emp/load.do">Employees</a></li>
-            <li><a href="ajax/content1.html">Tab 1</a></li>
+            <li><a href="act/load.do">Activities</a></li>
         </ul>
     </div>
 </body>
