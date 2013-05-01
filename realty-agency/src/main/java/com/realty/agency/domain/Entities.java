@@ -5,6 +5,7 @@ package com.realty.agency.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -23,6 +24,7 @@ public class Entities extends BaseEntity<Integer> implements java.io.Serializabl
     private EntityClass entityClass;
     private Set<EntityPrices> entityPriceses = new HashSet<EntityPrices>(0);
     private Set<Activities> activitieses = new HashSet<Activities>(0);
+    private String address;
 
     public Entities() {
     }
@@ -76,6 +78,15 @@ public class Entities extends BaseEntity<Integer> implements java.io.Serializabl
 
     public void setActivitieses(Set<Activities> activitieses) {
         this.activitieses = activitieses;
+    }
+
+    @Column(name = "address", nullable = false, length = 45)
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
 }

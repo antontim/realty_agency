@@ -101,3 +101,9 @@ td.tablesorter-pager {
   filter: alpha(opacity=50);
   cursor: default;
 }
+
+
+
+.tablesorter(
+    { 0 : {width : '20px'}}
+)

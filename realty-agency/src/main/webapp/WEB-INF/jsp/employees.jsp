@@ -1,113 +1,34 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
 $(function(){
-
-    // **********************************
-    //  Description of ALL pager options
-    // **********************************
     var pagerOptions = {
-
-        // target the pager markup - see the HTML block below
-        container: $(".pager"),
-
-        // use this url format "http:/mydatabase.com?page={page}&size={size}&{sortList:col}"
+        container: $("#emp_pager"),
         ajaxUrl: null,
-
-        // modify the url after all processing has been applied
         customAjaxUrl: function(table, url) { return url; },
-
-        // process ajax so that the data object is returned along with the total number of rows
-        // example: { "data" : [{ "ID": 1, "Name": "Foo", "Last": "Bar" }], "total_rows" : 100 }
-        ajaxProcessing: function(ajax){
-            if (ajax && ajax.hasOwnProperty('data')) {
-                // return [ "data", "total_rows" ];
-                return [ ajax.total_rows, ajax.data ];
-            }
-        },
-
-        // output string - default is '{page}/{totalPages}'
-        // possible variables: {page}, {totalPages}, {filteredPages}, {startRow}, {endRow}, {filteredRows} and {totalRows}
         output: '{startRow} to {endRow} ({totalRows})',
-
-        // apply disabled classname to the pager arrows when the rows at either extreme is visible - default is true
         updateArrows: true,
-
-        // starting page of the pager (zero based index)
         page: 0,
-
-        // Number of visible rows - default is 10
         size: 10,
-
-        // if true, the table will remain the same height no matter how many records are displayed. The space is made up by an empty
-        // table row set to a height to compensate; default is false
         fixedHeight: true,
-
-        // remove rows from the table to speed up the sort of large tables.
-        // setting this to false, only hides the non-visible rows; needed if you plan to add/remove rows with the pager enabled.
         removeRows: false,
-
-        // css class names of pager arrows
-        cssNext: '.next', // next page arrow
-        cssPrev: '.prev', // previous page arrow
-        cssFirst: '.first', // go to first page arrow
-        cssLast: '.last', // go to last page arrow
-        cssGoto: '.gotoPage', // select dropdown to allow choosing a page
-
-        cssPageDisplay: '.pagedisplay', // location of where the "output" is displayed
-        cssPageSize: '.pagesize', // page size selector - select dropdown that sets the "size" option
-
-        // class added to arrows when at the extremes (i.e. prev/first arrows are "disabled" when on the first page)
-        cssDisabled: 'disabled' // Note there is no period "." in front of this class name
-
+        cssNext: '.next',
+        cssPrev: '.prev',
+        cssFirst: '.first',
+        cssLast: '.last',
+        cssGoto: '.gotoPage',
+        cssPageDisplay: '.pagedisplay',
+        cssPageSize: '.pagesize',
     };
 
-    $("table")
-
-        // Initialize tablesorter
-        // ***********************
+    $("#empTable")
         .tablesorter({
             theme: 'blue',
             widthFixed: true,
             widgets: ['zebra']
         })
-
-        // bind to pager events
-        // *********************
-        .bind('pagerChange pagerComplete pagerInitialized pageMoved', function(e, c){
-        })
-        
-
-        // initialize the pager plugin
-        // ****************************
-        .tablesorterPager(pagerOptions)
-
-        ;
-
-        // Add two new rows using the "addRows" method
-        // the "update" method doesn't work here because not all rows are
-        // present in the table when the pager is applied ("removeRows" is false)
-        // ***********************************************************************
-        // Delete a row
-        // *************
-        $('table').delegate('button.remove', 'click' ,function(){
-            
-        });
-
-        // Destroy pager / Restore pager
-        // **************
-        $('button:contains(Destroy)').click(function(){
-            // Exterminate, annhilate, destroy! http://www.youtube.com/watch?v=LOqn8FxuyFs
-            var $t = $(this);
-            if (/Destroy/.test( $t.text() )){
-                $('table').trigger('destroy.pager');
-                $t.text('Restore Pager');
-            } else {
-                $('table').tablesorterPager(pagerOptions);
-                $t.text('Destroy Pager');
-            }
-        });
+        .bind('pagerChange pagerComplete pagerInitialized pageMoved', function(e, c){})
+        .tablesorterPager(pagerOptions);
 });
-
 </script>
 
 <jsp:include page="dialog.jsp">
@@ -115,23 +36,9 @@ $(function(){
 </jsp:include>
 
 <div>
-<div id="pager" class="pager tablesorter-pager">
-  <form>
-    <img src="css/images/first.png" class="first"/>
-    <img src="css/images/prev.png" class="prev"/>
-    <span class="pagedisplay">m</span> <!-- this can be any element, including an input -->
-    <img src="css/images/next.png" class="next"/>
-    <img src="css/images/last.png" class="last"/>
-    <select class="pagesize">
-      <option selected="selected" value="10">10</option>
-      <option value="20">20</option>
-      <option value="30">30</option>
-      <option value="40">40</option>
-    </select>
-    <select class="gotoPage" title="Select page number">
-    </select>
-        </form>
-  </div>
+<jsp:include page="pager.jsp">
+    <jsp:param value="emp_pager" name="id"/>
+</jsp:include>
 <table id="empTable" class="tablesorter tablesorter-blue"  cellspacing="1">
         <thead>
         <tr class="tablesorter-headerRow">
