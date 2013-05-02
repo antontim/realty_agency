@@ -1,3 +1,4 @@
+<div id="entitiesBody">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -32,6 +33,11 @@ $(function(){
         .tablesorterPager(pagerOptions);
 });
 </script>
+<div id = "header">
+    <input type="radio" name="activeRadio" id="activeRadio" onchange="showEnt(false);" <c:if test="${not active}">checked="checked"</c:if>>All</input>
+    <input type="radio" name="activeRadio" id="activeRadio" onchange="showEnt(true);" <c:if test="${active}">checked="checked"</c:if>>Active</input>
+</div>
+
 <div>
 <jsp:include page="pager.jsp">
     <jsp:param value="ent_pager" name="id"/>
@@ -87,4 +93,5 @@ $(function(){
                 <input type="text" name="price" id="price" class="required text ui-widget-content ui-corner-all" />
             <button id="addEntButton" onclick="addEntity();">Add</button>
     </fieldset>
+</div>
 </div>

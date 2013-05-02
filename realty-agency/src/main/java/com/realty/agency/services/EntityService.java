@@ -12,6 +12,7 @@ import com.realty.agency.dao.IEntityTypesDao;
 import com.realty.agency.domain.Entities;
 import com.realty.agency.domain.EntityClass;
 import com.realty.agency.domain.EntityPrices;
+import com.realty.agency.domain.EntityPricesId;
 import com.realty.agency.domain.EntityTypes;
 
 public class EntityService implements IEntityService {
@@ -53,8 +54,22 @@ public class EntityService implements IEntityService {
     }
 
     @Override
-    public Entities updateEntity(Entities entity) {
-        return this.entitiesDao.update(entity);
+    public Entities updateEntity(int id, String addr, int classId, int typeId, String price) {
+        Float priceVal = Float.valueOf(price);
+        List<Entities> ents = this.entitiesDao.find(new Entities(id));
+        if(ents.size() == 1) {
+            Entities ent = ents.get(0);
+            if(!ent.getEntityPriceses().get(0).getPrice().equals(priceVal)) {
+                EntityPrices priceObj = new EntityPrices(id, priceVal);
+                this.entitiesPricesDao.add(priceObj);
+            }
+            ent.setAddress(addr);
+            ent.setEntityClass(new EntityClass(classId));
+            ent.setEntityTypes(new EntityTypes(typeId));
+            this.entitiesDao.update(ent);
+        }
+        ents = this.entitiesDao.find(new Entities(id));
+        return CollectionUtils.isEmpty(ents) ? null : ents.get(0);
     }
 
     @Override
