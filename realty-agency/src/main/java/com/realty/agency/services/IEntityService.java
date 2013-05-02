@@ -13,7 +13,7 @@ public interface IEntityService {
 
     Entities createEntity(String addr, int classId, int typeId, String price);
 
-    Entities updateEntity(Entities entity);
+    Entities updateEntity(int id, String addr, int classId, int typeId, String price);
 
     void deleteEntity(int id);
 

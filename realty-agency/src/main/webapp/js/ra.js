@@ -146,6 +146,24 @@ function preUpdateEnt(val) {
     });
 }
 
+function updEntity(e) {
+    var tr = $(e.target).closest('tr');
+    var id = tr.attr('id');
+    tr.find('div[name="edit"]').addClass("hidden");
+    tr.find('div.icon_refresh').removeClass("hidden");
+    $.ajax({
+        url : "ent/upd.do?id="+id+"&addr="+tr.find("#newAddr").val()
+                +"&classId="+tr.find("#entclass").val()
+                +"&typeId="+tr.find("#enttype").val()
+                +"&price="+tr.find("#price").val(),
+        type: "PUT",
+    }).done(function(data) {
+        var t = $('#entTable');
+        tr.replaceWith(data);
+        t.trigger('update');
+    });
+}
+
 function delEntity(e) {
     var tr = $(e.target).closest('tr');
     var id = tr.attr('id');
@@ -158,5 +176,15 @@ function delEntity(e) {
         var t = $('#entTable');
         tr.remove();
         t.trigger('update');
+    });
+}
+
+function showEnt(val) {
+    $.ajax({
+        url : "ent/load.do?active=" + val,
+        type: "GET",
+    }).done(function(data) {
+        var t = $('#entitiesBody');
+        t.replaceWith(data);
     });
 }

@@ -7,8 +7,8 @@
         </div>
         <div class="icon_refresh hidden"></div>
     </td>
-    <td><label name="addr">${ent.address}</label></td>
-    <td><label name="enttype">${ent.entityTypes.name}</label></td>
-    <td><label name="entclass">${ent.entityClass.name}</label></td>
-    <td><label name="price">${ent.entityPriceses[0].price}</label></td>
+    <td name="addr"><label name="addr">${ent.address}</label></td>
+    <td name="enttype"><label name="enttype">${ent.entityTypes.name}</label></td>
+    <td name="entclass"><label name="entclass">${ent.entityClass.name}</label></td>
+    <td name="price"><label name="price">${ent.entityPriceses[0].price}</label></td>
 </tr>
