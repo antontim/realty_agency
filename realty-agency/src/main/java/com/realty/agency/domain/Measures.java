@@ -32,6 +32,10 @@ public class Measures extends BaseEntity<Integer> implements java.io.Serializabl
     public Measures() {
     }
 
+    public Measures(int id) {
+        this.id = id;
+    }
+
     public Measures(MeasureTypes measureTypes, String name) {
         this.measureTypes = measureTypes;
         this.name = name;
@@ -50,7 +54,7 @@ public class Measures extends BaseEntity<Integer> implements java.io.Serializabl
         this.rateses = rateses;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "measure_type_id", nullable = false)
     public MeasureTypes getMeasureTypes() {
         return this.measureTypes;

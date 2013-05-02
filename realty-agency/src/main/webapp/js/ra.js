@@ -13,6 +13,21 @@ function delEmployee(e) {
     });
 }
 
+function delQuest(e) {
+    var tr = $(e.target).closest('tr');
+    var id = tr.attr('id');
+    tr.find('div[name="edit"]').addClass("hidden");
+    tr.find('div.icon_refresh').removeClass("hidden");
+    $.ajax({
+        url : "quest/del.do?id="+id,
+        type: "PUT",
+    }).done(function(data) {
+        var t = $('#questTable');
+        tr.remove();
+        t.trigger('update');
+    });
+}
+
 function updEmployee(e) {
     var tr = $(e.target).closest('tr');
     var id = tr.attr('id');
@@ -23,6 +38,21 @@ function updEmployee(e) {
         type: "PUT",
     }).done(function(data) {
         var t = $('#empTable');
+        tr.replaceWith(data);
+        t.trigger('update');
+    });
+}
+
+function updQuest(e) {
+    var tr = $(e.target).closest('tr');
+    var id = tr.attr('id');
+    tr.find('div[name="edit"]').addClass("hidden");
+    tr.find('div.icon_refresh').removeClass("hidden");
+    $.ajax({
+        url : "quest/upd.do?id="+id+"&text="+ tr.find('#newQuestText').val() + "&measureId=" + tr.find('#measure').val(),
+        type: "PUT",
+    }).done(function(data) {
+        var t = $('#questTable');
         tr.replaceWith(data);
         t.trigger('update');
     });
@@ -39,6 +69,20 @@ function addEmployee() {
             t.trigger('update');
             
             $("#newEmpName").val('');
+    });
+}
+
+function addQuest() {
+    $.ajax({
+        url : "quest/add.do?text="+$("#newQuestText").val()+"&measureId="+$("#measure option:selected").val(),
+        type: "PUT",
+    }).done(function(data) {
+        $row = $(data);
+        var t = $('#questTable');
+        t.find('tbody').append($row).trigger('addRows', [$row]);
+        t.trigger('update');
+        
+        $("#newQuestText").val('');
     });
 }
 
@@ -88,6 +132,40 @@ function preUpdateEmp(val) {
 
         tr.find('#name').remove();
         tr.find('label[name="name"]').removeClass('hidden');
+        
+        tr.find('div.delete_icon').attr('onclick',delFunc);
+    });
+}
+
+function preUpdateQuest(val) {
+    $(val).addClass("hidden");
+    $(val).siblings('.commit_icon').removeClass('hidden');
+    
+    var tr = $(val).closest('tr');
+    
+    tr.find('label[name="measure"]').addClass('hidden');
+    var measureCB = $('#measure').clone();
+    measureCB.val(tr.find('label[name="measure"]').text());
+    var text = tr.find('label[name="measure"]').text();
+    $(measureCB).find(":contains('"+ text + "')").attr("selected", "selected");
+    tr.children('td[name="measure"]').append(measureCB);
+    
+    tr.find('label[name="text"]').addClass('hidden');
+    var textTF = $('#newQuestText').clone();
+    textTF.val(tr.find('label[name="text"]').text());
+    tr.children('td[name="text"]').append(textTF);
+    
+    var delFunc = tr.find('.delete_icon').attr('onclick');
+    tr.find('.delete_icon').attr('onclick','');
+    tr.find('.delete_icon').bind('click',function() {
+        $(val).removeClass("hidden");
+        $(val).siblings('.commit_icon').addClass('hidden');
+        
+        tr.find('#measure').remove();
+        tr.find('label[name="measure"]').removeClass('hidden');
+        
+        tr.find('#newQuestText').remove();
+        tr.find('label[name="text"]').removeClass('hidden');
         
         tr.find('div.delete_icon').attr('onclick',delFunc);
     });

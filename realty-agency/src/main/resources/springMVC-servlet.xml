@@ -24,4 +24,5 @@
     <bean id="employeesController" class="com.realty.agency.controllers.EmployeesController"/>
     <bean id="entitiesController" class="com.realty.agency.controllers.EntitiesController"/>
     <bean id="activitiesController" class="com.realty.agency.controllers.ActivitiesController"/>
+    <bean id="questionnaireController" class="com.realty.agency.controllers.QuestionnaireController"/>
 </beans>

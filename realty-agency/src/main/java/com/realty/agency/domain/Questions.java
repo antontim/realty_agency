@@ -30,6 +30,10 @@ public class Questions extends BaseEntity<Integer> implements java.io.Serializab
     public Questions() {
     }
 
+    public Questions(int id) {
+        this.id = id;
+    }
+
     public Questions(Measures measures, String text) {
         this.measures = measures;
         this.text = text;
@@ -42,7 +46,7 @@ public class Questions extends BaseEntity<Integer> implements java.io.Serializab
         this.employeeEvaluationses = employeeEvaluationses;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "measure_id", nullable = false)
     public Measures getMeasures() {
         return this.measures;
