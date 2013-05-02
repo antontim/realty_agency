@@ -2,6 +2,8 @@ package com.realty.agency.domain;
 
 // Generated Apr 1, 2013 12:12:11 AM by Hibernate Tools 3.4.0.CR1
 
+import java.util.Date;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -20,9 +22,14 @@ import javax.persistence.Table;
 public class EntityPrices implements java.io.Serializable, IEntity<EntityPricesId> {
     private EntityPricesId id;
     private Entities entities;
-    private float price;
+    private Float price;
 
     public EntityPrices() {
+    }
+    
+    public EntityPrices(Integer id, Float price) {
+        this.id = new EntityPricesId(id, new Date());
+        this.price = price;
     }
 
     public EntityPrices(EntityPricesId id, Entities entities, float price) {
@@ -54,11 +61,11 @@ public class EntityPrices implements java.io.Serializable, IEntity<EntityPricesI
     }
 
     @Column(name = "price", nullable = false, precision = 12, scale = 0)
-    public float getPrice() {
+    public Float getPrice() {
         return this.price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 

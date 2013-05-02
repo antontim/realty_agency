@@ -19,20 +19,24 @@ import javax.persistence.Table;
 public class EntityClass extends BaseEntity<Integer> implements java.io.Serializable, IEntity<Integer> {
 
     private String name;
-    private float minVal;
-    private float maxVal;
+    private Float minVal;
+    private Float maxVal;
     private Set<Entities> entitieses = new HashSet<Entities>(0);
 
     public EntityClass() {
     }
 
-    public EntityClass(String name, float minVal, float maxVal) {
+    public EntityClass(Integer id) {
+        this.id = id;
+    }
+
+    public EntityClass(String name, Float minVal, Float maxVal) {
         this.name = name;
         this.minVal = minVal;
         this.maxVal = maxVal;
     }
 
-    public EntityClass(String name, float minVal, float maxVal,
+    public EntityClass(String name, Float minVal, Float maxVal,
             Set<Entities> entitieses) {
         this.name = name;
         this.minVal = minVal;
@@ -50,20 +54,20 @@ public class EntityClass extends BaseEntity<Integer> implements java.io.Serializ
     }
 
     @Column(name = "min_val", nullable = false, precision = 12, scale = 0)
-    public float getMinVal() {
+    public Float getMinVal() {
         return this.minVal;
     }
 
-    public void setMinVal(float minVal) {
+    public void setMinVal(Float minVal) {
         this.minVal = minVal;
     }
 
     @Column(name = "max_val", nullable = false, precision = 12, scale = 0)
-    public float getMaxVal() {
+    public Float getMaxVal() {
         return this.maxVal;
     }
 
-    public void setMaxVal(float maxVal) {
+    public void setMaxVal(Float maxVal) {
         this.maxVal = maxVal;
     }
 
