@@ -22,5 +22,6 @@
     <!-- <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/> -->
 
     <bean id="employeesController" class="com.realty.agency.controllers.EmployeesController"/>
+    <bean id="entitiesController" class="com.realty.agency.controllers.EntitiesController"/>
     <bean id="activitiesController" class="com.realty.agency.controllers.ActivitiesController"/>
 </beans>

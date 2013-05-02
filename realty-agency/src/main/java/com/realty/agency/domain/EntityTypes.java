@@ -24,6 +24,10 @@ public class EntityTypes  extends BaseEntity<Integer> implements java.io.Seriali
     public EntityTypes() {
     }
 
+    public EntityTypes(Integer id) {
+        this.id = id;
+    }
+
     public EntityTypes(String name) {
         this.name = name;
     }

@@ -2,7 +2,9 @@ package com.realty.agency.domain;
 
 // Generated Apr 1, 2013 12:12:11 AM by Hibernate Tools 3.4.0.CR1
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -22,11 +24,16 @@ public class Entities extends BaseEntity<Integer> implements java.io.Serializabl
 
     private EntityTypes entityTypes;
     private EntityClass entityClass;
-    private Set<EntityPrices> entityPriceses = new HashSet<EntityPrices>(0);
+    private List<EntityPrices> entityPriceses = new ArrayList<EntityPrices>(0);
     private Set<Activities> activitieses = new HashSet<Activities>(0);
     private String address;
+    private Byte active;
 
     public Entities() {
+    }
+
+    public Entities(Integer id) {
+        this.id = id;
     }
 
     public Entities(EntityTypes entityTypes, EntityClass entityClass) {
@@ -35,14 +42,14 @@ public class Entities extends BaseEntity<Integer> implements java.io.Serializabl
     }
 
     public Entities(EntityTypes entityTypes, EntityClass entityClass,
-            Set<EntityPrices> entityPriceses, Set<Activities> activitieses) {
+            List<EntityPrices> entityPriceses, Set<Activities> activitieses) {
         this.entityTypes = entityTypes;
         this.entityClass = entityClass;
         this.entityPriceses = entityPriceses;
         this.activitieses = activitieses;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "entity_type_id", nullable = false)
     public EntityTypes getEntityTypes() {
         return this.entityTypes;
@@ -52,7 +59,7 @@ public class Entities extends BaseEntity<Integer> implements java.io.Serializabl
         this.entityTypes = entityTypes;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "entity_class_id", nullable = false)
     public EntityClass getEntityClass() {
         return this.entityClass;
@@ -63,11 +70,11 @@ public class Entities extends BaseEntity<Integer> implements java.io.Serializabl
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "entities")
-    public Set<EntityPrices> getEntityPriceses() {
+    public List<EntityPrices> getEntityPriceses() {
         return this.entityPriceses;
     }
 
-    public void setEntityPriceses(Set<EntityPrices> entityPriceses) {
+    public void setEntityPriceses(List<EntityPrices> entityPriceses) {
         this.entityPriceses = entityPriceses;
     }
 
@@ -87,6 +94,15 @@ public class Entities extends BaseEntity<Integer> implements java.io.Serializabl
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @Column(name = "active", nullable = false)
+    public Byte getActive() {
+        return active;
+    }
+
+    public void setActive(Byte active) {
+        this.active = active;
     }
 
 }

@@ -42,6 +42,23 @@ function addEmployee() {
     });
 }
 
+function addEntity() {
+    $.ajax({
+        url : "ent/add.do?addr="+$(".footer #newAddr").val()
+            +"&classId="+$(".footer #entclass option:selected").val()
+            +"&typeId="+$(".footer #enttype option:selected").val()
+            +"&price="+$(".footer #price").val(),
+        type: "PUT",
+    }).done(function(data) {
+        $row = $(data);
+        var t = $('#entTable');
+        t.find('tbody').append($row).trigger('addRows', [$row]);
+        t.trigger('update');
+        
+        $(".footer #newAddr").val('');
+    });
+}
+
 function preUpdateEmp(val) {
     $(val).addClass("hidden");
     $(val).siblings('.commit_icon').removeClass('hidden');
@@ -73,5 +90,73 @@ function preUpdateEmp(val) {
         tr.find('label[name="name"]').removeClass('hidden');
         
         tr.find('div.delete_icon').attr('onclick',delFunc);
+    });
+}
+
+function preUpdateEnt(val) {
+    $(val).addClass("hidden");
+    $(val).siblings('.commit_icon').removeClass('hidden');
+    
+    var tr = $(val).closest('tr');
+    
+    tr.find('label[name="enttype"]').addClass('hidden');
+
+    var tpCB = $('#enttype').clone();
+    tpCB.val(tr.find('label[name="enttype"]').text());
+    var text = tr.find('label[name="enttype"]').text();
+    $(tpCB).find(":contains('"+ text + "')").attr("selected", "selected");
+    tr.children('td[name="enttype"]').append(tpCB);
+
+    tr.find('label[name="entclass"]').addClass('hidden');
+    var clCB = $('#entclass').clone();
+    clCB.val(tr.find('label[name="entclass"]').text());
+    var text = tr.find('label[name="entclass"]').text();
+    $(clCB).find(":contains('"+ text + "')").attr("selected", "selected");
+    tr.children('td[name="entclass"]').append(clCB);
+    
+    tr.find('label[name="addr"]').addClass('hidden');
+    var addrTF = $('#newAddr').clone();
+    addrTF.val(tr.find('label[name="addr"]').text());
+    tr.children('td[name="addr"]').append(addrTF);
+    
+    tr.find('label[name="price"]').addClass('hidden');
+    var addrTF = $('#price').clone();
+    addrTF.val(tr.find('label[name="price"]').text());
+    tr.children('td[name="price"]').append(addrTF);
+    
+    var delFunc = tr.find('.delete_icon').attr('onclick');
+    tr.find('.delete_icon').attr('onclick','');
+    tr.find('.delete_icon').bind('click',function() {
+        $(val).removeClass("hidden");
+        $(val).siblings('.commit_icon').addClass('hidden');
+        
+        tr.find('#newAddr').remove();
+        tr.find('label[name="addr"]').removeClass('hidden');
+        
+        tr.find('#enttype').remove();
+        tr.find('label[name="enttype"]').removeClass('hidden');
+        
+        tr.find('#entclass').remove();
+        tr.find('label[name="entclass"]').removeClass('hidden');
+        
+        tr.find('#price').remove();
+        tr.find('label[name="price"]').removeClass('hidden');
+        
+        tr.find('div.delete_icon').attr('onclick',delFunc);
+    });
+}
+
+function delEntity(e) {
+    var tr = $(e.target).closest('tr');
+    var id = tr.attr('id');
+    tr.find('div[name="edit"]').addClass("hidden");
+    tr.find('div.icon_refresh').removeClass("hidden");
+    $.ajax({
+        url : "ent/del.do?id="+id,
+        type: "PUT",
+    }).done(function(data) {
+        var t = $('#entTable');
+        tr.remove();
+        t.trigger('update');
     });
 }

@@ -123,6 +123,10 @@ public class HibernateDao<T extends IEntity<?>> implements IDao<T> {
         this.entityName = entityName;
     }
 
+    protected String getEntityName() {
+        return this.entityName;
+    }
+
     protected Session getSession() {
         return this.sessionFactory.getCurrentSession();
     }
