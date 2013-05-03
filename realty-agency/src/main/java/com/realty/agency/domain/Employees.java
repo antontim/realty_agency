@@ -36,6 +36,10 @@ public class Employees extends BaseEntity<Integer> implements java.io.Serializab
     public Employees() {
     }
 
+    public Employees(int id) {
+        this.id = id;
+    }
+
     public Employees(Positions positions, String name, float mahResult) {
         this.positions = positions;
         this.name = name;

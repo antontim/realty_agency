@@ -7,6 +7,7 @@
         </div>
         <div class="icon_refresh hidden"></div>
     </td>
+    <td name="label"><label name="label">${quest.label}</label></td>
     <td name="text"><label name="text">${quest.text}</label></td>
     <td name="measure"><label name="measure">${quest.measures.name}</label></td>
 </tr>

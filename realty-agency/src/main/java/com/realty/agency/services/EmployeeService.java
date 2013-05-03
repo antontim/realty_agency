@@ -1,21 +1,29 @@
 package com.realty.agency.services;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
+import org.springframework.util.CollectionUtils;
 
+import com.realty.agency.dao.IEmployeeEvaluationsDao;
 import com.realty.agency.dao.IEmployeesDao;
 import com.realty.agency.dao.IPositionsDao;
+import com.realty.agency.domain.EmployeeEvaluations;
 import com.realty.agency.domain.Employees;
 import com.realty.agency.domain.Positions;
+import com.realty.agency.domain.Questions;
 
 public class EmployeeService implements IEmployeeService {
 
     @Autowired
     private IEmployeesDao employeesDao;
     @Autowired
+    private IEmployeeEvaluationsDao employeeEvaluationsDao;
+    @Autowired
     private IPositionsDao posDao;
-    
+
     @Override
     public Employees loadEmployeeByName(String name) {
         Employees criteria = new Employees();
@@ -31,7 +39,7 @@ public class EmployeeService implements IEmployeeService {
         List<Employees> empls = this.employeesDao.find(criteria);
         return empls.isEmpty() ? null : empls.get(0);
     }
-    
+
     @Override
     public List<Employees> loadEmployees(Employees criteria) {
         return this.employeesDao.find(criteria);
@@ -45,32 +53,69 @@ public class EmployeeService implements IEmployeeService {
         emp.setName(name);
         emp.setPositions(pos);
         this.employeesDao.add(emp);
-        
+
         return emp;
     }
-    
+
     @Override
     public void deleteEmployee(int id) {
         Employees criteria = new Employees();
         criteria.setId(id);
         this.employeesDao.delete(criteria);
     }
-    
+
     @Override
     public void updateEmployee(int id, String name, int pos) {
         Employees rec = new Employees();
         rec.setId(id);
         rec.setName(name);
-        
+
         Positions position = new Positions();
         position.setId(pos);
         rec.setPositions(position);
-        
+
         this.employeesDao.update(rec);
     }
-    
+
     @Override
     public List<Positions> loadAllPositions() {
         return this.posDao.find(new Positions());
+    }
+
+    @Override
+    public List<EmployeeEvaluations> loadAllEmpEvaluationsByRange(int id,
+            Date startDate, Date endDate) {
+        return this.employeeEvaluationsDao.findByRange(id, startDate, endDate);
+    }
+
+    @Override
+    public EmployeeEvaluations addEmpEvaluation(int id, int questionId,
+            float mark) {
+        EmployeeEvaluations eval = new EmployeeEvaluations(new Employees(id),
+                new Questions(questionId), mark, new Date());
+        this.employeeEvaluationsDao.add(eval);
+
+        List<EmployeeEvaluations> evals = this.employeeEvaluationsDao
+                .find(new EmployeeEvaluations(eval.getId()));
+
+        return CollectionUtils.isEmpty(evals) ? null : evals.get(0);
+    }
+
+    @Override
+    public EmployeeEvaluations updateEmpEvaluation(int id, float mark) {
+        List<EmployeeEvaluations> empEvals = this.employeeEvaluationsDao
+                .find(new EmployeeEvaluations(id));
+        if (CollectionUtils.isEmpty(empEvals))
+            throw new IncorrectResultSizeDataAccessException(1, 0);
+        EmployeeEvaluations empEval = empEvals.get(0);
+
+        empEval.setMark(mark);
+        this.employeeEvaluationsDao.update(empEval);
+        return empEval;
+    }
+
+    @Override
+    public void deleteEmpEvaluation(int id) {
+        this.employeeEvaluationsDao.delete(new EmployeeEvaluations(id));
     }
 }

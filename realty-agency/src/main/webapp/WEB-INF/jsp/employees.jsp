@@ -28,12 +28,16 @@ $(function(){
         })
         .bind('pagerChange pagerComplete pagerInitialized pageMoved', function(e, c){})
         .tablesorterPager(pagerOptions);
+    
+    $("#empDetailDialog").dialog({ modal: true, autoOpen: false, height: 400, width: 600,
+        open: empDetailLoad});
 });
 </script>
 
 <jsp:include page="dialog.jsp">
     <jsp:param value="${posList}" name="posList"/>
 </jsp:include>
+<jsp:include page="empDetail.jsp"/>
 
 <div>
 <jsp:include page="pager.jsp">
@@ -59,7 +63,7 @@ $(function(){
                 </div>
                 <div class="icon_refresh hidden"></div>
             </td>
-            <td name="name"><label name="name">${emp.name}</label></td>
+            <td name="name" class="empName"><label name="name" class="fake-link" onclick="empDetailOpen(event);">${emp.name}</label></td>
             <td name="pos"><label name="pos">${emp.positions.name}</label></td>
             <td>${emp.positions.depts.name}</td>
         </tr>

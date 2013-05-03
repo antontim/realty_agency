@@ -22,6 +22,7 @@
 <script type="text/javascript" src="js/__jquery.tablesorter.js"></script>
 <script type="text/javascript" src="js/jquery.tablesorter.js"></script>
 <script type="text/javascript" src="js/_jquery.tablesorter.pager.js"></script>
+<script type="text/javascript" src="js/date.js"></script>
 
 <script>
 $(function() {
