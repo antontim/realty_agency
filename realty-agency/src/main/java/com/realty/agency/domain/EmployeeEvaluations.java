@@ -24,14 +24,18 @@ public class EmployeeEvaluations extends BaseEntity<Integer> implements java.io.
 
     private Employees employees;
     private Questions questions;
-    private float mark;
+    private Float mark;
     private Date created;
 
     public EmployeeEvaluations() {
     }
 
+    public EmployeeEvaluations(int id) {
+        this.id = id;
+    }
+
     public EmployeeEvaluations(Employees employees, Questions questions,
-            float mark, Date created) {
+            Float mark, Date created) {
         this.employees = employees;
         this.questions = questions;
         this.mark = mark;
@@ -48,7 +52,7 @@ public class EmployeeEvaluations extends BaseEntity<Integer> implements java.io.
         this.employees = employees;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "question_id", nullable = false)
     public Questions getQuestions() {
         return this.questions;
@@ -59,11 +63,11 @@ public class EmployeeEvaluations extends BaseEntity<Integer> implements java.io.
     }
 
     @Column(name = "mark", nullable = false, precision = 12, scale = 0)
-    public float getMark() {
+    public Float getMark() {
         return this.mark;
     }
 
-    public void setMark(float mark) {
+    public void setMark(Float mark) {
         this.mark = mark;
     }
 

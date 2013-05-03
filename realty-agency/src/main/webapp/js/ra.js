@@ -13,6 +13,21 @@ function delEmployee(e) {
     });
 }
 
+function delEval(e) {
+    var tr = $(e.target).closest('tr');
+    var id = tr.attr('id');
+    tr.find('div[name="edit"]').addClass("hidden");
+    tr.find('div.icon_refresh').removeClass("hidden");
+    $.ajax({
+        url : "emp/eval/del.do?id="+id,
+        type: "PUT",
+    }).done(function(data) {
+        var t = $('#evalTable');
+        tr.remove();
+        t.trigger('update');
+    });
+}
+
 function delQuest(e) {
     var tr = $(e.target).closest('tr');
     var id = tr.attr('id');
@@ -43,13 +58,28 @@ function updEmployee(e) {
     });
 }
 
+function updEval(e) {
+    var tr = $(e.target).closest('tr');
+    var id = tr.attr('id');
+    tr.find('div[name="edit"]').addClass("hidden");
+    tr.find('div.icon_refresh').removeClass("hidden");
+    $.ajax({
+        url : "emp/eval/upd.do?id="+id+"&mark="+ tr.find('#mark').val(),
+        type: "PUT",
+    }).done(function(data) {
+        var t = $('#evalTable');
+        tr.replaceWith(data);
+        t.trigger('update');
+    });
+}
+
 function updQuest(e) {
     var tr = $(e.target).closest('tr');
     var id = tr.attr('id');
     tr.find('div[name="edit"]').addClass("hidden");
     tr.find('div.icon_refresh').removeClass("hidden");
     $.ajax({
-        url : "quest/upd.do?id="+id+"&text="+ tr.find('#newQuestText').val() + "&measureId=" + tr.find('#measure').val(),
+        url : "quest/upd.do?id="+id+"&text="+ tr.find('#newQuestText').val()+"&label="+ tr.find('#newQuestLabel').val() + "&measureId=" + tr.find('#measure').val(),
         type: "PUT",
     }).done(function(data) {
         var t = $('#questTable');
@@ -72,9 +102,23 @@ function addEmployee() {
     });
 }
 
+function addEval() {
+    $.ajax({
+        url : "emp/eval/add.do?empId="+$("#empId").val()+"&questionId="+$("#quest option:selected").val()+"&mark="+$("#mark").val(),
+        type: "PUT",
+    }).done(function(data) {
+        $row = $(data);
+        var t = $('#evalTable');
+        t.find('tbody').append($row).trigger('addRows', [$row]);
+        t.trigger('update');
+        
+        $("#mark").val('');
+    });
+}
+
 function addQuest() {
     $.ajax({
-        url : "quest/add.do?text="+$("#newQuestText").val()+"&measureId="+$("#measure option:selected").val(),
+        url : "quest/add.do?text="+$("#newQuestText").val()+"&label="+$("#newQuestLabel").val()+"&measureId="+$("#measure option:selected").val(),
         type: "PUT",
     }).done(function(data) {
         $row = $(data);
@@ -155,6 +199,11 @@ function preUpdateQuest(val) {
     textTF.val(tr.find('label[name="text"]').text());
     tr.children('td[name="text"]').append(textTF);
     
+    tr.find('label[name="label"]').addClass('hidden');
+    var labelTF = $('#newQuestLabel').clone();
+    labelTF.val(tr.find('label[name="label"]').text());
+    tr.children('td[name="label"]').append(labelTF);
+    
     var delFunc = tr.find('.delete_icon').attr('onclick');
     tr.find('.delete_icon').attr('onclick','');
     tr.find('.delete_icon').bind('click',function() {
@@ -166,6 +215,33 @@ function preUpdateQuest(val) {
         
         tr.find('#newQuestText').remove();
         tr.find('label[name="text"]').removeClass('hidden');
+        
+        tr.find('#newQuestLabel').remove();
+        tr.find('label[name="label"]').removeClass('hidden');
+        
+        tr.find('div.delete_icon').attr('onclick',delFunc);
+    });
+}
+
+function preUpdateEval(val) {
+    $(val).addClass("hidden");
+    $(val).siblings('.commit_icon').removeClass('hidden');
+    
+    var tr = $(val).closest('tr');
+    
+    tr.find('label[name="mark"]').addClass('hidden');
+    var markTF = $('.footer #mark').clone();
+    markTF.val(tr.find('label[name="mark"]').text());
+    tr.children('td[name="mark"]').append(markTF);
+
+    var delFunc = tr.find('.delete_icon').attr('onclick');
+    tr.find('.delete_icon').attr('onclick','');
+    tr.find('.delete_icon').bind('click',function() {
+        $(val).removeClass("hidden");
+        $(val).siblings('.commit_icon').addClass('hidden');
+        
+        tr.find('#mark').remove();
+        tr.find('label[name="mark"]').removeClass('hidden');
         
         tr.find('div.delete_icon').attr('onclick',delFunc);
     });
@@ -265,4 +341,38 @@ function showEnt(val) {
         var t = $('#entitiesBody');
         t.replaceWith(data);
     });
+}
+
+function loadEmpEvals() {
+    var evalDiv = $('#evaluations');
+    var startDate = evalDiv.find('#startdatepicker').val();
+    var endDate = evalDiv.find('#enddatepicker').val();
+    var id = $('#empDetailDialog').find("#empId").val();
+
+    $.ajax({
+        url : "emp/eval/load.do?empId="+id+"&startDate="+startDate+"&endDate="+endDate,
+        type: "GET",
+    }).done(function(data) {
+        evalDiv.find("#evalsBody").empty();
+        evalDiv.find("#evalsBody").append(data);
+    });
+}
+
+function empDetailLoad(e) {
+    var date = new Date();
+    var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+    var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+    $("#startdatepicker").datepicker({dateFormat: 'yy-mm-dd'});
+    $("#enddatepicker").datepicker({dateFormat: 'yy-mm-dd'});
+    $("#startdatepicker").datepicker('setDate', firstDay);
+    $("#enddatepicker").datepicker('setDate', lastDay);
+    
+    loadEmpEvals();
+}
+
+function empDetailOpen(event) {
+    var tr = $(event.target).closest('tr');
+    $('#empDetailDialog').find('#empId').val(tr.attr('id'));
+    $('#empDetailDialog').dialog('open');
 }

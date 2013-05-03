@@ -4,12 +4,10 @@ package com.realty.agency.domain;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -24,6 +22,7 @@ public class Questions extends BaseEntity<Integer> implements java.io.Serializab
 
     private Measures measures;
     private String text;
+    private String label;
     private Set<EmployeeEvaluations> employeeEvaluationses = new HashSet<EmployeeEvaluations>(
             0);
 
@@ -34,9 +33,10 @@ public class Questions extends BaseEntity<Integer> implements java.io.Serializab
         this.id = id;
     }
 
-    public Questions(Measures measures, String text) {
+    public Questions(Measures measures, String text, String label) {
         this.measures = measures;
         this.text = text;
+        this.label = label;
     }
 
     public Questions(Measures measures, String text,
@@ -63,6 +63,15 @@ public class Questions extends BaseEntity<Integer> implements java.io.Serializab
 
     public void setText(String text) {
         this.text = text;
+    }
+    
+    @Column(name = "label", nullable = false, length = 45)
+    public String getLabel() {
+        return this.label;
+    }
+    
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "questions")

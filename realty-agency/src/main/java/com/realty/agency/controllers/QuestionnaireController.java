@@ -34,23 +34,24 @@ public class QuestionnaireController extends MultiActionController {
     }
 
     @RequestMapping("/add")
-    public ModelAndView add(@RequestParam String text,
-            @RequestParam int measureId) {
+    public ModelAndView add(@RequestParam String label,
+            @RequestParam String text, @RequestParam int measureId) {
         ModelAndView mav = new ModelAndView("quest");
 
         mav.addObject("quest",
-                this.questionnaireService.addQuestion(text, measureId));
+                this.questionnaireService.addQuestion(label, text, measureId));
 
         return mav;
     }
 
     @RequestMapping("/upd")
-    public ModelAndView update(@RequestParam int id, @RequestParam String text,
+    public ModelAndView update(@RequestParam int id,
+            @RequestParam String label, @RequestParam String text,
             @RequestParam int measureId) {
         ModelAndView mav = new ModelAndView("quest");
 
-        mav.addObject("quest",
-                this.questionnaireService.updateQuestion(id, text, measureId));
+        mav.addObject("quest", this.questionnaireService.updateQuestion(id,
+                label, text, measureId));
 
         return mav;
     }

@@ -8,9 +8,9 @@ import com.realty.agency.domain.Questions;
 public interface IQuestionnaireService {
     List<Questions> loadAllQuestions();
 
-    Questions addQuestion(String text, int measureId);
+    Questions addQuestion(String label, String text, int measureId);
 
-    Questions updateQuestion(int id, String text, int measureId);
+    Questions updateQuestion(int id, String label, String text, int measureId);
 
     void deleteQuestion(int id);
     

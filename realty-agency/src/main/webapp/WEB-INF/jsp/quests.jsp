@@ -43,6 +43,7 @@ $(function(){
         <thead>
         <tr class="tablesorter-headerRow">
             <th name="crud" class="remove sorter-false tablesorter-header" data-column="0"></th>
+            <th name="label" class="tablesorter-header" data-column="1"><div class="tablesorter-header-inner">Label</div></th>
             <th name="text" class="tablesorter-header" data-column="1"><div class="tablesorter-header-inner">Text</div></th>
             <th name="measure" class="tablesorter-header" data-column="2"><div class="tablesorter-header-inner">Measure</div></th>
         </tr>
@@ -58,6 +59,7 @@ $(function(){
                 </div>
                 <div class="icon_refresh hidden"></div>
             </td>
+            <td name="label"><label name="label">${quest.label}</label></td>
             <td name="text"><label name="text">${quest.text}</label></td>
             <td name="measure"><label name="measure">${quest.measures.name}</label></td>
         </tr>
@@ -68,6 +70,8 @@ $(function(){
 
 <div class="footer">
         <fieldset>
+            <label for="newQuestLabel">Label</label><em>*</em>
+                <input type="text" name="newQuestLabel" id="newQuestLabel" class="required text ui-widget-content ui-corner-all" />
             <label for="newQuestText">Text</label><em>*</em>
                 <input type="text" name="newQuestText" id="newQuestText" class="required text ui-widget-content ui-corner-all" />
             <label for="measure">Measure</label><em>*</em> 

@@ -102,8 +102,8 @@ td.tablesorter-pager {
   cursor: default;
 }
 
-
-
-.tablesorter(
-    { 0 : {width : '20px'}}
-)
+.fake-link {
+    color: blue !important;
+    text-decoration: underline !important;
+    cursor: pointer !important;
+}

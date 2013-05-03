@@ -23,8 +23,8 @@ public class QuestionnaireService implements IQuestionnaireService {
     }
 
     @Override
-    public Questions addQuestion(String text, int measureId) {
-        Questions quest = new Questions(new Measures(measureId), text);
+    public Questions addQuestion(String label, String text, int measureId) {
+        Questions quest = new Questions(new Measures(measureId), text, label);
         this.questionsDao.add(quest);
         List<Questions> quests = this.questionsDao.find(new Questions(quest
                 .getId()));
@@ -32,8 +32,8 @@ public class QuestionnaireService implements IQuestionnaireService {
     }
 
     @Override
-    public Questions updateQuestion(int id, String text, int measureId) {
-        Questions quest = new Questions(new Measures(measureId), text);
+    public Questions updateQuestion(int id, String label, String text, int measureId) {
+        Questions quest = new Questions(new Measures(measureId), text, label);
         quest.setId(id);
         this.questionsDao.update(quest);
         List<Questions> quests = this.questionsDao.find(new Questions(id));
