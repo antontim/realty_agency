@@ -15,8 +15,8 @@ $(function() {
 <input type="hidden" id="empId" value=""/>
     <div id="empDetailTabs">
     <ul>
-        <li><a href="#evaluations">Evaluatioons</a></li>
-        <li><a href="emp/test/load.do?empId=1">Test</a></li>
+        <li><a href="#evaluations" id="evalLink" onclick="loadEmpEvals();">Evaluations</a></li>
+        <li><a href="emp/test/load.do?empId=1">Test results</a></li>
         <li><a href="emp/rate/load.do?empId=1">Rates</a></li>
     </ul>
   <div id="evaluations">

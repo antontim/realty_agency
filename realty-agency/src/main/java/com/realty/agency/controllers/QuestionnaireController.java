@@ -55,4 +55,42 @@ public class QuestionnaireController extends MultiActionController {
 
         return mav;
     }
+
+    @ResponseStatus(value=HttpStatus.OK)
+    @RequestMapping("/test/del")
+    public void deletTest(@RequestParam int id) {
+        this.questionnaireService.deleteTest(id);
+    }
+
+    @RequestMapping("/test/load")
+    public ModelAndView loadTests() {
+        ModelAndView mav = new ModelAndView("tests");
+        mav.addObject("testList", this.questionnaireService.loadAllTests());
+        mav.addObject("measureList",
+                this.questionnaireService.loadAllMeasures());
+        return mav;
+    }
+
+    @RequestMapping("/test/add")
+    public ModelAndView addTest(@RequestParam String name,
+            @RequestParam String type, @RequestParam int measureId) {
+        ModelAndView mav = new ModelAndView("test");
+
+        mav.addObject("test",
+                this.questionnaireService.addTest(name, type, measureId));
+
+        return mav;
+    }
+
+    @RequestMapping("/test/upd")
+    public ModelAndView updateTest(@RequestParam int id,
+            @RequestParam String name, @RequestParam String type,
+            @RequestParam int measureId) {
+        ModelAndView mav = new ModelAndView("test");
+
+        mav.addObject("test", this.questionnaireService.updateTest(id, name, type, measureId));
+
+        return mav;
+    }
+
 }

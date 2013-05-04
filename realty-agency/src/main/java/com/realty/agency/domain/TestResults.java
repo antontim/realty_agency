@@ -22,13 +22,13 @@ public class TestResults implements java.io.Serializable, IEntity<TestResultsId>
     private TestResultsId id;
     private Employees employees;
     private Tests tests;
-    private float result;
+    private Float result;
 
     public TestResults() {
     }
 
     public TestResults(TestResultsId id, Employees employees, Tests tests,
-            float result) {
+            Float result) {
         this.id = id;
         this.employees = employees;
         this.tests = tests;
@@ -58,7 +58,7 @@ public class TestResults implements java.io.Serializable, IEntity<TestResultsId>
         this.employees = employees;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "test_id", nullable = false, insertable = false, updatable = false)
     public Tests getTests() {
         return this.tests;
@@ -69,11 +69,11 @@ public class TestResults implements java.io.Serializable, IEntity<TestResultsId>
     }
 
     @Column(name = "result", nullable = false, precision = 12, scale = 0)
-    public float getResult() {
+    public Float getResult() {
         return this.result;
     }
 
-    public void setResult(float result) {
+    public void setResult(Float result) {
         this.result = result;
     }
 

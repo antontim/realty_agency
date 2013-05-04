@@ -28,6 +28,21 @@ function delEval(e) {
     });
 }
 
+function delTestres(e) {
+    var tr = $(e.target).closest('tr');
+    var id = tr.attr('id');
+    tr.find('div[name="edit"]').addClass("hidden");
+    tr.find('div.icon_refresh').removeClass("hidden");
+    $.ajax({
+        url : "emp/res/del.do?id="+id,
+        type: "PUT",
+    }).done(function(data) {
+        var t = $('#testresTable');
+        tr.remove();
+        t.trigger('update');
+    });
+}
+
 function delQuest(e) {
     var tr = $(e.target).closest('tr');
     var id = tr.attr('id');
@@ -38,6 +53,21 @@ function delQuest(e) {
         type: "PUT",
     }).done(function(data) {
         var t = $('#questTable');
+        tr.remove();
+        t.trigger('update');
+    });
+}
+
+function delTest(e) {
+    var tr = $(e.target).closest('tr');
+    var id = tr.attr('id');
+    tr.find('div[name="edit"]').addClass("hidden");
+    tr.find('div.icon_refresh').removeClass("hidden");
+    $.ajax({
+        url : "quest/test/del.do?id="+id,
+        type: "PUT",
+    }).done(function(data) {
+        var t = $('#testTable');
         tr.remove();
         t.trigger('update');
     });
@@ -73,6 +103,21 @@ function updEval(e) {
     });
 }
 
+function updTestres(e) {
+    var tr = $(e.target).closest('tr');
+    var id = tr.attr('id');
+    tr.find('div[name="edit"]').addClass("hidden");
+    tr.find('div.icon_refresh').removeClass("hidden");
+    $.ajax({
+        url : "emp/res/upd.do?id="+id+"&result="+ tr.find('#result').val(),
+        type: "PUT",
+    }).done(function(data) {
+        var t = $('#testresTable');
+        tr.replaceWith(data);
+        t.trigger('update');
+    });
+}
+
 function updQuest(e) {
     var tr = $(e.target).closest('tr');
     var id = tr.attr('id');
@@ -83,6 +128,21 @@ function updQuest(e) {
         type: "PUT",
     }).done(function(data) {
         var t = $('#questTable');
+        tr.replaceWith(data);
+        t.trigger('update');
+    });
+}
+
+function updTest(e) {
+    var tr = $(e.target).closest('tr');
+    var id = tr.attr('id');
+    tr.find('div[name="edit"]').addClass("hidden");
+    tr.find('div.icon_refresh').removeClass("hidden");
+    $.ajax({
+        url : "quest/test/upd.do?id="+id+"&name="+ tr.find('#newTestName').val()+"&type="+ tr.find('#newTestType').val() + "&measureId=" + tr.find('#measure').val(),
+        type: "PUT",
+    }).done(function(data) {
+        var t = $('#testTable');
         tr.replaceWith(data);
         t.trigger('update');
     });
@@ -116,6 +176,20 @@ function addEval() {
     });
 }
 
+function addTestres() {
+    $.ajax({
+        url : "emp/res/add.do?empId="+$("#empId").val()+"&testId="+$("#test option:selected").val()+"&result="+$("#result").val(),
+        type: "PUT",
+    }).done(function(data) {
+        $row = $(data);
+        var t = $('#testresTable');
+        t.find('tbody').append($row).trigger('addRows', [$row]);
+        t.trigger('update');
+        
+        $("#mark").val('');
+    });
+}
+
 function addQuest() {
     $.ajax({
         url : "quest/add.do?text="+$("#newQuestText").val()+"&label="+$("#newQuestLabel").val()+"&measureId="+$("#measure option:selected").val(),
@@ -127,6 +201,20 @@ function addQuest() {
         t.trigger('update');
         
         $("#newQuestText").val('');
+    });
+}
+
+function addTest() {
+    $.ajax({
+        url : "quest/test/add.do?name="+$("#newTestName").val()+"&type="+$("#newTestType").val()+"&measureId="+$("#measure option:selected").val(),
+        type: "PUT",
+    }).done(function(data) {
+        $row = $(data);
+        var t = $('#testTable');
+        t.find('tbody').append($row).trigger('addRows', [$row]);
+        t.trigger('update');
+        
+        $("#newQuestName").val('');
     });
 }
 
@@ -223,6 +311,48 @@ function preUpdateQuest(val) {
     });
 }
 
+function preUpdateTest(val) {
+    $(val).addClass("hidden");
+    $(val).siblings('.commit_icon').removeClass('hidden');
+    
+    var tr = $(val).closest('tr');
+    
+    tr.find('label[name="measure"]').addClass('hidden');
+    var measureCB = $('#measure').clone();
+    measureCB.val(tr.find('label[name="measure"]').text());
+    var text = tr.find('label[name="measure"]').text();
+    $(measureCB).find(":contains('"+ text + "')").attr("selected", "selected");
+    tr.children('td[name="measure"]').append(measureCB);
+    
+    tr.find('label[name="name"]').addClass('hidden');
+    var nameTF = $('#newTestName').clone();
+    nameTF.val(tr.find('label[name="name"]').text());
+    tr.children('td[name="name"]').append(nameTF);
+    
+    tr.find('label[name="type"]').addClass('hidden');
+    var typeTF = $('#newTestType').clone();
+    typeTF.val(tr.find('label[name="type"]').text());
+    tr.children('td[name="type"]').append(typeTF);
+    
+    var delFunc = tr.find('.delete_icon').attr('onclick');
+    tr.find('.delete_icon').attr('onclick','');
+    tr.find('.delete_icon').bind('click',function() {
+        $(val).removeClass("hidden");
+        $(val).siblings('.commit_icon').addClass('hidden');
+        
+        tr.find('#measure').remove();
+        tr.find('label[name="measure"]').removeClass('hidden');
+        
+        tr.find('#newTestName').remove();
+        tr.find('label[name="name"]').removeClass('hidden');
+        
+        tr.find('#newTestType').remove();
+        tr.find('label[name="type"]').removeClass('hidden');
+        
+        tr.find('div.delete_icon').attr('onclick',delFunc);
+    });
+}
+
 function preUpdateEval(val) {
     $(val).addClass("hidden");
     $(val).siblings('.commit_icon').removeClass('hidden');
@@ -242,6 +372,30 @@ function preUpdateEval(val) {
         
         tr.find('#mark').remove();
         tr.find('label[name="mark"]').removeClass('hidden');
+        
+        tr.find('div.delete_icon').attr('onclick',delFunc);
+    });
+}
+
+function preUpdateTestres(val) {
+    $(val).addClass("hidden");
+    $(val).siblings('.commit_icon').removeClass('hidden');
+    
+    var tr = $(val).closest('tr');
+    
+    tr.find('label[name="result"]').addClass('hidden');
+    var resTF = $('.footer #result').clone();
+    resTF.val(tr.find('label[name="result"]').text());
+    tr.children('td[name="result"]').append(resTF);
+    
+    var delFunc = tr.find('.delete_icon').attr('onclick');
+    tr.find('.delete_icon').attr('onclick','');
+    tr.find('.delete_icon').bind('click',function() {
+        $(val).removeClass("hidden");
+        $(val).siblings('.commit_icon').addClass('hidden');
+        
+        tr.find('#result').remove();
+        tr.find('label[name="result"]').removeClass('hidden');
         
         tr.find('div.delete_icon').attr('onclick',delFunc);
     });
@@ -358,6 +512,21 @@ function loadEmpEvals() {
     });
 }
 
+function loadEmpTestResults() {
+    var evalDiv = $('#results');
+    var startDate = evalDiv.find('#startdatepicker').val();
+    var endDate = evalDiv.find('#enddatepicker').val();
+    var id = $('#empDetailDialog').find("#empId").val();
+    
+    $.ajax({
+        url : "quest/res/load.do?empId="+id+"&startDate="+startDate+"&endDate="+endDate,
+        type: "GET",
+    }).done(function(data) {
+        evalDiv.find("#testresBody").empty();
+        evalDiv.find("#testresBody").append(data);
+    });
+}
+
 function empDetailLoad(e) {
     var date = new Date();
     var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
@@ -367,12 +536,12 @@ function empDetailLoad(e) {
     $("#enddatepicker").datepicker({dateFormat: 'yy-mm-dd'});
     $("#startdatepicker").datepicker('setDate', firstDay);
     $("#enddatepicker").datepicker('setDate', lastDay);
-    
-    loadEmpEvals();
 }
 
 function empDetailOpen(event) {
     var tr = $(event.target).closest('tr');
     $('#empDetailDialog').find('#empId').val(tr.attr('id'));
     $('#empDetailDialog').dialog('open');
+    
+    $('#evalLink').click();
 }
