@@ -27,6 +27,10 @@ public class Tests extends BaseEntity<Integer> implements java.io.Serializable, 
 
     public Tests() {
     }
+    
+    public Tests(int id) {
+        this.id = id;
+    }
 
     public Tests(String name, String type, Measures measures) {
         this.measures = measures;
@@ -69,7 +73,7 @@ public class Tests extends BaseEntity<Integer> implements java.io.Serializable, 
         this.testResultses = testResultses;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "measure_id", nullable = false)
     public Measures getMeasures() {
         return this.measures;

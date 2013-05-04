@@ -109,6 +109,7 @@ td.tablesorter-pager {
             <li><a href="act/load.do">Activities</a></li>
             <li><a href="ent/load.do?active=false">Entities</a></li>
             <li><a href="quest/load.do">Questions</a></li>
+            <li><a href="quest/test/load.do">Tests</a></li>
         </ul>
     </div>
 </body>
