@@ -1,5 +1,6 @@
 package com.realty.agency.services;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -10,10 +11,13 @@ import org.springframework.util.CollectionUtils;
 import com.realty.agency.dao.IEmployeeEvaluationsDao;
 import com.realty.agency.dao.IEmployeesDao;
 import com.realty.agency.dao.IPositionsDao;
+import com.realty.agency.dao.ITestResultsDao;
 import com.realty.agency.domain.EmployeeEvaluations;
 import com.realty.agency.domain.Employees;
 import com.realty.agency.domain.Positions;
 import com.realty.agency.domain.Questions;
+import com.realty.agency.domain.TestResults;
+import com.realty.agency.domain.TestResultsId;
 
 public class EmployeeService implements IEmployeeService {
 
@@ -21,6 +25,8 @@ public class EmployeeService implements IEmployeeService {
     private IEmployeesDao employeesDao;
     @Autowired
     private IEmployeeEvaluationsDao employeeEvaluationsDao;
+    @Autowired
+    private ITestResultsDao testResultsDao;
     @Autowired
     private IPositionsDao posDao;
 
@@ -117,5 +123,49 @@ public class EmployeeService implements IEmployeeService {
     @Override
     public void deleteEmpEvaluation(int id) {
         this.employeeEvaluationsDao.delete(new EmployeeEvaluations(id));
+    }
+
+    @Override
+    public List<TestResults> loadAllTestResultsByRange(int empId,
+            Date startDate, Date endDate) {
+        return this.testResultsDao.findByEmpAndDateRange(empId, startDate,
+                endDate);
+    }
+
+    @Override
+    public TestResults addTestResult(int testId, int empId, float res) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.MILLISECOND, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.HOUR, 0);
+        TestResults testRes = new TestResults(new TestResultsId(testId, empId,
+                cal.getTime()), null, null, res);
+        this.testResultsDao.add(testRes);
+
+        List<TestResults> testResults = this.testResultsDao
+                .find(new TestResults(testRes.getId()));
+
+        return CollectionUtils.isEmpty(testResults) ? null : testResults.get(0);
+    }
+
+    @Override
+    public TestResults updateTestResult(int testId, int empId, Date passed,
+            float res) {
+        List<TestResults> empTestResults = this.testResultsDao
+                .find(new TestResults(new TestResultsId(testId, empId, passed)));
+        if (CollectionUtils.isEmpty(empTestResults))
+            throw new IncorrectResultSizeDataAccessException(1, 0);
+        TestResults empTestRes = empTestResults.get(0);
+
+        empTestRes.setResult(res);
+        this.testResultsDao.update(empTestRes);
+        return empTestRes;
+    }
+
+    @Override
+    public void deleteTestResult(int testId, int empId, Date passed) {
+        this.testResultsDao.delete(new TestResults(new TestResultsId(testId,
+                empId, passed)));
     }
 }

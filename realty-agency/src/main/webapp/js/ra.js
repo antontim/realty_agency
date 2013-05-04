@@ -34,7 +34,7 @@ function delTestres(e) {
     tr.find('div[name="edit"]').addClass("hidden");
     tr.find('div.icon_refresh').removeClass("hidden");
     $.ajax({
-        url : "emp/res/del.do?id="+id,
+        url : "emp/res/del.do?empId="+$('#empId').val()+"&testId="+tr.find('td[name="name"]').attr('id')+"&passed="+tr.find('td[name="passed"]').attr('id'),
         type: "PUT",
     }).done(function(data) {
         var t = $('#testresTable');
@@ -109,7 +109,7 @@ function updTestres(e) {
     tr.find('div[name="edit"]').addClass("hidden");
     tr.find('div.icon_refresh').removeClass("hidden");
     $.ajax({
-        url : "emp/res/upd.do?id="+id+"&result="+ tr.find('#result').val(),
+        url : "emp/res/upd.do?empId="+$("#empId").val()+"&testId="+tr.find('td[name="name"]').attr('id')+"&passed="+tr.find('td[name="passed"]').attr('id')+"&res="+ tr.find('#result').val(),
         type: "PUT",
     }).done(function(data) {
         var t = $('#testresTable');
@@ -178,7 +178,7 @@ function addEval() {
 
 function addTestres() {
     $.ajax({
-        url : "emp/res/add.do?empId="+$("#empId").val()+"&testId="+$("#test option:selected").val()+"&result="+$("#result").val(),
+        url : "emp/res/add.do?empId="+$("#empId").val()+"&testId="+$("#test option:selected").val()+"&res="+$("#result").val(),
         type: "PUT",
     }).done(function(data) {
         $row = $(data);
@@ -513,13 +513,13 @@ function loadEmpEvals() {
 }
 
 function loadEmpTestResults() {
-    var evalDiv = $('#results');
+    var evalDiv = $('#testresults');
     var startDate = evalDiv.find('#startdatepicker').val();
     var endDate = evalDiv.find('#enddatepicker').val();
     var id = $('#empDetailDialog').find("#empId").val();
     
     $.ajax({
-        url : "quest/res/load.do?empId="+id+"&startDate="+startDate+"&endDate="+endDate,
+        url : "emp/res/load.do?empId="+id+"&startDate="+startDate+"&endDate="+endDate,
         type: "GET",
     }).done(function(data) {
         evalDiv.find("#testresBody").empty();
@@ -532,10 +532,19 @@ function empDetailLoad(e) {
     var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
     var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
-    $("#startdatepicker").datepicker({dateFormat: 'yy-mm-dd'});
-    $("#enddatepicker").datepicker({dateFormat: 'yy-mm-dd'});
-    $("#startdatepicker").datepicker('setDate', firstDay);
-    $("#enddatepicker").datepicker('setDate', lastDay);
+    refreshDatePickers("#evaluations #startdatepicker","#testresults #startdatepicker","#startdatepicker",firstDay);
+    refreshDatePickers("#evaluations #enddatepicker","#testresults #enddatepicker","#enddatepicker",lastDay);
+}
+
+function refreshDatePickers(dpSelector1,dpSelector2,dpSelector3,dayVal) {
+        $(dpSelector1).datepicker({dateFormat: 'yy-mm-dd'});
+        $(dpSelector1).datepicker('setDate', dayVal);
+
+        $(dpSelector2).datepicker({dateFormat: 'yy-mm-dd'});
+        $(dpSelector2).datepicker('setDate', dayVal);
+
+        $(dpSelector3).datepicker({dateFormat: 'yy-mm-dd'});
+        $(dpSelector3).datepicker('setDate', dayVal);
 }
 
 function empDetailOpen(event) {
@@ -543,5 +552,5 @@ function empDetailOpen(event) {
     $('#empDetailDialog').find('#empId').val(tr.attr('id'));
     $('#empDetailDialog').dialog('open');
     
-    $('#evalLink').click();
+    $('#empDetailLink')[0].click();
 }
