@@ -3,6 +3,7 @@ package com.realty.agency.domain;
 // Generated Apr 1, 2013 12:12:11 AM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
@@ -12,34 +13,34 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class TestResultsId implements java.io.Serializable {
 
-    private int testId;
-    private int employeeId;
+    private Integer testId;
+    private Integer employeeId;
     private Date passed;
 
     public TestResultsId() {
     }
 
-    public TestResultsId(int testId, int employeeId, Date passed) {
+    public TestResultsId(Integer testId, Integer employeeId, Date passed) {
         this.testId = testId;
         this.employeeId = employeeId;
         this.passed = passed;
     }
 
     @Column(name = "test_id", nullable = false)
-    public int getTestId() {
+    public Integer getTestId() {
         return this.testId;
     }
 
-    public void setTestId(int testId) {
+    public void setTestId(Integer testId) {
         this.testId = testId;
     }
 
     @Column(name = "employee_id", nullable = false)
-    public int getEmployeeId() {
+    public Integer getEmployeeId() {
         return this.employeeId;
     }
 
-    public void setEmployeeId(int employeeId) {
+    public void setEmployeeId(Integer employeeId) {
         this.employeeId = employeeId;
     }
 
@@ -69,7 +70,7 @@ public class TestResultsId implements java.io.Serializable {
     }
 
     public int hashCode() {
-        int result = 17;
+        Integer result = 17;
 
         result = 37 * result + this.getTestId();
         result = 37 * result + this.getEmployeeId();

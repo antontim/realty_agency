@@ -21,7 +21,7 @@ import com.realty.agency.services.IQuestionnaireService;
 @Controller
 @RequestMapping("/emp")
 public class EmployeesController extends MultiActionController {
-    private DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+    private DateFormat df = new SimpleDateFormat("yyyy-MM-dd"); // HH:mm:ss.SSS
     @Autowired
     private IEmployeeService employeeService;
     @Autowired
@@ -97,6 +97,51 @@ public class EmployeesController extends MultiActionController {
         mav.addObject("evalList", this.employeeService
                 .loadAllEmpEvaluationsByRange(empId, df.parse(startDate), df.parse(endDate)));
         mav.addObject("questList", this.questionnaireService.loadAllQuestions());
+
+        return mav;
+    }
+
+    @ResponseStatus(value = HttpStatus.OK)
+    @RequestMapping("/res/del")
+    public void deleteTestResult(@RequestParam int empId,
+            @RequestParam int testId, @RequestParam String passed) throws ParseException {
+        this.employeeService.deleteTestResult(testId, empId, df.parse(passed));
+    }
+
+    @RequestMapping("/res/upd")
+    public ModelAndView updateTestResult(@RequestParam int empId,
+            @RequestParam int testId, @RequestParam String passed,
+            @RequestParam float res) throws ParseException {
+        ModelAndView mav = new ModelAndView("testresult");
+
+        mav.addObject("testres", this.employeeService.updateTestResult(testId,
+                empId, df.parse(passed), res));
+
+        return mav;
+    }
+
+    @RequestMapping("/res/add")
+    public ModelAndView addTestResult(@RequestParam int empId,
+            @RequestParam int testId, @RequestParam float res) {
+        ModelAndView mav = new ModelAndView("testresult");
+
+        mav.addObject("testres",
+                this.employeeService.addTestResult(testId, empId, res));
+
+        return mav;
+    }
+
+    @RequestMapping("/res/load")
+    public ModelAndView loadTestResult(@RequestParam int empId,
+            @RequestParam String startDate, @RequestParam String endDate)
+            throws ParseException {
+        ModelAndView mav = new ModelAndView("testresults");
+
+        mav.addObject(
+                "testresList",
+                this.employeeService.loadAllTestResultsByRange(empId,
+                        df.parse(startDate), df.parse(endDate)));
+        mav.addObject("testList", this.questionnaireService.loadAllTests());
 
         return mav;
     }

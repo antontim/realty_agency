@@ -29,7 +29,6 @@ public class EmployeeEvaluationsDao extends HibernateDao<EmployeeEvaluations>
 
     @SuppressWarnings("unchecked")
     @Override
-    @Transactional
     public List<EmployeeEvaluations> findByRange(int id, Date startDate,
             Date endDate) {
         logger.debug("finding instance by date range");
