@@ -35,7 +35,7 @@ CREATE TABLE `employee_evaluations` (
   KEY `fk_employee_evaluations_2` (`employee_id`),
   CONSTRAINT `fk_employee_evaluations_1` FOREIGN KEY (`question_id`) REFERENCES `questions` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_employee_evaluations_2` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,6 +44,7 @@ CREATE TABLE `employee_evaluations` (
 
 LOCK TABLES `employee_evaluations` WRITE;
 /*!40000 ALTER TABLE `employee_evaluations` DISABLE KEYS */;
+INSERT INTO `employee_evaluations` VALUES (1,1,101,59,'2013-01-01 00:00:00'),(2,1,101,70,'2013-04-04 00:00:00'),(3,3,101,90,'2013-04-05 00:00:00'),(4,3,101,50.1,'2013-05-01 00:00:00'),(5,14,107,10,'2013-05-04 01:40:05'),(6,14,107,100,'2013-05-04 01:40:40'),(8,6,109,2,'2013-05-04 01:42:43');
 /*!40000 ALTER TABLE `employee_evaluations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -94,8 +95,9 @@ CREATE TABLE `tests` (
   `measure_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_tests_1` (`id`),
-  CONSTRAINT `fk_tests_1` FOREIGN KEY (`id`) REFERENCES `measures` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+  KEY `fk_tests_2` (`measure_id`),
+  CONSTRAINT `fk_tests_2` FOREIGN KEY (`measure_id`) REFERENCES `measures` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -104,7 +106,7 @@ CREATE TABLE `tests` (
 
 LOCK TABLES `tests` WRITE;
 /*!40000 ALTER TABLE `tests` DISABLE KEYS */;
-INSERT INTO `tests` VALUES (1,'test_1','type_1',1),(2,'test_2','type_2',2),(3,'test_3','type_3',3),(4,'test_4','type_4',4),(5,'test_5','type_5',5);
+INSERT INTO `tests` VALUES (1,'test_111','type_111',3),(2,'test_2','type_2',5),(3,'test_3','type_3',5),(4,'test_4','type_4',5),(9,'1231','123',2);
 /*!40000 ALTER TABLE `tests` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -202,10 +204,11 @@ CREATE TABLE `questions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `text` varchar(1000) NOT NULL,
   `measure_id` int(11) NOT NULL,
+  `label` varchar(45) NOT NULL DEFAULT 'undefined',
   PRIMARY KEY (`id`),
   KEY `fk_questions_1` (`measure_id`),
   CONSTRAINT `fk_questions_1` FOREIGN KEY (`measure_id`) REFERENCES `measures` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -214,7 +217,7 @@ CREATE TABLE `questions` (
 
 LOCK TABLES `questions` WRITE;
 /*!40000 ALTER TABLE `questions` DISABLE KEYS */;
-INSERT INTO `questions` VALUES (1,'question',1),(2,'question',2),(3,'question',3),(4,'question',4),(5,'question',5);
+INSERT INTO `questions` VALUES (1,'question 1?',1,''),(3,'question',1,''),(4,'question',5,''),(5,'question',5,''),(6,'quest 1111',2,'label 111'),(7,'quest 2',5,''),(9,'test 2',3,'ll'),(10,'test3',1,'label 3'),(11,'test 4',3,''),(12,'test 5',3,''),(13,'test 7',3,''),(14,'text ',2,'lab'),(15,'text1',2,'lab11'),(16,'tst',4,'lab111');
 /*!40000 ALTER TABLE `questions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -372,7 +375,7 @@ CREATE TABLE `employees` (
 
 LOCK TABLES `employees` WRITE;
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
-INSERT INTO `employees` VALUES (101,'5555',2,0),(106,'ww',5,0),(107,'rrrr',1,0),(108,'1111',5,0),(109,'tt',1,0),(111,'uu',1,0),(112,'ii1',1,0),(113,'oo',1,0),(114,'pp',1,0),(115,'zz',3,0),(116,'xx',1,0),(117,'ccc',1,0),(118,'vv',1,0),(120,'nn',1,0),(121,'tests',4,0),(122,'tr',1,0);
+INSERT INTO `employees` VALUES (101,'5555',2,0),(106,'wwww',5,0),(107,'rrrr',1,0),(108,'1111111',5,0),(109,'ttt',1,0),(111,'uu',1,0),(112,'ii1',1,0),(113,'oo',1,0),(114,'ppp',1,0),(115,'zz',3,0),(116,'xx',1,0),(117,'ccc',1,0),(118,'vv',1,0),(120,'nn',1,0),(121,'tests',4,0),(122,'tr',1,0);
 /*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -499,7 +502,7 @@ CREATE TABLE `entity_types` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -521,4 +524,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-05-02 22:36:45
+-- Dump completed on 2013-05-04  3:49:48
