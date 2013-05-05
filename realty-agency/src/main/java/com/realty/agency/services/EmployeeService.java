@@ -20,6 +20,7 @@ import com.realty.agency.domain.Positions;
 import com.realty.agency.domain.Questions;
 import com.realty.agency.domain.TestResults;
 import com.realty.agency.domain.TestResultsId;
+import com.realty.agency.domain.Users;
 
 public class EmployeeService implements IEmployeeService {
 
@@ -71,7 +72,7 @@ public class EmployeeService implements IEmployeeService {
         pos.setId(posId);
         emp.setName(name);
         emp.setPositions(pos);
-        emp.setUsername(username);
+        emp.setUsers(new Users(username, null));
         this.employeesDao.add(emp);
 
         return emp;
@@ -82,16 +83,17 @@ public class EmployeeService implements IEmployeeService {
         Employees criteria = new Employees();
         criteria.setId(id);
         List<Employees> empls = this.employeesDao.find(criteria);
-        if(!CollectionUtils.isEmpty(empls))
-            this.userService.deleteUser(empls.get(0).getUsername());
-        
         this.employeesDao.delete(criteria);
+        if(!CollectionUtils.isEmpty(empls))
+            this.userService.deleteUser(empls.get(0).getUsers().getId());
     }
 
     @Override
     public void updateEmployee(int id, String name, int pos) {
         Employees rec = new Employees();
         rec.setId(id);
+        List<Employees> empls = this.loadEmployees(rec);
+        rec = empls.get(0);
         rec.setName(name);
 
         Positions position = new Positions();

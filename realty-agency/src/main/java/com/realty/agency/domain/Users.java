@@ -2,9 +2,13 @@ package com.realty.agency.domain;
 
 // Generated May 5, 2013 5:39:19 PM by Hibernate Tools 3.4.0.CR1
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -17,6 +21,7 @@ public class Users implements java.io.Serializable, IEntity<String> {
     private String id;
     private String password;
     private Boolean enabled = true;
+    private Set<Authorities> authorities;
 
     public Users() {
     }
@@ -52,5 +57,14 @@ public class Users implements java.io.Serializable, IEntity<String> {
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
+    public Set<Authorities> getAuthorities() {
+        return this.authorities;
+    }
+
+    public void setAuthorities(Set<Authorities> authorities) {
+        this.authorities = authorities;
     }
 }
