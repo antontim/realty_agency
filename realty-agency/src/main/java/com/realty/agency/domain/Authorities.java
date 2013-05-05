@@ -27,9 +27,8 @@ public class Authorities implements IEntity<AuthoritiesId>, java.io.Serializable
     public Authorities() {
     }
 
-    public Authorities(AuthoritiesId id, Users users) {
+    public Authorities(AuthoritiesId id) {
         this.id = id;
-        this.users = users;
     }
 
     @EmbeddedId
@@ -53,5 +52,4 @@ public class Authorities implements IEntity<AuthoritiesId>, java.io.Serializable
     public void setUsers(Users users) {
         this.users = users;
     }
-
 }

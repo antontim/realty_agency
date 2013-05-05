@@ -20,6 +20,7 @@ import com.realty.agency.domain.Positions;
 import com.realty.agency.domain.Questions;
 import com.realty.agency.domain.TestResults;
 import com.realty.agency.domain.TestResultsId;
+import com.realty.agency.domain.Users;
 
 public class EmployeeService implements IEmployeeService {
 
@@ -33,6 +34,9 @@ public class EmployeeService implements IEmployeeService {
     private IPositionsDao posDao;
     @Autowired
     private IMeasuresDao measuresDao;
+
+    @Autowired
+    private IUserService userService;
 
     @Override
     public Employees loadEmployeeByName(String name) {
@@ -57,11 +61,18 @@ public class EmployeeService implements IEmployeeService {
 
     @Override
     public Employees addEmployee(String name, int posId) {
+        String[] fullSeparatedName = name.split(" ");
+        if(fullSeparatedName.length < 2)
+            throw new IllegalArgumentException("User name should contains first and last names");
+        String username = fullSeparatedName[0].substring(0, 1).toUpperCase() + fullSeparatedName[1];
+        this.userService.createUser(username);
+
         Employees emp = new Employees();
         Positions pos = new Positions();
         pos.setId(posId);
         emp.setName(name);
         emp.setPositions(pos);
+        emp.setUsers(new Users(username, null));
         this.employeesDao.add(emp);
 
         return emp;
@@ -71,13 +82,18 @@ public class EmployeeService implements IEmployeeService {
     public void deleteEmployee(int id) {
         Employees criteria = new Employees();
         criteria.setId(id);
+        List<Employees> empls = this.employeesDao.find(criteria);
         this.employeesDao.delete(criteria);
+        if(!CollectionUtils.isEmpty(empls))
+            this.userService.deleteUser(empls.get(0).getUsers().getId());
     }
 
     @Override
     public void updateEmployee(int id, String name, int pos) {
         Employees rec = new Employees();
         rec.setId(id);
+        List<Employees> empls = this.loadEmployees(rec);
+        rec = empls.get(0);
         rec.setName(name);
 
         Positions position = new Positions();

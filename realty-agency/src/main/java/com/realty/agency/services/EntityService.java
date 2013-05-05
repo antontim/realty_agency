@@ -12,7 +12,6 @@ import com.realty.agency.dao.IEntityTypesDao;
 import com.realty.agency.domain.Entities;
 import com.realty.agency.domain.EntityClass;
 import com.realty.agency.domain.EntityPrices;
-import com.realty.agency.domain.EntityPricesId;
 import com.realty.agency.domain.EntityTypes;
 
 public class EntityService implements IEntityService {
