@@ -33,9 +33,9 @@ CREATE TABLE `employee_evaluations` (
   PRIMARY KEY (`id`),
   KEY `fk_employee_evaluations_1` (`question_id`),
   KEY `fk_employee_evaluations_2` (`employee_id`),
-  CONSTRAINT `fk_employee_evaluations_1` FOREIGN KEY (`question_id`) REFERENCES `questions` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_employee_evaluations_2` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+  CONSTRAINT `fk_employee_evaluations_2` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `fk_employee_evaluations_1` FOREIGN KEY (`question_id`) REFERENCES `questions` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +44,7 @@ CREATE TABLE `employee_evaluations` (
 
 LOCK TABLES `employee_evaluations` WRITE;
 /*!40000 ALTER TABLE `employee_evaluations` DISABLE KEYS */;
-INSERT INTO `employee_evaluations` VALUES (1,1,101,59,'2013-01-01 00:00:00'),(2,1,101,70,'2013-04-04 00:00:00'),(3,3,101,90,'2013-04-05 00:00:00'),(4,3,101,50.1,'2013-05-01 00:00:00'),(5,14,107,10,'2013-05-04 01:40:05'),(6,14,107,100,'2013-05-04 01:40:40'),(8,6,109,2,'2013-05-04 01:42:43');
+INSERT INTO `employee_evaluations` VALUES (1,1,101,59,'2013-01-01 00:00:00'),(2,1,101,70,'2013-04-04 00:00:00'),(3,3,101,90,'2013-04-05 00:00:00'),(4,3,101,50.1,'2013-05-01 00:00:00'),(9,16,101,11,'2013-05-05 19:10:02');
 /*!40000 ALTER TABLE `employee_evaluations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -68,7 +68,7 @@ CREATE TABLE `activities` (
   CONSTRAINT `fk_activities_1` FOREIGN KEY (`entity_id`) REFERENCES `entities` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_activities_2` FOREIGN KEY (`activity_type_id`) REFERENCES `activity_types` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_activities_3` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -77,7 +77,7 @@ CREATE TABLE `activities` (
 
 LOCK TABLES `activities` WRITE;
 /*!40000 ALTER TABLE `activities` DISABLE KEYS */;
-INSERT INTO `activities` VALUES (1,1,1,101,'2012-01-01 00:00:00');
+INSERT INTO `activities` VALUES (1,1,1,101,'2012-01-01 00:00:00'),(2,1,7,101,'2013-05-05 22:14:25'),(3,2,11,101,'2013-05-05 22:24:18'),(4,1,8,101,'2013-05-05 22:27:46'),(5,2,12,101,'2013-05-05 22:28:03'),(6,2,7,101,'2013-05-05 22:30:26'),(7,2,2,101,'2013-05-05 22:30:30'),(8,1,14,101,'2013-05-05 22:30:33');
 /*!40000 ALTER TABLE `activities` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -106,7 +106,7 @@ CREATE TABLE `tests` (
 
 LOCK TABLES `tests` WRITE;
 /*!40000 ALTER TABLE `tests` DISABLE KEYS */;
-INSERT INTO `tests` VALUES (1,'test_111','type_111',3),(2,'test_2','type_2',5),(3,'test_3','type_3',5),(4,'test_4','type_4',5),(9,'1231','123',2);
+INSERT INTO `tests` VALUES (1,'test_111','type_111',3),(2,'test_2','type_2',5),(3,'test_3','type_3',5),(4,'test_4','type_4',5);
 /*!40000 ALTER TABLE `tests` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -179,7 +179,7 @@ CREATE TABLE `test_results` (
   PRIMARY KEY (`test_id`,`employee_id`,`passed`),
   KEY `fk_test_results_1` (`employee_id`),
   KEY `fk_test_results_2` (`test_id`),
-  CONSTRAINT `fk_test_results_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_test_results_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `fk_test_results_2` FOREIGN KEY (`test_id`) REFERENCES `tests` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -208,7 +208,7 @@ CREATE TABLE `questions` (
   PRIMARY KEY (`id`),
   KEY `fk_questions_1` (`measure_id`),
   CONSTRAINT `fk_questions_1` FOREIGN KEY (`measure_id`) REFERENCES `measures` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -217,7 +217,7 @@ CREATE TABLE `questions` (
 
 LOCK TABLES `questions` WRITE;
 /*!40000 ALTER TABLE `questions` DISABLE KEYS */;
-INSERT INTO `questions` VALUES (1,'question 1?',1,''),(3,'question',1,''),(4,'question',5,''),(5,'question',5,''),(6,'quest 1111',2,'label 111'),(7,'quest 2',5,''),(9,'test 2',3,'ll'),(10,'test3',1,'label 3'),(11,'test 4',3,''),(12,'test 5',3,''),(13,'test 7',3,''),(14,'text ',2,'lab'),(15,'text1',2,'lab11'),(16,'tst',4,'lab111');
+INSERT INTO `questions` VALUES (1,'question 1?',1,''),(3,'question',1,''),(4,'question',5,''),(5,'question',5,''),(6,'quest 1111',2,'label 111'),(7,'quest 2',5,''),(9,'test 2',3,'ll'),(10,'test3',1,'label 3'),(11,'test 4',3,''),(12,'test 5',3,''),(13,'test 7',3,''),(14,'text ',2,'lab'),(15,'text1',2,'lab11'),(16,'tst',4,'lab111'),(17,'qq',3,'q'),(18,'qwe',3,'q'),(19,'test',3,'q'),(20,'ert',3,'q');
 /*!40000 ALTER TABLE `questions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -362,11 +362,14 @@ CREATE TABLE `employees` (
   `name` varchar(30) NOT NULL DEFAULT 'noname',
   `position_id` int(11) NOT NULL,
   `mah_result` float NOT NULL,
+  `username` varchar(50) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name_UNIQUE` (`name`),
   KEY `fk_employees_1` (`position_id`),
+  KEY `fk_employees_2` (`username`),
+  CONSTRAINT `fk_employees_2` FOREIGN KEY (`username`) REFERENCES `users`.`users` (`username`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_employees_1` FOREIGN KEY (`position_id`) REFERENCES `positions` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=123 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=128 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -375,7 +378,7 @@ CREATE TABLE `employees` (
 
 LOCK TABLES `employees` WRITE;
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
-INSERT INTO `employees` VALUES (101,'5555',2,0),(106,'wwww',5,0),(107,'rrrr',1,0),(108,'1111111',5,0),(109,'ttt',1,0),(111,'uu',1,0),(112,'ii1',1,0),(113,'oo',1,0),(114,'ppp',1,0),(115,'zz',3,0),(116,'xx',1,0),(117,'ccc',1,0),(118,'vv',1,0),(120,'nn',1,0),(121,'tests',4,0),(122,'tr',1,0);
+INSERT INTO `employees` VALUES (101,'5555',2,0,'test'),(123,'TEst Test1',1,0,'TTest1'),(126,'Test Test2',1,0,'TTest2'),(127,'Test test3',1,0,'Ttest3');
 /*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -431,7 +434,7 @@ CREATE TABLE `entities` (
 
 LOCK TABLES `entities` WRITE;
 /*!40000 ALTER TABLE `entities` DISABLE KEYS */;
-INSERT INTO `entities` VALUES (1,4,5,'Kharkiv','\0'),(2,1,1,'Kharkivska obl.',''),(3,2,1,'Kyiv',''),(4,1,1,'lviv',''),(5,1,1,'kharkiv 2',''),(6,1,1,'kharkiv 3',''),(7,1,1,'Kharkiv 4',''),(8,2,3,'Kharkiv 5',''),(11,2,2,'Kharkiv 8',''),(12,2,4,'Kharkiv 9',''),(13,3,3,'Kharkiv 10',''),(14,2,3,'Kharkiv 11',''),(15,3,5,'Kharkiv 12',''),(16,3,5,'Kharkiv 14',''),(18,2,4,'Kharkiv 15','');
+INSERT INTO `entities` VALUES (1,4,5,'Kharkiv','\0'),(2,1,1,'Kharkivska obl.','\0'),(3,2,1,'Kyiv',''),(4,1,1,'lviv',''),(5,1,1,'kharkiv 2',''),(6,1,1,'kharkiv 3',''),(7,1,1,'Kharkiv 4','\0'),(8,2,3,'Kharkiv 5','\0'),(11,2,2,'Kharkiv 8','\0'),(12,2,4,'Kharkiv 9','\0'),(13,3,3,'Kharkiv 10',''),(14,2,3,'Kharkiv 11','\0'),(15,3,5,'Kharkiv 12',''),(16,3,5,'Kharkiv 14',''),(18,2,4,'Kharkiv 15','');
 /*!40000 ALTER TABLE `entities` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -450,8 +453,8 @@ CREATE TABLE `rates` (
   PRIMARY KEY (`measure_id`,`employee_id`,`created`),
   KEY `fk_rates_1` (`measure_id`),
   KEY `fk_rates_2` (`employee_id`),
-  CONSTRAINT `fk_rates_1` FOREIGN KEY (`measure_id`) REFERENCES `measures` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_rates_2` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_rates_2` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `fk_rates_1` FOREIGN KEY (`measure_id`) REFERENCES `measures` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -461,6 +464,7 @@ CREATE TABLE `rates` (
 
 LOCK TABLES `rates` WRITE;
 /*!40000 ALTER TABLE `rates` DISABLE KEYS */;
+INSERT INTO `rates` VALUES (1,101,'2013-01-01 00:00:00',10),(1,101,'2013-02-02 00:00:00',11);
 /*!40000 ALTER TABLE `rates` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -502,7 +506,7 @@ CREATE TABLE `entity_types` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -524,4 +528,83 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-05-04  3:49:48
+-- Dump completed on 2013-05-05 22:47:29
+CREATE DATABASE  IF NOT EXISTS `users` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `users`;
+-- MySQL dump 10.13  Distrib 5.1.66, for debian-linux-gnu (x86_64)
+--
+-- Host: localhost    Database: users
+-- ------------------------------------------------------
+-- Server version	5.1.66-0ubuntu0.11.10.3
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `authorities`
+--
+
+DROP TABLE IF EXISTS `authorities`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `authorities` (
+  `username` varchar(50) NOT NULL,
+  `authority` varchar(50) NOT NULL,
+  UNIQUE KEY `ix_auth_username` (`username`,`authority`),
+  CONSTRAINT `fk_authorities_users` FOREIGN KEY (`username`) REFERENCES `users` (`username`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `authorities`
+--
+
+LOCK TABLES `authorities` WRITE;
+/*!40000 ALTER TABLE `authorities` DISABLE KEYS */;
+INSERT INTO `authorities` VALUES ('test','ADMIN'),('test','EMPLOYEE'),('TTest1','EMPLOYEE'),('TTest2','EMPLOYEE'),('Ttest3','EMPLOYEE');
+/*!40000 ALTER TABLE `authorities` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `username` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL DEFAULT 'pass',
+  `enabled` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES ('test','test',1),('TTest1','pass',1),('TTest2','pass',1),('Ttest3','pass',1);
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2013-05-05 22:47:29
