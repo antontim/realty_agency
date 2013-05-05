@@ -26,5 +26,9 @@
     <mapping class="com.realty.agency.domain.TestResults"/>
     <mapping class="com.realty.agency.domain.Tests"/>
     <mapping class="com.realty.agency.domain.EntityTypes"/>
+
+    <mapping class="com.realty.agency.domain.Users"/>
+    <mapping class="com.realty.agency.domain.Authorities"/>
+    <mapping class="com.realty.agency.domain.AuthoritiesId"/>
  </session-factory>
 </hibernate-configuration>
