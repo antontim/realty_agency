@@ -12,34 +12,34 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class RatesId implements java.io.Serializable {
 
-    private int measureId;
-    private int employeeId;
+    private Integer measureId;
+    private Integer employeeId;
     private Date created;
 
     public RatesId() {
     }
 
-    public RatesId(int measureId, int employeeId, Date created) {
+    public RatesId(Integer measureId, Integer employeeId, Date created) {
         this.measureId = measureId;
         this.employeeId = employeeId;
         this.created = created;
     }
 
     @Column(name = "measure_id", nullable = false)
-    public int getMeasureId() {
+    public Integer getMeasureId() {
         return this.measureId;
     }
 
-    public void setMeasureId(int measureId) {
+    public void setMeasureId(Integer measureId) {
         this.measureId = measureId;
     }
 
     @Column(name = "employee_id", nullable = false)
-    public int getEmployeeId() {
+    public Integer getEmployeeId() {
         return this.employeeId;
     }
 
-    public void setEmployeeId(int employeeId) {
+    public void setEmployeeId(Integer employeeId) {
         this.employeeId = employeeId;
     }
 
@@ -69,7 +69,7 @@ public class RatesId implements java.io.Serializable {
     }
 
     public int hashCode() {
-        int result = 17;
+        Integer result = 17;
 
         result = 37 * result + this.getMeasureId();
         result = 37 * result + this.getEmployeeId();

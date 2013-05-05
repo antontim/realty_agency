@@ -527,6 +527,19 @@ function loadEmpTestResults() {
     });
 }
 
+function loadEmpRates() {
+    var evalDiv = $('#rates');
+    var id = $('#empDetailDialog').find("#empId").val();
+    
+    $.ajax({
+        url : "emp/rate/load.do?empId="+id,
+        type: "GET",
+    }).done(function(data) {
+        evalDiv.empty();
+        evalDiv.append(data);
+    });
+}
+
 function empDetailLoad(e) {
     var date = new Date();
     var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);

@@ -22,12 +22,12 @@ public class Rates implements java.io.Serializable, IEntity<RatesId> {
     private RatesId id;
     private Employees employees;
     private Measures measures;
-    private float value;
+    private Float value;
 
     public Rates() {
     }
 
-    public Rates(RatesId id, Employees employees, Measures measures, float value) {
+    public Rates(RatesId id, Employees employees, Measures measures, Float value) {
         this.id = id;
         this.employees = employees;
         this.measures = measures;
@@ -68,11 +68,11 @@ public class Rates implements java.io.Serializable, IEntity<RatesId> {
     }
 
     @Column(name = "value", nullable = false, precision = 12, scale = 0)
-    public float getValue() {
+    public Float getValue() {
         return this.value;
     }
 
-    public void setValue(float value) {
+    public void setValue(Float value) {
         this.value = value;
     }
 

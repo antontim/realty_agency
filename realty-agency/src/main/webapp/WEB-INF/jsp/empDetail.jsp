@@ -17,13 +17,15 @@ $(function() {
     <ul>
         <li><a href="#evaluations" id="empDetailLink" onclick="loadEmpEvals();">Evaluations</a></li>
         <li><a href="#testresults" id="empDetailLink" onclick="loadEmpTestResults();">Test results</a></li>
-        <li><a href="emp/rate/load.do?empId=1">Rates</a></li>
+        <li><a href="#rates" id="empDetailLink" onclick="loadEmpRates();">Rates</a></li>
     </ul>
   <div id="evaluations">
     <jsp:include page="evaluations.jsp"/>
   </div>
   <div id="testresults">
     <jsp:include page="results.jsp"/>
+  </div>
+  <div id="rates">
   </div>
     </div>
 </div>
