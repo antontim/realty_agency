@@ -30,6 +30,7 @@ public class EntitiesController extends MultiActionController {
         mav.addObject("entList", this.entityService.loadEntities(criteria));
         mav.addObject("entTypes", this.entityService.loadAllTypes());
         mav.addObject("entClasses", this.entityService.loadAllClasses());
+        mav.addObject("acttypeList", this.entityService.loadAllActTypes());
         return mav;
     }
 

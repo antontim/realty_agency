@@ -7,7 +7,7 @@
         </div>
         <div class="icon_refresh hidden"></div>
     </td>
-    <td name="addr"><label name="addr">${ent.address}</label></td>
+    <td name="addr"><label name="addr" <c:if test="${ent.active == 1}"> class="fake-link" onclick="order(event);"</c:if>>${ent.address}</label></td>
     <td name="enttype"><label name="enttype">${ent.entityTypes.name}</label></td>
     <td name="entclass"><label name="entclass">${ent.entityClass.name}</label></td>
     <td name="price"><label name="price">${ent.entityPriceses[0].price}</label></td>

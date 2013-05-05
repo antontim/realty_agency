@@ -567,3 +567,22 @@ function empDetailOpen(event) {
     
     $('#empDetailLink')[0].click();
 }
+
+function order(event) {
+    $('#orderDialog').find('#entId').val($(event.target).closest('tr').attr('id'));
+    $('#orderDialog').dialog('open');
+}
+
+function createOrder() {
+    var orderDialog = $('#orderDialog');
+    var entId = orderDialog.find('#entId').val();
+    $.ajax({
+        url : "act/add.do?entId="+entId+"&actTpId="+orderDialog.find("#actTypes option:selected").val(),
+        type: "PUT",
+    }).done(function(data) {
+        var t = $('#entTable');
+        t.find('#'+entId).find('label[name="addr"]').removeClass('fake-link');
+        t.find('#'+entId).find('label[name="addr"]').attr('onclick','');
+        $('#orderDialog').dialog('close');
+    });
+}

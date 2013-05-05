@@ -4,12 +4,10 @@ package com.realty.agency.domain;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -24,6 +22,10 @@ public class ActivityTypes extends BaseEntity<Integer> implements java.io.Serial
     private Set<Activities> activitieses = new HashSet<Activities>(0);
 
     public ActivityTypes() {
+    }
+
+    public ActivityTypes(Integer id) {
+        this.id = id;
     }
 
     public ActivityTypes(String name) {
