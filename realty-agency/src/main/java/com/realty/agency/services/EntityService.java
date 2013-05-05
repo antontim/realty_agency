@@ -3,12 +3,15 @@ package com.realty.agency.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.util.CollectionUtils;
 
+import com.realty.agency.dao.IActivityTypesDao;
 import com.realty.agency.dao.IEntitiesDao;
 import com.realty.agency.dao.IEntityClassDao;
 import com.realty.agency.dao.IEntityPricesDao;
 import com.realty.agency.dao.IEntityTypesDao;
+import com.realty.agency.domain.ActivityTypes;
 import com.realty.agency.domain.Entities;
 import com.realty.agency.domain.EntityClass;
 import com.realty.agency.domain.EntityPrices;
@@ -23,6 +26,8 @@ public class EntityService implements IEntityService {
     private IEntityClassDao entitiesClassDao;
     @Autowired
     private IEntityPricesDao entitiesPricesDao;
+    @Autowired
+    private IActivityTypesDao activityTypesDao;
 
     @Override
     public List<EntityTypes> loadAllTypes() {
@@ -74,5 +79,20 @@ public class EntityService implements IEntityService {
     @Override
     public void deleteEntity(int id) {
         this.entitiesDao.delete(new Entities(id));
+    }
+
+    @Override
+    public List<ActivityTypes> loadAllActTypes() {
+        return this.activityTypesDao.find(new ActivityTypes());
+    }
+
+    @Override
+    public void disableEntity(int entId) {
+        List<Entities> ents = this.entitiesDao.find(new Entities(entId));
+        if(ents.size() != 1)
+            throw new IncorrectResultSizeDataAccessException(1, ents.size());
+
+        ents.get(0).setActive((byte)0);
+        this.entitiesDao.update(ents.get(0));
     }
 }

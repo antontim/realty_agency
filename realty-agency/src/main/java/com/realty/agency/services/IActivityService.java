@@ -7,7 +7,7 @@ import com.realty.agency.domain.Activities;
 public interface IActivityService {
     List<Activities> loadActivities(Activities criteria);
 
-    Activities createActivity(Activities activity);
+    Activities createActivity(int entId, int actTpId);
 
     Activities updateActivity(Activities activity);
 

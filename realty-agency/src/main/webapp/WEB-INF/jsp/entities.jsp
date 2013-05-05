@@ -31,6 +31,8 @@ $(function(){
         })
         .bind('pagerChange pagerComplete pagerInitialized pageMoved', function(e, c){})
         .tablesorterPager(pagerOptions);
+    $("#orderDialog").dialog({ modal: true, autoOpen: false, height: 100, width: 230,
+        open: empDetailLoad, title: "Order"});
 });
 </script>
 <div id = "header">
@@ -63,7 +65,7 @@ $(function(){
                 </div>
                 <div class="icon_refresh hidden"></div>
             </td>
-            <td name="addr"><label name="addr">${ent.address}</label></td>
+            <td name="addr"><label name="addr" <c:if test="${ent.active == 1}"> class="fake-link" onclick="order(event);"</c:if>>${ent.address}</label></td>
             <td name="enttype"><label name="enttype">${ent.entityTypes.name}</label></td>
             <td name="entclass"><label name="entclass">${ent.entityClass.name}</label></td>
             <td name="price"><label name="price">${ent.entityPriceses[0].price}</label></td>
@@ -72,6 +74,19 @@ $(function(){
     </tbody>
 </table>
 </div>
+
+<div id="orderDialog">
+    <input type="hidden" id="entId"/>
+    <select id="actTypes" class="required text ui-widget-content ui-corner-all">
+        <c:forEach items="${acttypeList}" var="acttp">
+            <option value="${acttp.id}">${acttp.name}</option>
+        </c:forEach>
+    </select>
+    <div style="display:inline;">
+        <button onclick="createOrder();">Create order</button>
+    </div>
+</div>
+
 
 <div class="footer">
     <fieldset>

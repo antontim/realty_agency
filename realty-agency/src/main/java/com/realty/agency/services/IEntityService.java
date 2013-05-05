@@ -2,6 +2,7 @@ package com.realty.agency.services;
 
 import java.util.List;
 
+import com.realty.agency.domain.ActivityTypes;
 import com.realty.agency.domain.Entities;
 import com.realty.agency.domain.EntityClass;
 import com.realty.agency.domain.EntityTypes;
@@ -18,4 +19,8 @@ public interface IEntityService {
     List<EntityTypes> loadAllTypes();
 
     List<EntityClass> loadAllClasses();
+
+    List<ActivityTypes> loadAllActTypes();
+
+    void disableEntity(int entId);
 }
