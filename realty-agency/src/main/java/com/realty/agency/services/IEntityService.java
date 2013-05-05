@@ -2,8 +2,6 @@ package com.realty.agency.services;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.RequestParam;
-
 import com.realty.agency.domain.Entities;
 import com.realty.agency.domain.EntityClass;
 import com.realty.agency.domain.EntityTypes;
