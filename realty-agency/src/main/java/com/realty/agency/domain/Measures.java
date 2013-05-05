@@ -2,7 +2,9 @@ package com.realty.agency.domain;
 
 // Generated Apr 1, 2013 12:12:11 AM by Hibernate Tools 3.4.0.CR1
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -27,7 +29,7 @@ public class Measures extends BaseEntity<Integer> implements java.io.Serializabl
             0);
     private Set<MeasureImportances> measureImportancesesForMeasure1Id = new HashSet<MeasureImportances>(
             0);
-    private Set<Rates> rateses = new HashSet<Rates>(0);
+    private List<Rates> rateses = new ArrayList<Rates>(0);
 
     public Measures() {
     }
@@ -45,7 +47,7 @@ public class Measures extends BaseEntity<Integer> implements java.io.Serializabl
             Set<Questions> questionses,
             Set<MeasureImportances> measureImportancesesForMeasure2Id,
             Set<MeasureImportances> measureImportancesesForMeasure1Id,
-            Set<Rates> rateses) {
+            List<Rates> rateses) {
         this.measureTypes = measureTypes;
         this.name = name;
         this.questionses = questionses;
@@ -103,11 +105,11 @@ public class Measures extends BaseEntity<Integer> implements java.io.Serializabl
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "measures")
-    public Set<Rates> getRateses() {
+    public List<Rates> getRateses() {
         return this.rateses;
     }
 
-    public void setRateses(Set<Rates> rateses) {
+    public void setRateses(List<Rates> rateses) {
         this.rateses = rateses;
     }
 

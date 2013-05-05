@@ -3,7 +3,6 @@ package com.realty.agency.controllers;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -142,6 +141,15 @@ public class EmployeesController extends MultiActionController {
                 this.employeeService.loadAllTestResultsByRange(empId,
                         df.parse(startDate), df.parse(endDate)));
         mav.addObject("testList", this.questionnaireService.loadAllTests());
+
+        return mav;
+    }
+
+    @RequestMapping("/rate/load")
+    public ModelAndView loadRates(@RequestParam int empId) {
+        ModelAndView mav = new ModelAndView("rates");
+
+        mav.addObject("rateList", this.employeeService.loadMeasureRates(empId));
 
         return mav;
     }

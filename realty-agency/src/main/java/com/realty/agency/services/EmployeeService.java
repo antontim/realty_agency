@@ -10,10 +10,12 @@ import org.springframework.util.CollectionUtils;
 
 import com.realty.agency.dao.IEmployeeEvaluationsDao;
 import com.realty.agency.dao.IEmployeesDao;
+import com.realty.agency.dao.IMeasuresDao;
 import com.realty.agency.dao.IPositionsDao;
 import com.realty.agency.dao.ITestResultsDao;
 import com.realty.agency.domain.EmployeeEvaluations;
 import com.realty.agency.domain.Employees;
+import com.realty.agency.domain.Measures;
 import com.realty.agency.domain.Positions;
 import com.realty.agency.domain.Questions;
 import com.realty.agency.domain.TestResults;
@@ -29,6 +31,8 @@ public class EmployeeService implements IEmployeeService {
     private ITestResultsDao testResultsDao;
     @Autowired
     private IPositionsDao posDao;
+    @Autowired
+    private IMeasuresDao measuresDao;
 
     @Override
     public Employees loadEmployeeByName(String name) {
@@ -167,5 +171,10 @@ public class EmployeeService implements IEmployeeService {
     public void deleteTestResult(int testId, int empId, Date passed) {
         this.testResultsDao.delete(new TestResults(new TestResultsId(testId,
                 empId, passed)));
+    }
+
+    @Override
+    public List<Measures> loadMeasureRates(int empId) {
+        return this.measuresDao.findMeasureRatesForEmp(empId);
     }
 }
