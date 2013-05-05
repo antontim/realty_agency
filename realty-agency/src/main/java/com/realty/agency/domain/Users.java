@@ -2,14 +2,9 @@ package com.realty.agency.domain;
 
 // Generated May 5, 2013 5:39:19 PM by Hibernate Tools 3.4.0.CR1
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -17,38 +12,28 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "users", catalog = "users")
-public class Users extends BaseEntity<String> implements IEntity<String>, java.io.Serializable {
+public class Users implements java.io.Serializable, IEntity<String> {
 
-    private String username;
+    private String id;
     private String password;
-    private Boolean enabled;
-    private Set<Authorities> authoritieses = new HashSet<Authorities>(0);
+    private Boolean enabled = true;
 
     public Users() {
     }
 
-    public Users(String username, String password, Boolean enabled) {
-        this.username = username;
+    public Users(String id, String password) {
+        this.id = id;
         this.password = password;
-        this.enabled = enabled;
-    }
-
-    public Users(String username, String password, Boolean enabled,
-            Set<Authorities> authoritieses) {
-        this.username = username;
-        this.password = password;
-        this.enabled = enabled;
-        this.authoritieses = authoritieses;
     }
 
     @Id
     @Column(name = "username", unique = true, nullable = false, length = 50)
-    public String getUsername() {
-        return this.username;
+    public String getId() {
+        return this.id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setId(String id) {
+        this.id = id;
     }
 
     @Column(name = "password", nullable = false, length = 50)
@@ -68,14 +53,4 @@ public class Users extends BaseEntity<String> implements IEntity<String>, java.i
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
-    public Set<Authorities> getAuthoritieses() {
-        return this.authoritieses;
-    }
-
-    public void setAuthoritieses(Set<Authorities> authoritieses) {
-        this.authoritieses = authoritieses;
-    }
-
 }

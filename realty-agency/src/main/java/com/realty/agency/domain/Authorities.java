@@ -22,14 +22,12 @@ import javax.persistence.UniqueConstraint;
 public class Authorities implements IEntity<AuthoritiesId>, java.io.Serializable {
 
     private AuthoritiesId id;
-    private Users users;
 
     public Authorities() {
     }
 
-    public Authorities(AuthoritiesId id, Users users) {
+    public Authorities(AuthoritiesId id) {
         this.id = id;
-        this.users = users;
     }
 
     @EmbeddedId
@@ -43,15 +41,4 @@ public class Authorities implements IEntity<AuthoritiesId>, java.io.Serializable
     public void setId(AuthoritiesId id) {
         this.id = id;
     }
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "username", nullable = false, insertable = false, updatable = false)
-    public Users getUsers() {
-        return this.users;
-    }
-
-    public void setUsers(Users users) {
-        this.users = users;
-    }
-
 }
