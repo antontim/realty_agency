@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -28,7 +29,7 @@ public class Employees extends BaseEntity<Integer> implements java.io.Serializab
             0);
     private Set<Rates> rateses = new HashSet<Rates>(0);
     private Set<TestResults> testResultses = new HashSet<TestResults>(0);
-    private String username;
+    private Users users;
 
     public Employees() {
     }
@@ -121,12 +122,13 @@ public class Employees extends BaseEntity<Integer> implements java.io.Serializab
         this.testResultses = testResultses;
     }
 
-    @Column(name = "username", nullable = false, length = 50)
-    public String getUsername() {
-        return this.username;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "username", nullable = false)
+    public Users getUsers() {
+        return this.users;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsers(Users users) {
+        this.users = users;
     }
 }
