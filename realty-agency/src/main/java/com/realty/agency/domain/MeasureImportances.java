@@ -22,14 +22,14 @@ public class MeasureImportances implements java.io.Serializable, IEntity<Measure
     private MeasureImportancesId id;
     private Measures measuresByMeasure1Id;
     private Measures measuresByMeasure2Id;
-    private float importance;
+    private Float importance;
 
     public MeasureImportances() {
     }
 
     public MeasureImportances(MeasureImportancesId id,
             Measures measuresByMeasure1Id, Measures measuresByMeasure2Id,
-            float importance) {
+            Float importance) {
         this.id = id;
         this.measuresByMeasure1Id = measuresByMeasure1Id;
         this.measuresByMeasure2Id = measuresByMeasure2Id;
@@ -48,7 +48,7 @@ public class MeasureImportances implements java.io.Serializable, IEntity<Measure
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "measure_1_id", nullable = false, insertable = false, updatable = false)
     public Measures getMeasuresByMeasure1Id() {
         return this.measuresByMeasure1Id;
@@ -58,7 +58,7 @@ public class MeasureImportances implements java.io.Serializable, IEntity<Measure
         this.measuresByMeasure1Id = measuresByMeasure1Id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "measure_2_id", nullable = false, insertable = false, updatable = false)
     public Measures getMeasuresByMeasure2Id() {
         return this.measuresByMeasure2Id;
@@ -69,11 +69,11 @@ public class MeasureImportances implements java.io.Serializable, IEntity<Measure
     }
 
     @Column(name = "importance", nullable = false, precision = 12, scale = 0)
-    public float getImportance() {
+    public Float getImportance() {
         return this.importance;
     }
 
-    public void setImportance(float importance) {
+    public void setImportance(Float importance) {
         this.importance = importance;
     }
 

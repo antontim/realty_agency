@@ -11,32 +11,32 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class MeasureImportancesId implements java.io.Serializable {
 
-    private int measure1Id;
-    private int measure2Id;
+    private Integer measure1Id;
+    private Integer measure2Id;
 
     public MeasureImportancesId() {
     }
 
-    public MeasureImportancesId(int measure1Id, int measure2Id) {
+    public MeasureImportancesId(Integer measure1Id, Integer measure2Id) {
         this.measure1Id = measure1Id;
         this.measure2Id = measure2Id;
     }
 
     @Column(name = "measure_1_id", nullable = false)
-    public int getMeasure1Id() {
+    public Integer getMeasure1Id() {
         return this.measure1Id;
     }
 
-    public void setMeasure1Id(int measure1Id) {
+    public void setMeasure1Id(Integer measure1Id) {
         this.measure1Id = measure1Id;
     }
 
     @Column(name = "measure_2_id", nullable = false)
-    public int getMeasure2Id() {
+    public Integer getMeasure2Id() {
         return this.measure2Id;
     }
 
-    public void setMeasure2Id(int measure2Id) {
+    public void setMeasure2Id(Integer measure2Id) {
         this.measure2Id = measure2Id;
     }
 
