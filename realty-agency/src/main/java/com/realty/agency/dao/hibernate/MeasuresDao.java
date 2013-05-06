@@ -1,9 +1,12 @@
 package com.realty.agency.dao.hibernate;
 
+import static org.hibernate.criterion.Example.create;
+
 import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Subqueries;
@@ -58,4 +61,28 @@ public class MeasuresDao extends HibernateDao<Measures> implements IMeasuresDao 
                 throw re;
             }
     }
+
+    @Override
+    public List<Measures> find(Measures criteria) {
+        logger.debug("finding instance by example");
+        try {
+            
+            Criteria crit = this.getSession()
+                    .createCriteria(this.getEntityName()).add(create(criteria));
+            if(criteria.getId() != null) {
+                crit.add(Restrictions.eq("id", criteria.getId()));
+            }
+            crit.addOrder(Order.asc("id"));
+
+            @SuppressWarnings("unchecked")
+            List<Measures> results = crit.list();
+            logger.debug("find by example successful, result size: "
+                    + results.size());
+            return results;
+        } catch (RuntimeException re) {
+            logger.error("find by example failed", re);
+            throw re;
+        }
+    }
+
 }

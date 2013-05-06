@@ -323,6 +323,7 @@ CREATE TABLE `measure_importances` (
 
 LOCK TABLES `measure_importances` WRITE;
 /*!40000 ALTER TABLE `measure_importances` DISABLE KEYS */;
+INSERT INTO `measure_importances` VALUES (1,1,1),(1,2,0),(1,3,0),(1,4,0),(1,5,0),(2,1,0),(2,2,1),(2,3,0),(2,4,0),(2,5,0),(3,1,0),(3,2,0),(3,3,1),(3,4,0),(3,5,0),(4,1,0),(4,2,0),(4,3,0),(4,4,1),(4,5,0),(5,1,0),(5,2,0),(5,3,0),(5,4,0),(5,5,1);
 /*!40000 ALTER TABLE `measure_importances` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -528,7 +529,7 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-05-05 22:47:29
+-- Dump completed on 2013-05-05 23:59:10
 CREATE DATABASE  IF NOT EXISTS `users` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `users`;
 -- MySQL dump 10.13  Distrib 5.1.66, for debian-linux-gnu (x86_64)
@@ -607,4 +608,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-05-05 22:47:29
+-- Dump completed on 2013-05-05 23:59:10

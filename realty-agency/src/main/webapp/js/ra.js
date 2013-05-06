@@ -586,3 +586,32 @@ function createOrder() {
         $('#orderDialog').dialog('close');
     });
 }
+
+function editVal(event) {
+    $(event.target).addClass('hidden');
+    var td = $(event.target).closest('td');
+    td.find('input').removeClass('hidden');
+    td.find('input').focus();
+}
+
+function processKey(event) {
+    if(event.keyCode === 13) {
+        // enter
+        var td = $(event.target).closest('td');
+        var m1 = td.attr('m1');
+        var m2 = td.attr('m2');
+        var val = $(event.target).val();
+        $.ajax({
+            url : "measure/imp/upd.do?m1="+m1+"&m2="+m2+"&val="+val,
+            type: "PUT",
+        }).done(function(data) {
+            td.replaceWith(data);
+            $('#impTable td[m1="'+m2+'"][m2="'+m1+'"] label').text((1/val).toFixed(2));
+        });
+    } else if (event.keyCode === 27) {
+        // esc
+        $(event.target).addClass('hidden');
+        var td = $(event.target).closest('td');
+        td.find('label').removeClass('hidden');
+    }
+}

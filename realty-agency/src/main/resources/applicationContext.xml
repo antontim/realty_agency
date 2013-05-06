@@ -72,5 +72,7 @@
     <bean id="entityService" class="com.realty.agency.services.EntityService"/>
     <bean id="questionnaireService" class="com.realty.agency.services.QuestionnaireService"/>
     <bean id="userService" class="com.realty.agency.services.UserService"/>
+    <bean id="measureService" class="com.realty.agency.services.MeasureService"/>
+    <bean id="mahService" class="com.realty.agency.services.MahService"/>
 
 </beans>
