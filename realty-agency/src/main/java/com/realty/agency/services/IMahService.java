@@ -1,5 +1,7 @@
 package com.realty.agency.services;
 
-public interface IMahService {
+import java.util.Map;
 
+public interface IMahService {
+    Map<Integer,Float> calcAvgMeasuresImp();
 }

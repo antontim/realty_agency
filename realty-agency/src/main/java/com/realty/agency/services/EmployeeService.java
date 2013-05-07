@@ -193,4 +193,8 @@ public class EmployeeService implements IEmployeeService {
     public List<Measures> loadMeasureRates(int empId) {
         return this.measuresDao.findMeasureRatesForEmp(empId);
     }
+
+    public void calculateEmpRates() {
+        
+    }
 }
