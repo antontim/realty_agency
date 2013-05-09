@@ -50,6 +50,7 @@ $(function(){
             <th name="name" class="tablesorter-header" data-column="1"><div class="tablesorter-header-inner">Name</div></th>
             <th name="pos" class="tablesorter-header" data-column="2"><div class="tablesorter-header-inner">Position</div></th>
             <th name="dept" class="tablesorter-header" data-column="3"><div class="tablesorter-header-inner">Department</div></th>
+            <th name="mah" class="tablesorter-header" data-column="4"><div class="tablesorter-header-inner">MAH</div></th>
         </tr>
     </thead>
     <tbody>
@@ -66,6 +67,7 @@ $(function(){
             <td name="name" class="empName"><label name="name" class="fake-link" onclick="empDetailOpen(event);">${emp.name}</label></td>
             <td name="pos"><label name="pos">${emp.positions.name}</label></td>
             <td>${emp.positions.depts.name}</td>
+            <td>${emp.mahResult}</td>
         </tr>
     </c:forEach>
     </tbody>

@@ -29,7 +29,7 @@ public class Employees extends BaseEntity<Integer> implements java.io.Serializab
             0);
     private Set<Rates> rateses = new HashSet<Rates>(0);
     private Set<TestResults> testResultses = new HashSet<TestResults>(0);
-    private Users users;
+    private String userName;
 
     public Employees() {
     }
@@ -39,7 +39,7 @@ public class Employees extends BaseEntity<Integer> implements java.io.Serializab
     }
 
     public Employees(String username) {
-        this.users = new Users(username, null);
+        this.userName = username;
     }
 
     public Employees(Positions positions, String name, Float mahResult) {
@@ -80,7 +80,7 @@ public class Employees extends BaseEntity<Integer> implements java.io.Serializab
         this.name = name;
     }
 
-    @Column(name = "mah_result", nullable = false, precision = 12, scale = 0)
+    @Column(name = "mah_result", precision = 12, scale = 0)
     public Float getMahResult() {
         return this.mahResult;
     }
@@ -126,13 +126,12 @@ public class Employees extends BaseEntity<Integer> implements java.io.Serializab
         this.testResultses = testResultses;
     }
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "username", nullable = false)
-    public Users getUsers() {
-        return this.users;
+    @Column(name = "username", nullable = false, length = 50)
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsers(Users users) {
-        this.users = users;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

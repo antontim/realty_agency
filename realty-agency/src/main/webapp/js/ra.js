@@ -615,3 +615,13 @@ function processKey(event) {
         td.find('label').removeClass('hidden');
     }
 }
+
+function calcMahRes(event) {
+    $(event.target).attr("disabled", true);
+    $.ajax({
+        url : "mah/calc.do",
+        type: "PUT",
+    }).done(function(data) {
+        $(event.target).attr("disabled", false);
+    });
+}

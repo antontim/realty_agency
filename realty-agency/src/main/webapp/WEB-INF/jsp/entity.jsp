@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <tr id="${ent.id}">
     <td>
         <div name="edit">

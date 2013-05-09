@@ -79,7 +79,8 @@ public class EmployeeService implements IEmployeeService {
         pos.setId(posId);
         emp.setName(name);
         emp.setPositions(pos);
-        emp.setUsers(new Users(username, null));
+        emp.setUserName(username);
+        emp.setMahResult(0f);
         this.employeesDao.add(emp);
 
         return emp;
@@ -92,7 +93,7 @@ public class EmployeeService implements IEmployeeService {
         List<Employees> empls = this.employeesDao.find(criteria);
         this.employeesDao.delete(criteria);
         if(!CollectionUtils.isEmpty(empls))
-            this.userService.deleteUser(empls.get(0).getUsers().getId());
+            this.userService.deleteUser(empls.get(0).getUserName());
     }
 
     @Override

@@ -50,4 +50,7 @@ $(function(){
     </c:forEach>
     </tbody>
 </table>
+<button id="calcMah" onclick="calcMahRes(event);">
+Calculate MAH results
+</button>
 </div>
