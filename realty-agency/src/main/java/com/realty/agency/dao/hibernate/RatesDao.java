@@ -55,7 +55,7 @@ public class RatesDao extends HibernateDao<Rates> implements IRatesDao {
         Date endDate = cal.getTime();
         String query = 
                 "INSERT INTO agency.rates (measure_id,employee_id,created,value)"
-                + " select m.id, emp.id, SYSDATE(), avg(COALESCE(tr.result,1)) +"
+                + " select m.id, emp.id, SYSDATE(), avg(COALESCE(tr.result,:defVal)) +"
                 +     " COALESCE((select avg(ev_.mark) from agency.employee_evaluations ev_"
                 +         " inner join agency.questions q_ on q_.id = ev_.question_id"
                 +         " inner join agency.measures m_ on m_.id = q_.measure_id"
@@ -67,19 +67,37 @@ public class RatesDao extends HibernateDao<Rates> implements IRatesDao {
                 + " left outer join agency.measures m on m.id <> -1"
                 + " left outer join agency.tests t on m.id = t.measure_id"
                 + " left outer join agency.test_results tr on emp.id = tr.employee_id and t.id = tr.test_id"
-                + " where (tr.passed between :startDate and :endDate"
+                + " where ((tr.passed between :startDate and :endDate"
                 +     " and tr.passed = ("
                 +         " select max(tr1.passed)" 
                 +             " from agency.test_results tr1" 
                 +             " where tr1.employee_id = emp.id" 
                 +                 " and tr1.test_id = t.id)"
-                +     " ) or tr.passed is null"
-                + " group by m.id,emp.id"
-                + " order by emp.id, m.id";
+                +     " ) or tr.passed is null) and m.id <> 3"
+                + " group by m.id,emp.id" +
+                " union all "
+                + " select 3, earnings.eId, SYSDATE(), avg(earnings.res) from"
+                + " (select emp.id eId, "
+                + " COALESCE(sum(p.price)/(select n.month_norm/100"
+                +                 " from agency.norms n"
+                +               " where n.activity_type_id = a.activity_type_id)/10,:defVal) res"
+                + " from agency.employees emp"
+                + " left outer join agency.activities a" 
+                +            " on a.employee_id = emp.id" 
+                +            " and a.order_created between :startDate and :endDate"
+                + " left outer join agency.entities e on a.entity_id = e.id"
+                + " left outer join agency.entity_prices p "
+                +            " on e.id = p.id "
+                +            " and p.created = (select max(ep.created) from agency.entity_prices ep"
+                +                            " where ep.id = e.id)"
+                +" group by emp.id, a.activity_type_id) earnings"
+                +" group by earnings.eId;";
         try {
+            float defVal = 0.1f;
             Query sqlQuery = this.getSession().createSQLQuery(query);
             sqlQuery.setString("startDate", df.format(startDate));
             sqlQuery.setString("endDate", df.format(endDate));
+            sqlQuery.setFloat("defVal", defVal);
             sqlQuery.executeUpdate();
 
             return this.findLastMonthEmpMeasureRates(startDate, endDate);
