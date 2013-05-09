@@ -3,6 +3,7 @@ package com.realty.agency.services;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
@@ -12,12 +13,14 @@ import com.realty.agency.dao.IEmployeeEvaluationsDao;
 import com.realty.agency.dao.IEmployeesDao;
 import com.realty.agency.dao.IMeasuresDao;
 import com.realty.agency.dao.IPositionsDao;
+import com.realty.agency.dao.IRatesDao;
 import com.realty.agency.dao.ITestResultsDao;
 import com.realty.agency.domain.EmployeeEvaluations;
 import com.realty.agency.domain.Employees;
 import com.realty.agency.domain.Measures;
 import com.realty.agency.domain.Positions;
 import com.realty.agency.domain.Questions;
+import com.realty.agency.domain.Rates;
 import com.realty.agency.domain.TestResults;
 import com.realty.agency.domain.TestResultsId;
 import com.realty.agency.domain.Users;
@@ -34,9 +37,13 @@ public class EmployeeService implements IEmployeeService {
     private IPositionsDao posDao;
     @Autowired
     private IMeasuresDao measuresDao;
+    @Autowired
+    private IRatesDao ratesDao;
 
     @Autowired
     private IUserService userService;
+    @Autowired
+    private IMahService mahService;
 
     @Override
     public Employees loadEmployeeByName(String name) {
@@ -194,7 +201,21 @@ public class EmployeeService implements IEmployeeService {
         return this.measuresDao.findMeasureRatesForEmp(empId);
     }
 
-    public void calculateEmpRates() {
-        
+    @Override
+    public List<Rates> calculateMonthEmpRates() {
+        return this.ratesDao.calculateLastMonthEmpRates();
+    }
+
+    @Override
+    public void updateEmployeeMah() {
+        Map<Integer, Float> empMahResults = this.mahService.calcMahResults();
+        for(Map.Entry<Integer, Float> each : empMahResults.entrySet()) {
+            Employees rec = new Employees();
+            rec.setId(each.getKey());
+            List<Employees> empls = this.loadEmployees(rec);
+            rec = empls.get(0);
+            rec.setMahResult(each.getValue());
+            this.employeesDao.update(rec);
+        }
     }
 }

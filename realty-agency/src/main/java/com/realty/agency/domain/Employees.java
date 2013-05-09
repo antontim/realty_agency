@@ -23,7 +23,7 @@ public class Employees extends BaseEntity<Integer> implements java.io.Serializab
 
     private Positions positions;
     private String name;
-    private float mahResult;
+    private Float mahResult;
     private Set<Activities> activitieses = new HashSet<Activities>(0);
     private Set<EmployeeEvaluations> employeeEvaluationses = new HashSet<EmployeeEvaluations>(
             0);
@@ -42,13 +42,13 @@ public class Employees extends BaseEntity<Integer> implements java.io.Serializab
         this.users = new Users(username, null);
     }
 
-    public Employees(Positions positions, String name, float mahResult) {
+    public Employees(Positions positions, String name, Float mahResult) {
         this.positions = positions;
         this.name = name;
         this.mahResult = mahResult;
     }
 
-    public Employees(Positions positions, String name, float mahResult,
+    public Employees(Positions positions, String name, Float mahResult,
             Set<Activities> activitieses,
             Set<EmployeeEvaluations> employeeEvaluationses, Set<Rates> rateses,
             Set<TestResults> testResultses) {
@@ -81,11 +81,11 @@ public class Employees extends BaseEntity<Integer> implements java.io.Serializab
     }
 
     @Column(name = "mah_result", nullable = false, precision = 12, scale = 0)
-    public float getMahResult() {
+    public Float getMahResult() {
         return this.mahResult;
     }
 
-    public void setMahResult(float mahResult) {
+    public void setMahResult(Float mahResult) {
         this.mahResult = mahResult;
     }
 
