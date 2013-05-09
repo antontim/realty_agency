@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -107,12 +108,12 @@ td.tablesorter-pager {
 <a href="<c:url value="j_spring_security_logout" />">Logout</a>
     <div id="tabs">
         <ul>
-            <li><a href="emp/load.do">Employees</a></li>
-            <li><a href="act/load.do">Activities</a></li>
-            <li><a href="ent/load.do?active=false">Entities</a></li>
-            <li><a href="quest/load.do">Questions</a></li>
-            <li><a href="quest/test/load.do">Tests</a></li>
-            <li><a href="measure/imp/load.do">MAH values</a></li>
+            <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_ADMIN','ROLE_MANAGER','ROLE_ANALITYC')"><li><a href="emp/load.do">Employees</a></li></sec:authorize>
+            <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_MANAGER')"><li><a href="act/load.do">Activities</a></li></sec:authorize>
+            <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_MANAGER','ROLE_SALERENT')"><li><a href="ent/load.do?active=false">Entities</a></li></sec:authorize>
+            <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_ANALITYC')"><li><a href="quest/load.do">Questions</a></li></sec:authorize>
+            <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_ANALITYC')"><li><a href="quest/test/load.do">Tests</a></li></sec:authorize>
+            <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_ANALITYC','ROLE_MANAGER')"><li><a href="measure/imp/load.do">MAH values</a></li></sec:authorize>
         </ul>
     </div>
 </body>
