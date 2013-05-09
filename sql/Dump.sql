@@ -33,9 +33,9 @@ CREATE TABLE `employee_evaluations` (
   PRIMARY KEY (`id`),
   KEY `fk_employee_evaluations_1` (`question_id`),
   KEY `fk_employee_evaluations_2` (`employee_id`),
-  CONSTRAINT `fk_employee_evaluations_2` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  CONSTRAINT `fk_employee_evaluations_1` FOREIGN KEY (`question_id`) REFERENCES `questions` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+  CONSTRAINT `fk_employee_evaluations_1` FOREIGN KEY (`question_id`) REFERENCES `questions` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_employee_evaluations_2` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +44,7 @@ CREATE TABLE `employee_evaluations` (
 
 LOCK TABLES `employee_evaluations` WRITE;
 /*!40000 ALTER TABLE `employee_evaluations` DISABLE KEYS */;
-INSERT INTO `employee_evaluations` VALUES (1,1,101,59,'2013-01-01 00:00:00'),(2,1,101,70,'2013-04-04 00:00:00'),(3,3,101,90,'2013-04-05 00:00:00'),(4,3,101,50.1,'2013-05-01 00:00:00'),(9,16,101,11,'2013-05-05 19:10:02');
+INSERT INTO `employee_evaluations` VALUES (1,1,101,59,'2013-01-01 00:00:00'),(2,1,101,70,'2013-04-04 00:00:00'),(3,3,101,90,'2013-04-05 00:00:00'),(4,3,101,50,'2013-05-01 00:00:00'),(9,16,101,11,'2013-05-05 19:10:02'),(10,3,101,20,'2013-05-10 00:00:00'),(11,1,101,23,'2013-05-15 00:00:00'),(12,9,101,25,'2013-05-20 00:00:00');
 /*!40000 ALTER TABLE `employee_evaluations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -77,7 +77,7 @@ CREATE TABLE `activities` (
 
 LOCK TABLES `activities` WRITE;
 /*!40000 ALTER TABLE `activities` DISABLE KEYS */;
-INSERT INTO `activities` VALUES (1,1,1,101,'2012-01-01 00:00:00'),(2,1,7,101,'2013-05-05 22:14:25'),(3,2,11,101,'2013-05-05 22:24:18'),(4,1,8,101,'2013-05-05 22:27:46'),(5,2,12,101,'2013-05-05 22:28:03'),(6,2,7,101,'2013-05-05 22:30:26'),(7,2,2,101,'2013-05-05 22:30:30'),(8,1,14,101,'2013-05-05 22:30:33');
+INSERT INTO `activities` VALUES (1,1,1,101,'2012-01-01 00:00:00'),(3,2,11,101,'2013-05-05 22:24:18'),(4,1,8,101,'2013-05-05 22:27:46'),(5,2,12,101,'2013-05-05 22:28:03'),(6,2,7,101,'2013-05-05 22:30:26'),(7,2,2,101,'2013-05-05 22:30:30'),(8,1,14,101,'2013-05-05 22:30:33');
 /*!40000 ALTER TABLE `activities` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -97,7 +97,7 @@ CREATE TABLE `tests` (
   KEY `fk_tests_1` (`id`),
   KEY `fk_tests_2` (`measure_id`),
   CONSTRAINT `fk_tests_2` FOREIGN KEY (`measure_id`) REFERENCES `measures` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -106,7 +106,7 @@ CREATE TABLE `tests` (
 
 LOCK TABLES `tests` WRITE;
 /*!40000 ALTER TABLE `tests` DISABLE KEYS */;
-INSERT INTO `tests` VALUES (1,'test_111','type_111',3),(2,'test_2','type_2',5),(3,'test_3','type_3',5),(4,'test_4','type_4',5);
+INSERT INTO `tests` VALUES (1,'test_111','type_111',3),(2,'test_2','type_2',5),(3,'test_3','type_3',5),(4,'test_4','type_4',5),(5,'test_5','type_5',3);
 /*!40000 ALTER TABLE `tests` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -190,6 +190,7 @@ CREATE TABLE `test_results` (
 
 LOCK TABLES `test_results` WRITE;
 /*!40000 ALTER TABLE `test_results` DISABLE KEYS */;
+INSERT INTO `test_results` VALUES (1,101,10,'2013-01-01'),(1,101,12,'2013-05-02'),(1,101,11,'2013-05-05'),(5,101,5,'2013-05-03');
 /*!40000 ALTER TABLE `test_results` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -323,7 +324,7 @@ CREATE TABLE `measure_importances` (
 
 LOCK TABLES `measure_importances` WRITE;
 /*!40000 ALTER TABLE `measure_importances` DISABLE KEYS */;
-INSERT INTO `measure_importances` VALUES (1,1,1),(1,2,0),(1,3,0),(1,4,0),(1,5,0),(2,1,0),(2,2,1),(2,3,0),(2,4,0),(2,5,0),(3,1,0),(3,2,0),(3,3,1),(3,4,0),(3,5,0),(4,1,0),(4,2,0),(4,3,0),(4,4,1),(4,5,0),(5,1,0),(5,2,0),(5,3,0),(5,4,0),(5,5,1);
+INSERT INTO `measure_importances` VALUES (1,1,1),(1,2,1),(1,3,0.4),(1,4,0),(1,5,1),(2,1,1),(2,2,1),(2,3,0),(2,4,2),(2,5,0),(3,1,2.5),(3,2,0),(3,3,1),(3,4,0.5),(3,5,2),(4,1,0),(4,2,0.5),(4,3,2),(4,4,1),(4,5,2),(5,1,1),(5,2,0),(5,3,0.5),(5,4,0.5),(5,5,1);
 /*!40000 ALTER TABLE `measure_importances` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -368,8 +369,8 @@ CREATE TABLE `employees` (
   UNIQUE KEY `name_UNIQUE` (`name`),
   KEY `fk_employees_1` (`position_id`),
   KEY `fk_employees_2` (`username`),
-  CONSTRAINT `fk_employees_2` FOREIGN KEY (`username`) REFERENCES `users`.`users` (`username`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_employees_1` FOREIGN KEY (`position_id`) REFERENCES `positions` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_employees_1` FOREIGN KEY (`position_id`) REFERENCES `positions` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_employees_2` FOREIGN KEY (`username`) REFERENCES `users`.`users` (`username`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=128 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -379,7 +380,7 @@ CREATE TABLE `employees` (
 
 LOCK TABLES `employees` WRITE;
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
-INSERT INTO `employees` VALUES (101,'5555',2,0,'test'),(123,'TEst Test1',1,0,'TTest1'),(126,'Test Test2',1,0,'TTest2'),(127,'Test test3',1,0,'Ttest3');
+INSERT INTO `employees` VALUES (101,'5555',2,0.64561,'test'),(123,'TEst Test1',1,0.11813,'TTest1'),(126,'Test Test2',1,0.11813,'TTest2'),(127,'Test test3',1,0.11813,'Ttest3');
 /*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -454,8 +455,8 @@ CREATE TABLE `rates` (
   PRIMARY KEY (`measure_id`,`employee_id`,`created`),
   KEY `fk_rates_1` (`measure_id`),
   KEY `fk_rates_2` (`employee_id`),
-  CONSTRAINT `fk_rates_2` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  CONSTRAINT `fk_rates_1` FOREIGN KEY (`measure_id`) REFERENCES `measures` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_rates_1` FOREIGN KEY (`measure_id`) REFERENCES `measures` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_rates_2` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -465,7 +466,7 @@ CREATE TABLE `rates` (
 
 LOCK TABLES `rates` WRITE;
 /*!40000 ALTER TABLE `rates` DISABLE KEYS */;
-INSERT INTO `rates` VALUES (1,101,'2013-01-01 00:00:00',10),(1,101,'2013-02-02 00:00:00',11);
+INSERT INTO `rates` VALUES (1,101,'2013-05-09 20:31:07',3.2),(1,101,'2013-05-09 20:36:05',3.2),(1,123,'2013-05-09 20:31:07',0.1),(1,123,'2013-05-09 20:36:05',0.1),(1,126,'2013-05-09 20:31:07',0.1),(1,126,'2013-05-09 20:36:05',0.1),(1,127,'2013-05-09 20:31:07',0.1),(1,127,'2013-05-09 20:36:05',0.1),(2,101,'2013-05-09 20:31:07',0.1),(2,101,'2013-05-09 20:36:05',0.1),(2,123,'2013-05-09 20:31:07',0.1),(2,123,'2013-05-09 20:36:05',0.1),(2,126,'2013-05-09 20:31:07',0.1),(2,126,'2013-05-09 20:36:05',0.1),(2,127,'2013-05-09 20:31:07',0.1),(2,127,'2013-05-09 20:36:05',0.1),(3,101,'2013-05-09 20:31:07',1.68025),(3,101,'2013-05-09 20:36:05',1.68025),(3,123,'2013-05-09 20:31:07',0.1),(3,123,'2013-05-09 20:36:05',0.1),(3,126,'2013-05-09 20:31:07',0.1),(3,126,'2013-05-09 20:36:05',0.1),(3,127,'2013-05-09 20:31:07',0.1),(3,127,'2013-05-09 20:36:05',0.1),(4,101,'2013-05-09 20:31:07',1.2),(4,101,'2013-05-09 20:36:05',1.2),(4,123,'2013-05-09 20:31:07',0.1),(4,123,'2013-05-09 20:36:05',0.1),(4,126,'2013-05-09 20:31:07',0.1),(4,126,'2013-05-09 20:36:05',0.1),(4,127,'2013-05-09 20:31:07',0.1),(4,127,'2013-05-09 20:36:05',0.1),(5,101,'2013-05-09 20:31:07',0.1),(5,101,'2013-05-09 20:36:05',0.1),(5,123,'2013-05-09 20:31:07',0.1),(5,123,'2013-05-09 20:36:05',0.1),(5,126,'2013-05-09 20:31:07',0.1),(5,126,'2013-05-09 20:36:05',0.1),(5,127,'2013-05-09 20:31:07',0.1),(5,127,'2013-05-09 20:36:05',0.1);
 /*!40000 ALTER TABLE `rates` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -529,7 +530,7 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-05-05 23:59:10
+-- Dump completed on 2013-05-09 20:55:03
 CREATE DATABASE  IF NOT EXISTS `users` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `users`;
 -- MySQL dump 10.13  Distrib 5.1.66, for debian-linux-gnu (x86_64)
@@ -608,4 +609,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-05-05 23:59:10
+-- Dump completed on 2013-05-09 20:55:03
