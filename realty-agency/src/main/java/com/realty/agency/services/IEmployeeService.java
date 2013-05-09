@@ -2,11 +2,13 @@ package com.realty.agency.services;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.realty.agency.domain.EmployeeEvaluations;
 import com.realty.agency.domain.Employees;
 import com.realty.agency.domain.Measures;
 import com.realty.agency.domain.Positions;
+import com.realty.agency.domain.Rates;
 import com.realty.agency.domain.TestResults;
 
 public interface IEmployeeService {
@@ -42,4 +44,8 @@ public interface IEmployeeService {
     void deleteTestResult(int testId, int empId, Date passed);
 
     List<Measures> loadMeasureRates(int empId);
+
+    List<Rates> calculateMonthEmpRates();
+
+    void updateEmployeeMah();
 }

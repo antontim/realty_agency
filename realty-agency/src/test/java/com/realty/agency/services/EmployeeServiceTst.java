@@ -1,8 +1,6 @@
 package com.realty.agency.services;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.Map;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,15 +10,15 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/applicationContext.xml" })
-public class MahServiceTst {
+public class EmployeeServiceTst {
 
     @Autowired
-    private IMahService mahService;
-
+    private IEmployeeService employeeService;
+    
     @Test
     public void test() {
-        Map<Integer, Float> res = this.mahService.calcMahResults();
-
-      assertEquals(5,res.size());
+        this.employeeService.updateEmployeeMah();
+        
+        assertTrue(true);
     }
 }
