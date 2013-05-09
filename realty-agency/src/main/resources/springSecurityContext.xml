@@ -10,9 +10,9 @@
   <http pattern="/css/**" security="none"/>
   <http pattern="/login.jsp*" security="none"/>
 
-  <http auto-config='true'>
-    <intercept-url pattern="/**" access="ROLE_EMPLOYEE" />
-    <form-login login-page='/login.jsp' default-target-url='/main' authentication-failure-url='/login.jsp?error=true'/>
+  <http auto-config='true' use-expressions='true'>
+    <intercept-url pattern="/**" access="hasRole('ROLE_EMPLOYEE')" />
+    <form-login login-page='/login.jsp' always-use-default-target="true" default-target-url='/main' authentication-failure-url='/login.jsp?error=true'/>
     <logout />
     <logout delete-cookies="JSESSIONID" />
     <logout logout-success-url="/login.jsp"/>

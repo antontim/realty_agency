@@ -23,7 +23,6 @@ import com.realty.agency.domain.Questions;
 import com.realty.agency.domain.Rates;
 import com.realty.agency.domain.TestResults;
 import com.realty.agency.domain.TestResultsId;
-import com.realty.agency.domain.Users;
 
 public class EmployeeService implements IEmployeeService {
 
