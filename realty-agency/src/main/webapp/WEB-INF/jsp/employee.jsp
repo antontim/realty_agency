@@ -10,4 +10,5 @@
     <td name="name" class="empName"><label name="name" class="fake-link" onclick="empDetailOpen(event);">${emp.name}</label></td>
     <td name="pos"><label name="pos">${emp.positions.name}</label></td>
     <td>${emp.positions.depts.name}</td>
+    <td>${emp.mahResult}</td>
 </tr>
