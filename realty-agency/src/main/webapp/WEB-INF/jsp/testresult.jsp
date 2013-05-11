@@ -10,5 +10,5 @@
     </td>
     <td name="name" id="${testres.id.testId}"><label name="name">${testres.tests.name}</label></td>
     <td name="result"><label name="result">${testres.result}</label></td>
-    <td name="passed" id="<fmt:formatDate pattern="yyyy-MM-dd" value="${testres.id.passed}"/>"><label name="passed">${testres.id.passed}</label></td>
+    <td name="passed" id="<fmt:formatDate pattern="yyyy-MM-dd" value="${testres.id.passed}"/>"><label name="passed"><fmt:formatDate pattern="yyyy-MM-dd" value="${testres.id.passed}"/></label></td>
 </tr>

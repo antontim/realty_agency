@@ -40,12 +40,31 @@ $(function(){
 <table id="testresTable" class="tablesorter tablesorter-blue"  cellspacing="1">
         <thead>
         <tr class="tablesorter-headerRow">
-            <th name="crud" class="remove sorter-false tablesorter-header" data-column="0"></th>
+            <th name="crud" class="remove sorter-false tablesorter-header" data-column="0" width="45px"></th>
             <th name="name" class="tablesorter-header" data-column="1"><div class="tablesorter-header-inner">Test name</div></th>
-            <th name="result" class="tablesorter-header" data-column="2"><div class="tablesorter-header-inner">Result</div></th>
-            <th name="passed" class="tablesorter-header" data-column="2"><div class="tablesorter-header-inner">Passed</div></th>
+            <th name="result" class="tablesorter-header" data-column="2" width="70px"><div class="tablesorter-header-inner">Result</div></th>
+            <th name="passed" class="tablesorter-header" data-column="3" width="70px"><div class="tablesorter-header-inner">Passed</div></th>
         </tr>
     </thead>
+    <tfoot class="footer">
+        <tr>
+            <td>
+                <div class="commit_icon" onclick="addTestres(event);" title="Add"></div>
+            </td>
+            <td>
+                <jsp:include page="testLabels.jsp">
+                    <jsp:param value="${testList}" name="testList"/>
+                    <jsp:param name="id" value="test"/>
+                    <jsp:param name="class" value="required select ui-widget-content ui-corner-all"/>
+                </jsp:include>
+            </td>
+            <td>
+                <input type="text" name="result" id="result" class="tfield required text ui-widget-content ui-corner-all" />
+            </td>
+            <td>
+            </td>
+        </tr>
+    </tfoot>
     <tbody>
     <c:forEach items="${testresList}" var="testres" varStatus="status">
         <tr id="${testres.id}">
@@ -59,22 +78,9 @@ $(function(){
             </td>
             <td name="name" id="${testres.id.testId}"><label name="name">${testres.tests.name}</label></td>
             <td name="result"><label name="result">${testres.result}</label></td>
-            <td name="passed" id="<fmt:formatDate pattern="yyyy-MM-dd" value="${testres.id.passed}"/>"><label name="passed">${testres.id.passed}</label></td>
+            <td name="passed" id="<fmt:formatDate pattern="yyyy-MM-dd" value="${testres.id.passed}"/>"><label name="passed"><fmt:formatDate pattern="yyyy-MM-dd" value="${testres.id.passed}"/></label></td>
         </tr>
     </c:forEach>
     </tbody>
 </table>
-</div>
-<div class="footer">
-    <fieldset>
-        <label for="test">Test</label><em>*</em> 
-            <jsp:include page="testLabels.jsp">
-                <jsp:param value="${testList}" name="testList"/>
-                <jsp:param name="id" value="test"/>
-                <jsp:param name="class" value="required select ui-widget-content ui-corner-all"/>
-            </jsp:include>
-        <label for="result">Result</label><em>*</em>
-            <input type="text" name="result" id="result" class="required text ui-widget-content ui-corner-all" />
-        <button id="addTestresButton" onclick="addTestres();">Add</button>
-    </fieldset>
 </div>

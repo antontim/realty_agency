@@ -107,3 +107,7 @@ td.tablesorter-pager {
     text-decoration: underline !important;
     cursor: pointer !important;
 }
+
+.tfield {
+    width: 100% !important;
+}
