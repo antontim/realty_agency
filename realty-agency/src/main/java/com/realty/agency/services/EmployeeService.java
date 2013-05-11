@@ -170,10 +170,8 @@ public class EmployeeService implements IEmployeeService {
                 cal.getTime()), null, null, res);
         this.testResultsDao.add(testRes);
 
-        List<TestResults> testResults = this.testResultsDao
-                .find(new TestResults(testRes.getId()));
-
-        return CollectionUtils.isEmpty(testResults) ? null : testResults.get(0);
+        return this.testResultsDao
+                .findLatestTest(testRes.getId().getEmployeeId(),testRes.getId().getTestId());
     }
 
     @Override

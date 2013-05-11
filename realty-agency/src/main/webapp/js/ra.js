@@ -148,9 +148,14 @@ function updTest(e) {
     });
 }
 
-function addEmployee() {
+function addEmployee(event) {
+    var tr = $(event.target).closest('tr');
+    if(tr.find("#newEmpName").val() === '') {
+        alert('Name should be specified.');
+        return;
+    }
     $.ajax({
-        url : "emp/add.do?name="+$("#newEmpName").val()+"&pos="+$("#pos option:selected").val(),
+        url : "emp/add.do?name="+tr.find("#newEmpName").val()+"&pos="+tr.find("#pos option:selected").val(),
         type: "PUT",
     }).done(function(data) {
         $row = $(data);
@@ -158,13 +163,18 @@ function addEmployee() {
             t.find('tbody').append($row).trigger('addRows', [$row]);
             t.trigger('update');
             
-            $("#newEmpName").val('');
+            tr.find("#newEmpName").val('');
     });
 }
 
-function addEval() {
+function addEval(event) {
+    var tr  =$(event.target).closest('tr');
+    if(tr.find("#mark").val() === '') {
+        alert('Mark should be specified.');
+        return;
+    }
     $.ajax({
-        url : "emp/eval/add.do?empId="+$("#empId").val()+"&questionId="+$("#quest option:selected").val()+"&mark="+$("#mark").val(),
+        url : "emp/eval/add.do?empId="+$("#empId").val()+"&questionId="+tr.find("#quest option:selected").val()+"&mark="+tr.find("#mark").val(),
         type: "PUT",
     }).done(function(data) {
         $row = $(data);
@@ -172,27 +182,36 @@ function addEval() {
         t.find('tbody').append($row).trigger('addRows', [$row]);
         t.trigger('update');
         
-        $("#mark").val('');
+        tr.find("#mark").val('');
     });
 }
 
-function addTestres() {
+function addTestres(event) {
+    var tr = $(event.target).closest('tr');
+    if(tr.find("#result").val() === '') {
+        alert('Result value should be specified.');
+        return;
+    }
     $.ajax({
-        url : "emp/res/add.do?empId="+$("#empId").val()+"&testId="+$("#test option:selected").val()+"&res="+$("#result").val(),
+        url : "emp/res/add.do?empId="+$("#empId").val()+"&testId="+tr.find("#test option:selected").val()+"&res="+tr.find("#result").val(),
         type: "PUT",
     }).done(function(data) {
         $row = $(data);
         var t = $('#testresTable');
         t.find('tbody').append($row).trigger('addRows', [$row]);
         t.trigger('update');
-        
-        $("#mark").val('');
+        tr.find("#result").val('');
     });
 }
 
-function addQuest() {
+function addQuest(event) {
+    var tr = $(event.target).closest('tr');
+    if(tr.find("#newQuestText").val() === '' || tr.find("#newQuestLabel").val() === '') {
+        alert('Question Text and Label should be specified.');
+        return;
+    }
     $.ajax({
-        url : "quest/add.do?text="+$("#newQuestText").val()+"&label="+$("#newQuestLabel").val()+"&measureId="+$("#measure option:selected").val(),
+        url : "quest/add.do?text="+tr.find("#newQuestText").val()+"&label="+tr.find("#newQuestLabel").val()+"&measureId="+tr.find("#measure option:selected").val(),
         type: "PUT",
     }).done(function(data) {
         $row = $(data);
@@ -200,7 +219,8 @@ function addQuest() {
         t.find('tbody').append($row).trigger('addRows', [$row]);
         t.trigger('update');
         
-        $("#newQuestText").val('');
+        tr.find("#newQuestText").val('');
+        tr.find("#newQuestLabel").val('');
     });
 }
 
@@ -218,12 +238,17 @@ function addTest() {
     });
 }
 
-function addEntity() {
+function addEntity(event) {
+    var tr = $(event.target).closest('tr');
+    if(tr.find("#newAddr").val() === '' || tr.find("#price").val() === '' ) {
+        alert('Address and Price value should be specified.');
+        return;
+    }
     $.ajax({
-        url : "ent/add.do?addr="+$(".footer #newAddr").val()
-            +"&classId="+$(".footer #entclass option:selected").val()
-            +"&typeId="+$(".footer #enttype option:selected").val()
-            +"&price="+$(".footer #price").val(),
+        url : "ent/add.do?addr="+tr.find("#newAddr").val()
+            +"&classId="+tr.find("#entclass option:selected").val()
+            +"&typeId="+tr.find("#enttype option:selected").val()
+            +"&price="+tr.find("#price").val(),
         type: "PUT",
     }).done(function(data) {
         $row = $(data);
@@ -231,7 +256,8 @@ function addEntity() {
         t.find('tbody').append($row).trigger('addRows', [$row]);
         t.trigger('update');
         
-        $(".footer #newAddr").val('');
+        tr.find("#newAddr").val('');
+        tr.find("#price").val('');
     });
 }
 

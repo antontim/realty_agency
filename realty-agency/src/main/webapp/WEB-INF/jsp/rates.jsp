@@ -39,8 +39,8 @@ $(function(){
         <thead>
         <tr class="tablesorter-headerRow">
             <th name="measure" class="tablesorter-header" data-column="1"><div class="tablesorter-header-inner">Measure</div></th>
-            <th name="rate" class="tablesorter-header" data-column="2"><div class="tablesorter-header-inner">Rate</div></th>
-            <th name="created" class="tablesorter-header" data-column="2"><div class="tablesorter-header-inner">Created</div></th>
+            <th name="rate" class="tablesorter-header" data-column="2" width="45px"><div class="tablesorter-header-inner">Rate</div></th>
+            <th name="created" class="tablesorter-header" data-column="3" width="100px"><div class="tablesorter-header-inner">Created</div></th>
         </tr>
     </thead>
     <tbody>

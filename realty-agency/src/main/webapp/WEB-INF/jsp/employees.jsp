@@ -30,7 +30,7 @@ $(function(){
         .tablesorterPager(pagerOptions);
     
     $("#empDetailDialog").dialog({ modal: true, autoOpen: false, height: 400, width: 600,
-        open: empDetailLoad});
+        open: empDetailLoad, title: "Employee details"});
 });
 </script>
 
@@ -46,13 +46,34 @@ $(function(){
 <table id="empTable" class="tablesorter tablesorter-blue"  cellspacing="1">
         <thead>
         <tr class="tablesorter-headerRow">
-            <th name="crud" class="remove sorter-false tablesorter-header" data-column="0"></th>
+            <th name="crud" class="remove sorter-false tablesorter-header" data-column="0" width="40px"></th>
             <th name="name" class="tablesorter-header" data-column="1"><div class="tablesorter-header-inner">Name</div></th>
             <th name="pos" class="tablesorter-header" data-column="2"><div class="tablesorter-header-inner">Position</div></th>
             <th name="dept" class="tablesorter-header" data-column="3"><div class="tablesorter-header-inner">Department</div></th>
             <th name="mah" class="tablesorter-header" data-column="4"><div class="tablesorter-header-inner">MAH</div></th>
         </tr>
     </thead>
+    <tfoot class="footer">
+        <tr>
+            <td>
+                <div class="commit_icon" onclick="addEmployee(event);" title="Add"></div>
+            </td>
+            <td>
+                <input type="text" name="newEmpName" id="newEmpName" class="tfield required text ui-widget-content ui-corner-all" />
+            </td>
+            <td>
+                <jsp:include page="positions.jsp">
+                    <jsp:param value="${posList}" name="posList"/>
+                    <jsp:param name="id" value="pos"/>
+                    <jsp:param name="class" value="required select ui-widget-content ui-corner-all"/>
+                </jsp:include>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+        </tr>
+    </tfoot>
     <tbody>
     <c:forEach items="${empList}" var="emp" varStatus="status">
         <tr id="${emp.id}">
@@ -72,19 +93,4 @@ $(function(){
     </c:forEach>
     </tbody>
 </table>
-</div>
-
-<div class="footer">
-        <fieldset>
-            <label for="newEmpName">Name</label><em>*</em>
-                <input type="text" name="newEmpName" id="newEmpName" class="required text ui-widget-content ui-corner-all" />
-            <label for="pos">Position</label><em>*</em> 
-                <jsp:include page="positions.jsp">
-                    <jsp:param value="${posList}" name="posList"/>
-                    <jsp:param name="id" value="pos"/>
-                    <jsp:param name="class" value="required select ui-widget-content ui-corner-all"/>
-                </jsp:include>
-                <button id="addEmpButton" onclick="addEmployee();">Add</button>
-        </fieldset>
-    
 </div>

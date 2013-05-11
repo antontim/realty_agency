@@ -12,4 +12,6 @@ public interface ITestResultsDao extends IDao<TestResults> {
 
     List<TestResults> findByEmpAndDateRange(int empId, Date startDate,
             Date endDate);
+
+    TestResults findLatestTest(int empId, int testId);
 }

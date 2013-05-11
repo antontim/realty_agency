@@ -21,6 +21,7 @@ $(function(){
         cssGoto: '.gotoPage',
         cssPageDisplay: '.pagedisplay',
         cssPageSize: '.pagesize',
+        columns: { 4: { width : 10 }}
     };
 
     $("#entTable")
@@ -47,13 +48,40 @@ $(function(){
 <table id="entTable" class="tablesorter tablesorter-blue"  cellspacing="1">
         <thead>
         <tr class="tablesorter-headerRow">
-            <th name="crud" class="remove sorter-false tablesorter-header" data-column="0"></th>
+            <th name="crud" class="remove sorter-false tablesorter-header" data-column="0" width="40px"></th>
             <th name="addr" class="tablesorter-header" data-column="1"><div class="tablesorter-header-inner">Address</div></th>
             <th name="type" class="tablesorter-header" data-column="2"><div class="tablesorter-header-inner">Type</div></th>
             <th name="class" class="tablesorter-header" data-column="3"><div class="tablesorter-header-inner">Class</div></th>
-            <th name="price" class="tablesorter-header" data-column="4"><div class="tablesorter-header-inner">Price</div></th>
+            <th name="price" class="tablesorter-header" data-column="4" width="80px"><div class="tablesorter-header-inner">Price</div></th>
         </tr>
     </thead>
+    <tfoot class="footer">
+        <tr>
+            <td>
+                <div class="commit_icon" onclick="addEntity(event);" title="Add"></div>
+            </td>
+            <td>
+                <input type="text" name="newAddr" id="newAddr" class="tfield required text ui-widget-content ui-corner-all" />
+            </td>
+            <td>
+                <jsp:include page="entTypes.jsp">
+                    <jsp:param value="${entTypes}" name="posList"/>
+                    <jsp:param name="id" value="enttype"/>
+                    <jsp:param name="class" value="tfield required select ui-widget-content ui-corner-all"/>
+                </jsp:include>
+            </td>
+            <td>
+                <jsp:include page="entClasses.jsp">
+                    <jsp:param value="${entClasses}" name="posList"/>
+                    <jsp:param name="id" value="entclass"/>
+                    <jsp:param name="class" value="tfield required select ui-widget-content ui-corner-all"/>
+                </jsp:include>
+            </td>
+            <td>
+                <input type="text" name="price" id="price" class="tfield required text ui-widget-content ui-corner-all" />
+            </td>
+        </tr>
+    </tfoot>
     <tbody>
     <c:forEach items="${entList}" var="ent" varStatus="status">
         <tr id="${ent.id}">
@@ -85,28 +113,5 @@ $(function(){
     <div style="display:inline;">
         <button onclick="createOrder();">Create order</button>
     </div>
-</div>
-
-
-<div class="footer">
-    <fieldset>
-        <label for="newAddr">Address</label><em>*</em>
-            <input type="text" name="newAddr" id="newAddr" class="required text ui-widget-content ui-corner-all" />
-        <label for="enttype">Type</label><em>*</em> 
-            <jsp:include page="entTypes.jsp">
-                <jsp:param value="${entTypes}" name="posList"/>
-                <jsp:param name="id" value="enttype"/>
-                <jsp:param name="class" value="required select ui-widget-content ui-corner-all"/>
-            </jsp:include>
-        <label for="entclass">Class</label><em>*</em> 
-            <jsp:include page="entClasses.jsp">
-                <jsp:param value="${entClasses}" name="posList"/>
-                <jsp:param name="id" value="entclass"/>
-                <jsp:param name="class" value="required select ui-widget-content ui-corner-all"/>
-            </jsp:include>
-        <label for="price">Price</label><em>*</em>
-                <input type="text" name="price" id="price" class="required text ui-widget-content ui-corner-all" />
-            <button id="addEntButton" onclick="addEntity();">Add</button>
-    </fieldset>
 </div>
 </div>

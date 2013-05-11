@@ -38,12 +38,31 @@ $(function(){
 <table id="evalTable" class="tablesorter tablesorter-blue"  cellspacing="1">
         <thead>
         <tr class="tablesorter-headerRow">
-            <th name="crud" class="remove sorter-false tablesorter-header" data-column="0"></th>
+            <th name="crud" class="remove sorter-false tablesorter-header" data-column="0" width="45px"></th>
             <th name="quest" class="tablesorter-header" data-column="1"><div class="tablesorter-header-inner">Question</div></th>
-            <th name="mark" class="tablesorter-header" data-column="2"><div class="tablesorter-header-inner">Mark</div></th>
-            <th name="created" class="tablesorter-header" data-column="2"><div class="tablesorter-header-inner">Created</div></th>
+            <th name="mark" class="tablesorter-header" data-column="2" width="45px"><div class="tablesorter-header-inner">Mark</div></th>
+            <th name="created" class="tablesorter-header" data-column="3" width="100px"><div class="tablesorter-header-inner">Created</div></th>
         </tr>
     </thead>
+    <tfoot class="footer">
+        <tr>
+            <td>
+                <div class="commit_icon" onclick="addEval(event);" title="Add"></div>
+            </td>
+            <td>
+                <jsp:include page="questsLabels.jsp">
+                    <jsp:param value="${questList}" name="questList"/>
+                    <jsp:param name="id" value="quest"/>
+                    <jsp:param name="class" value="tfield required select ui-widget-content ui-corner-all"/>
+                </jsp:include>
+            </td>
+            <td>
+                <input type="text" name="mark" id="mark" class="tfield required text ui-widget-content ui-corner-all" />
+            </td>
+            <td>
+            </td>
+        </tr>
+    </tfoot>
     <tbody>
     <c:forEach items="${evalList}" var="eval" varStatus="status">
         <tr id="${eval.id}">
@@ -62,17 +81,4 @@ $(function(){
     </c:forEach>
     </tbody>
 </table>
-</div>
-<div class="footer">
-    <fieldset>
-        <label for="quest">Question</label><em>*</em> 
-            <jsp:include page="questsLabels.jsp">
-                <jsp:param value="${questList}" name="questList"/>
-                <jsp:param name="id" value="quest"/>
-                <jsp:param name="class" value="required select ui-widget-content ui-corner-all"/>
-            </jsp:include>
-        <label for="mark">Mark</label><em>*</em>
-            <input type="text" name="mark" id="mark" class="required text ui-widget-content ui-corner-all" />
-        <button id="addEvalButton" onclick="addEval();">Add</button>
-    </fieldset>
 </div>
