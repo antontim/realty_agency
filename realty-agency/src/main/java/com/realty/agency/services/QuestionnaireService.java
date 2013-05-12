@@ -53,7 +53,7 @@ public class QuestionnaireService implements IQuestionnaireService {
 
     @Override
     public List<Measures> loadAllMeasures() {
-        return this.measuresDao.find(new Measures());
+        return this.measuresDao.find(new Measures(),false);
     }
 
     @Override

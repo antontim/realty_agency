@@ -1,0 +1,8 @@
+-------- measuresList load -> not to load 'earnings'
+add date range to the activites page
+-------- update access to different controls and functionality
+add page to view/edit norms (only manager access)
+-------- change user login setting to simply concat name parts(instead of substringed name parts concatenation)
+allow employee to view only his own activities
+initially show active activities
+make date range components user friendly

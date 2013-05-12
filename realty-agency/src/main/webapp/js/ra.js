@@ -224,9 +224,14 @@ function addQuest(event) {
     });
 }
 
-function addTest() {
+function addTest(event) {
+    var tr = $(event.target).closest('tr');
+    if(tr.find("#newTestName").val() === '' || tr.find("#newTestType").val() === '') {
+        alert('Test Name and Type should be specified.');
+        return;
+    }
     $.ajax({
-        url : "quest/test/add.do?name="+$("#newTestName").val()+"&type="+$("#newTestType").val()+"&measureId="+$("#measure option:selected").val(),
+        url : "quest/test/add.do?name="+tr.find("#newTestName").val()+"&type="+tr.find("#newTestType").val()+"&measureId="+tr.find("#measure option:selected").val(),
         type: "PUT",
     }).done(function(data) {
         $row = $(data);
@@ -234,7 +239,8 @@ function addTest() {
         t.find('tbody').append($row).trigger('addRows', [$row]);
         t.trigger('update');
         
-        $("#newQuestName").val('');
+        tr.find("#newTestName").val('');
+        tr.find("#newTestType").val('');
     });
 }
 
