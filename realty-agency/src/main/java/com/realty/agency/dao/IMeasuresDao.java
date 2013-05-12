@@ -9,4 +9,6 @@ import com.realty.agency.domain.Measures;
 @Transactional
 public interface IMeasuresDao extends IDao<Measures> {
     List<Measures> findMeasureRatesForEmp(int empId);
+
+    List<Measures> find(Measures criteria, boolean isEarningsReq);
 }

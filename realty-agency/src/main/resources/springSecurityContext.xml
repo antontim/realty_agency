@@ -23,9 +23,15 @@
        <jdbc-user-service data-source-ref='dataSource' 
            users-by-username-query="select username, password, 'true' as enabled from users.users where username=?" 
            authorities-by-username-query=
-           "select us.username, CONCAT('ROLE_',auth.authority) as authorities 
+           "select u.username, u.authorities
+            from (select us.username, CONCAT('ROLE_',auth.authority) as authorities 
                 from users.users us,users.authorities auth
-                where us.username = ? AND us.username=auth.username"/> 
+                where us.username=auth.username
+            union all
+            select emp.username, CONCAT('ROLE_',UCASE(p.name)) as authorities
+                from agency.employees emp, agency.positions p
+                where emp.position_id = p.id) u
+            where u.username = ?"/> 
      </authentication-provider> 
    </authentication-manager> 
 

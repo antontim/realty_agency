@@ -67,10 +67,9 @@ public class EmployeeService implements IEmployeeService {
 
     @Override
     public Employees addEmployee(String name, int posId) {
-        String[] fullSeparatedName = name.split(" ");
-        if(fullSeparatedName.length < 2)
+        if(name.length() < 2)
             throw new IllegalArgumentException("User name should contains first and last names");
-        String username = fullSeparatedName[0].substring(0, 1).toUpperCase() + fullSeparatedName[1];
+        String username = name.replace(" ", "");
         this.userService.createUser(username);
 
         Employees emp = new Employees();

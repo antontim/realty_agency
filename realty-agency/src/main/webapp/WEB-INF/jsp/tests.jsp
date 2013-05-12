@@ -42,12 +42,32 @@ $(function(){
 <table id="testTable" class="tablesorter tablesorter-blue"  cellspacing="1">
         <thead>
         <tr class="tablesorter-headerRow">
-            <th name="crud" class="remove sorter-false tablesorter-header" data-column="0"></th>
+            <th name="crud" class="remove sorter-false tablesorter-header" data-column="0" width="45px"></th>
             <th name="name" class="tablesorter-header" data-column="1"><div class="tablesorter-header-inner">Name</div></th>
             <th name="type" class="tablesorter-header" data-column="1"><div class="tablesorter-header-inner">Type</div></th>
             <th name="measure" class="tablesorter-header" data-column="2"><div class="tablesorter-header-inner">Measure</div></th>
         </tr>
     </thead>
+    <tfoot class="footer">
+        <tr>
+            <td>
+                <div class="commit_icon" onclick="addTest(event);" title="Add"></div>
+            </td>
+            <td>
+                <input type="text" name="newTestName" id="newTestName" class="tfield required text ui-widget-content ui-corner-all" />
+            </td>
+            <td>
+                <input type="text" name="newTestType" id="newTestType" class="tfield required text ui-widget-content ui-corner-all" />
+            </td>
+            <td>
+                <jsp:include page="measures.jsp">
+                    <jsp:param value="${measureList}" name="measureList"/>
+                    <jsp:param name="id" value="measure"/>
+                    <jsp:param name="class" value="tfield required select ui-widget-content ui-corner-all"/>
+                </jsp:include>
+            </td>
+        </tr>
+    </tfoot>
     <tbody>
     <c:forEach items="${testList}" var="test" varStatus="status">
         <tr id="${test.id}">
@@ -66,20 +86,4 @@ $(function(){
     </c:forEach>
     </tbody>
 </table>
-</div>
-
-<div class="footer">
-        <fieldset>
-            <label for="newTestName">Name</label><em>*</em>
-                <input type="text" name="newTestName" id="newTestName" class="required text ui-widget-content ui-corner-all" />
-            <label for="newTestType">Type</label><em>*</em>
-                <input type="text" name="newTestType" id="newTestType" class="required text ui-widget-content ui-corner-all" />
-            <label for="measure">Measure</label><em>*</em> 
-                <jsp:include page="measures.jsp">
-                    <jsp:param value="${measureList}" name="measureList"/>
-                    <jsp:param name="id" value="measure"/>
-                    <jsp:param name="class" value="required select ui-widget-content ui-corner-all"/>
-                </jsp:include>
-                <button id="addTestButton" onclick="addTest();">Add</button>
-        </fieldset>
 </div>

@@ -110,15 +110,15 @@ td.tablesorter-pager {
         <ul>
             <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_ADMIN','ROLE_MANAGER','ROLE_ANALITYC')"><li><a href="emp/load.do">Employees</a></li></sec:authorize>
             <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_MANAGER')"><li><a href="act/load.do">Activities</a></li></sec:authorize>
-            <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_MANAGER','ROLE_SALERENT')"><li><a href="ent/load.do?active=false">Entities</a></li></sec:authorize>
+            <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_MANAGER','ROLE_SALESMAN','ROLE_RENTER')"><li><a href="ent/load.do?active=false">Entities</a></li></sec:authorize>
             <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_ANALITYC')"><li><a href="quest/load.do">Questions</a></li></sec:authorize>
             <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_ANALITYC')"><li><a href="quest/test/load.do">Tests</a></li></sec:authorize>
             <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_ANALITYC','ROLE_MANAGER')"><li><a href="measure/imp/load.do">MAH values</a></li></sec:authorize>
             <li><a href="#info">About</a></li>
         </ul>
     </div>
-    <div id = "info">
-        Realty Agency analityc system - v1.0
+    <div id="info">
+        <p>Realty Agency analityc system v1.0</p>
     </div>
 </body>
 </html>

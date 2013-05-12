@@ -1,6 +1,7 @@
 <div id="entitiesBody">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <script type="text/javascript">
 $(function(){
@@ -106,9 +107,8 @@ $(function(){
 <div id="orderDialog">
     <input type="hidden" id="entId"/>
     <select id="actTypes" class="required text ui-widget-content ui-corner-all">
-        <c:forEach items="${acttypeList}" var="acttp">
-            <option value="${acttp.id}">${acttp.name}</option>
-        </c:forEach>
+        <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_MANAGER','ROLE_SALESMAN')"><option value="1">Sale</option></sec:authorize>
+        <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_MANAGER','ROLE_RENTER')"><option value="2">Rent</option></sec:authorize>
     </select>
     <div style="display:inline;">
         <button onclick="createOrder();">Create order</button>

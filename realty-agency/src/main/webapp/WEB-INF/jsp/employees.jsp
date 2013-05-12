@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <script type="text/javascript">
 $(function(){
     var pagerOptions = {
@@ -46,14 +47,14 @@ $(function(){
 <table id="empTable" class="tablesorter tablesorter-blue"  cellspacing="1">
         <thead>
         <tr class="tablesorter-headerRow">
-            <th name="crud" class="remove sorter-false tablesorter-header" data-column="0" width="40px"></th>
+            <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_MANAGER')"><th name="crud" class="remove sorter-false tablesorter-header" data-column="0" width="40px"></th></sec:authorize>
             <th name="name" class="tablesorter-header" data-column="1"><div class="tablesorter-header-inner">Name</div></th>
             <th name="pos" class="tablesorter-header" data-column="2"><div class="tablesorter-header-inner">Position</div></th>
             <th name="dept" class="tablesorter-header" data-column="3"><div class="tablesorter-header-inner">Department</div></th>
             <th name="mah" class="tablesorter-header" data-column="4"><div class="tablesorter-header-inner">MAH</div></th>
         </tr>
     </thead>
-    <tfoot class="footer">
+<sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_MANAGER')"><tfoot class="footer">
         <tr>
             <td>
                 <div class="commit_icon" onclick="addEmployee(event);" title="Add"></div>
@@ -73,18 +74,18 @@ $(function(){
             <td>
             </td>
         </tr>
-    </tfoot>
+    </tfoot></sec:authorize>
     <tbody>
     <c:forEach items="${empList}" var="emp" varStatus="status">
         <tr id="${emp.id}">
-            <td>
+            <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_MANAGER')"><td>
                 <div name="edit">
                     <div class="delete_icon" onclick="delEmployee(event);"></div>
                     <div class="edit_icon" onclick="preUpdateEmp(this);"></div>
                     <div class="commit_icon hidden" onclick="updEmployee(event);"></div>
                 </div>
                 <div class="icon_refresh hidden"></div>
-            </td>
+            </td></sec:authorize>
             <td name="name" class="empName"><label name="name" class="fake-link" onclick="empDetailOpen(event);">${emp.name}</label></td>
             <td name="pos"><label name="pos">${emp.positions.name}</label></td>
             <td>${emp.positions.depts.name}</td>
