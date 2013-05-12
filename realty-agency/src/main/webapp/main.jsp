@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Realty Agency</title>
 <link rel="stylesheet" href="css/ra.css" />
 <link rel="stylesheet" href="css/style.css" />
 <link rel="stylesheet" href="css/jquery.tablesorter.pager.css" />
@@ -41,6 +41,23 @@ $(function() {
     });
    }
   });
+
+
+
+    function refreshDatePickers(dpSelector1,dpSelector2,dayVal) {
+        $(dpSelector1).datepicker({dateFormat: 'yy-mm-dd'});
+        $(dpSelector1).datepicker('setDate', dayVal);
+
+        $(dpSelector2).datepicker({dateFormat: 'yy-mm-dd'});
+        $(dpSelector2).datepicker('setDate', dayVal);
+    }
+
+    var date = new Date();
+    var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+    var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+    refreshDatePickers("#activities #startdatepicker","#startdatepicker",firstDay);
+    refreshDatePickers("#activities #enddatepicker","#enddatepicker",lastDay);
 });
 
 
@@ -109,16 +126,24 @@ td.tablesorter-pager {
     <div id="tabs">
         <ul>
             <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_ADMIN','ROLE_MANAGER','ROLE_ANALITYC')"><li><a href="emp/load.do">Employees</a></li></sec:authorize>
-            <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_MANAGER')"><li><a href="act/load.do">Activities</a></li></sec:authorize>
-            <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_MANAGER','ROLE_SALESMAN','ROLE_RENTER')"><li><a href="ent/load.do?active=false">Entities</a></li></sec:authorize>
+            <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_MANAGER')"><li><a href="#activities" onclick="loadActivities();">Activities</a></li></sec:authorize>
+            <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_MANAGER','ROLE_SALESMAN','ROLE_RENTER')"><li><a href="ent/load.do?active=true">Entities</a></li></sec:authorize>
             <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_ANALITYC')"><li><a href="quest/load.do">Questions</a></li></sec:authorize>
             <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_ANALITYC')"><li><a href="quest/test/load.do">Tests</a></li></sec:authorize>
             <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_ANALITYC','ROLE_MANAGER')"><li><a href="measure/imp/load.do">MAH values</a></li></sec:authorize>
+            <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_MANAGER')"><li><a href="act/norm/load.do">Norms</a></li></sec:authorize>
             <li><a href="#info">About</a></li>
         </ul>
-    </div>
-    <div id="info">
-        <p>Realty Agency analityc system v1.0</p>
+        <div id="info">
+            <p>Realty Agency analityc system v1.0</p>
+        </div>
+        <div id="activities">
+                <p>StartDate: <input type="text" id="startdatepicker" /></p> 
+                <p>EndDate: <input type="text" id="enddatepicker" /></p>
+                <p><button onclick="loadActivities();">Load</button></p>
+            <div id="body">
+            </div>
+        </div>
     </div>
 </body>
 </html>

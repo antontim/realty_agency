@@ -4,11 +4,9 @@ package com.realty.agency.domain;
 
 import java.util.Date;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -18,33 +16,31 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "norms", catalog = "agency")
-public class Norms implements java.io.Serializable, IEntity<NormsId> {
+public class Norms implements java.io.Serializable, IEntity<Integer> {
 
-    private NormsId id;
+    private Integer activityTypeId;
     private Date changed;
-    private float monthNorm;
+    private Float monthNorm;
 
     public Norms() {
     }
 
-    public Norms(NormsId id, Date changed, float monthNorm) {
-        this.id = id;
+    public Norms(Integer id, Date changed, Float monthNorm) {
+        this.activityTypeId = id;
         this.changed = changed;
         this.monthNorm = monthNorm;
     }
 
     @Override
-    @EmbeddedId
-    @AttributeOverrides({
-            @AttributeOverride(name = "id", column = @Column(name = "id", nullable = false)),
-            @AttributeOverride(name = "activityTypeId", column = @Column(name = "activity_type_id", nullable = false)) })
-    public NormsId getId() {
-        return this.id;
+    @Id
+    @Column(name = "activity_type_id", nullable = false)
+    public Integer getId() {
+        return this.activityTypeId;
     }
 
     @Override
-    public void setId(NormsId id) {
-        this.id = id;
+    public void setId(Integer id) {
+        this.activityTypeId = id;
     }
 
     @Temporal(TemporalType.DATE)
@@ -58,11 +54,11 @@ public class Norms implements java.io.Serializable, IEntity<NormsId> {
     }
 
     @Column(name = "month_norm", nullable = false, precision = 12, scale = 0)
-    public float getMonthNorm() {
+    public Float getMonthNorm() {
         return this.monthNorm;
     }
 
-    public void setMonthNorm(float monthNorm) {
+    public void setMonthNorm(Float monthNorm) {
         this.monthNorm = monthNorm;
     }
 

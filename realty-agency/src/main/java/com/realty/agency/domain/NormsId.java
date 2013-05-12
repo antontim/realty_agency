@@ -11,32 +11,32 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class NormsId implements java.io.Serializable {
 
-    private int id;
-    private int activityTypeId;
+    private Integer id;
+    private Integer activityTypeId;
 
     public NormsId() {
     }
 
-    public NormsId(int id, int activityTypeId) {
+    public NormsId(Integer id, Integer activityTypeId) {
         this.id = id;
         this.activityTypeId = activityTypeId;
     }
 
     @Column(name = "id", nullable = false)
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
     @Column(name = "activity_type_id", nullable = false)
-    public int getActivityTypeId() {
+    public Integer getActivityTypeId() {
         return this.activityTypeId;
     }
 
-    public void setActivityTypeId(int activityTypeId) {
+    public void setActivityTypeId(Integer activityTypeId) {
         this.activityTypeId = activityTypeId;
     }
 

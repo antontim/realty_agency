@@ -301,6 +301,27 @@ function preUpdateEmp(val) {
     });
 }
 
+function preUpdateNorm(val) {
+    $(val).addClass("hidden");
+    $(val).siblings('.delete_icon').removeClass('hidden');
+    $(val).siblings('.commit_icon').removeClass('hidden');
+    
+    var tr = $(val).closest('tr');
+    
+    tr.find('label').addClass('hidden');
+    var normTF = tr.find('input');
+    normTF.removeClass('hidden');
+
+    tr.find('.delete_icon').bind('click',function() {
+        tr.find('label').removeClass('hidden');
+        normTF.addClass('hidden');
+
+        $(val).removeClass("hidden");
+        $(val).siblings('.commit_icon').addClass('hidden');
+        $(val).siblings('.delete_icon').addClass('hidden');
+    });
+}
+
 function preUpdateQuest(val) {
     $(val).addClass("hidden");
     $(val).siblings('.commit_icon').removeClass('hidden');
@@ -504,6 +525,27 @@ function updEntity(e) {
     });
 }
 
+function updNorm(e) {
+    var tr = $(e.target).closest('tr');
+    var id = tr.attr('id');
+    tr.find('div[name="edit"]').addClass("hidden");
+    tr.find('div.icon_refresh').removeClass("hidden");
+    $.ajax({
+        url : "act/norm/upd.do?id="+id+"&val="+tr.find("input").val(),
+        type: "PUT",
+    }).done(function(data) {
+        tr.find('label').removeClass('hidden');
+        tr.find('label').text(tr.find("input").val());
+        tr.find('input').addClass('hidden');
+
+        tr.find('div[name="edit"]').removeClass("hidden");
+        tr.find('div.icon_refresh').addClass("hidden");
+        tr.find('.edit_icon').removeClass("hidden");
+        tr.find('.commit_icon').addClass('hidden');
+        tr.find('.delete_icon').addClass('hidden');
+    });
+}
+
 function delEntity(e) {
     var tr = $(e.target).closest('tr');
     var id = tr.attr('id');
@@ -541,6 +583,20 @@ function loadEmpEvals() {
     }).done(function(data) {
         evalDiv.find("#evalsBody").empty();
         evalDiv.find("#evalsBody").append(data);
+    });
+}
+
+function loadActivities() {
+    var actDiv = $('#activities');
+    var startDate = actDiv.find('#startdatepicker').val();
+    var endDate = actDiv.find('#enddatepicker').val();
+
+    $.ajax({
+        url : "act/load.do?startDate="+startDate+"&endDate="+endDate,
+        type: "GET",
+    }).done(function(data) {
+        actDiv.find("#body").empty();
+        actDiv.find("#body").append(data);
     });
 }
 
