@@ -141,7 +141,7 @@ td.tablesorter-pager {
             <li><a href="#info">About</a></li>
         </ul>
         <div id="info">
-            <p>Realty Agency analityc system v1.0</p>
+            <p>Realty Agency analityc system</p>
         </div>
         <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_MANAGER','ROLE_SALESMAN','ROLE_RENTER')"><div id="activities">
             <jsp:include page="WEB-INF/jsp/dateRange.jsp">
