@@ -27,9 +27,17 @@
 <script type="text/javascript" src="js/date.js"></script>
 
 <script>
+jQuery.fn.center = function () {
+    this.css("position","absolute");
+    this.css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) + 
+                                                $(window).scrollLeft()) + "px");
+    return this;
+}
+
 $(function() {
 $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
 $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+$( "#tabs" ).center();
 });
 $(function() {
     $( "#tabs" ).tabs({
@@ -44,20 +52,18 @@ $(function() {
 
 
 
-    function refreshDatePickers(dpSelector1,dpSelector2,dayVal) {
+    function refreshDP(dpSelector1,dayVal) {
         $(dpSelector1).datepicker({dateFormat: 'yy-mm-dd'});
         $(dpSelector1).datepicker('setDate', dayVal);
-
-        $(dpSelector2).datepicker({dateFormat: 'yy-mm-dd'});
-        $(dpSelector2).datepicker('setDate', dayVal);
     }
 
     var date = new Date();
     var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
     var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
-    refreshDatePickers("#activities #startdatepicker","#startdatepicker",firstDay);
-    refreshDatePickers("#activities #enddatepicker","#enddatepicker",lastDay);
+    refreshDP("#actstartdatepicker",firstDay);
+    refreshDP("#actenddatepicker",lastDay);
+
 });
 
 
@@ -78,7 +84,7 @@ $(function() {
 
 /* pager wrapper, div */
 .tablesorter-pager {
-  padding: 5px;
+  padding: 0px;
 }
 /* pager wrapper, in thead/tfoot */
 td.tablesorter-pager {
@@ -122,28 +128,29 @@ td.tablesorter-pager {
 </style>
 </head>
 <body>
-<a href="<c:url value="j_spring_security_logout" />">Logout</a>
+<div id="loginInfo" style="float:right;">Logged in as: <sec:authentication property="principal.username" />&nbsp;&nbsp;&nbsp;&nbsp;<a href="<c:url value="j_spring_security_logout" />">Logout</a></div>
     <div id="tabs">
         <ul>
-            <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_ADMIN','ROLE_MANAGER','ROLE_ANALITYC')"><li><a href="emp/load.do">Employees</a></li></sec:authorize>
-            <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_MANAGER')"><li><a href="#activities" onclick="loadActivities();">Activities</a></li></sec:authorize>
+            <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_ADMIN','ROLE_MANAGER','ROLE_ANALYTIC')"><li><a href="emp/load.do">Employees</a></li></sec:authorize>
             <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_MANAGER','ROLE_SALESMAN','ROLE_RENTER')"><li><a href="ent/load.do?active=true">Entities</a></li></sec:authorize>
-            <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_ANALITYC')"><li><a href="quest/load.do">Questions</a></li></sec:authorize>
-            <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_ANALITYC')"><li><a href="quest/test/load.do">Tests</a></li></sec:authorize>
-            <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_ANALITYC','ROLE_MANAGER')"><li><a href="measure/imp/load.do">MAH values</a></li></sec:authorize>
+            <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_MANAGER','ROLE_SALESMAN','ROLE_RENTER')"><li><a href="#activities" onclick="loadActivities();">Activities</a></li></sec:authorize>
+            <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_ANALYTIC')"><li><a href="quest/load.do">Questions</a></li></sec:authorize>
+            <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_ANALYTIC')"><li><a href="quest/test/load.do">Tests</a></li></sec:authorize>
+            <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_ANALYTIC','ROLE_MANAGER')"><li><a href="measure/imp/load.do">MAH values</a></li></sec:authorize>
             <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_MANAGER')"><li><a href="act/norm/load.do">Norms</a></li></sec:authorize>
             <li><a href="#info">About</a></li>
         </ul>
         <div id="info">
             <p>Realty Agency analityc system v1.0</p>
         </div>
-        <div id="activities">
-                <p>StartDate: <input type="text" id="startdatepicker" /></p> 
-                <p>EndDate: <input type="text" id="enddatepicker" /></p>
-                <p><button onclick="loadActivities();">Load</button></p>
+        <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_MANAGER','ROLE_SALESMAN','ROLE_RENTER')"><div id="activities">
+            <jsp:include page="WEB-INF/jsp/dateRange.jsp">
+                <jsp:param value="loadActivities();" name="loadFunc"/>
+                <jsp:param value="act" name="module"/>
+            </jsp:include>
             <div id="body">
             </div>
-        </div>
+        </div></sec:authorize>
     </div>
 </body>
 </html>

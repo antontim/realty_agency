@@ -111,3 +111,17 @@ td.tablesorter-pager {
 .tfield {
     width: 100% !important;
 }
+
+.dtpicker {
+    display: inline-block !important;
+    border: 0px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.dtpicker input{
+    width:100px;
+    padding: 0px;
+    margin: 0px;
+}
+

@@ -160,7 +160,7 @@ function addEmployee(event) {
     }).done(function(data) {
         $row = $(data);
         var t = $('#empTable');
-            t.find('tbody').append($row).trigger('addRows', [$row]);
+            t.find('tbody').append($row);
             t.trigger('update');
             
             tr.find("#newEmpName").val('');
@@ -179,7 +179,7 @@ function addEval(event) {
     }).done(function(data) {
         $row = $(data);
         var t = $('#evalTable');
-        t.find('tbody').append($row).trigger('addRows', [$row]);
+        t.find('tbody').append($row);
         t.trigger('update');
         
         tr.find("#mark").val('');
@@ -198,7 +198,7 @@ function addTestres(event) {
     }).done(function(data) {
         $row = $(data);
         var t = $('#testresTable');
-        t.find('tbody').append($row).trigger('addRows', [$row]);
+        t.find('tbody').append($row);
         t.trigger('update');
         tr.find("#result").val('');
     });
@@ -216,7 +216,7 @@ function addQuest(event) {
     }).done(function(data) {
         $row = $(data);
         var t = $('#questTable');
-        t.find('tbody').append($row).trigger('addRows', [$row]);
+        t.find('tbody').append($row);
         t.trigger('update');
         
         tr.find("#newQuestText").val('');
@@ -236,7 +236,7 @@ function addTest(event) {
     }).done(function(data) {
         $row = $(data);
         var t = $('#testTable');
-        t.find('tbody').append($row).trigger('addRows', [$row]);
+        t.find('tbody').append($row);
         t.trigger('update');
         
         tr.find("#newTestName").val('');
@@ -259,7 +259,7 @@ function addEntity(event) {
     }).done(function(data) {
         $row = $(data);
         var t = $('#entTable');
-        t.find('tbody').append($row).trigger('addRows', [$row]);
+        t.find('tbody').append($row);
         t.trigger('update');
         
         tr.find("#newAddr").val('');
@@ -573,8 +573,8 @@ function showEnt(val) {
 
 function loadEmpEvals() {
     var evalDiv = $('#evaluations');
-    var startDate = evalDiv.find('#startdatepicker').val();
-    var endDate = evalDiv.find('#enddatepicker').val();
+    var startDate = evalDiv.find('#evalstartdatepicker').val();
+    var endDate = evalDiv.find('#evalenddatepicker').val();
     var id = $('#empDetailDialog').find("#empId").val();
 
     $.ajax({
@@ -588,8 +588,8 @@ function loadEmpEvals() {
 
 function loadActivities() {
     var actDiv = $('#activities');
-    var startDate = actDiv.find('#startdatepicker').val();
-    var endDate = actDiv.find('#enddatepicker').val();
+    var startDate = actDiv.find('#actstartdatepicker').val();
+    var endDate = actDiv.find('#actenddatepicker').val();
 
     $.ajax({
         url : "act/load.do?startDate="+startDate+"&endDate="+endDate,
@@ -602,8 +602,8 @@ function loadActivities() {
 
 function loadEmpTestResults() {
     var evalDiv = $('#testresults');
-    var startDate = evalDiv.find('#startdatepicker').val();
-    var endDate = evalDiv.find('#enddatepicker').val();
+    var startDate = evalDiv.find('#trstartdatepicker').val();
+    var endDate = evalDiv.find('#trenddatepicker').val();
     var id = $('#empDetailDialog').find("#empId").val();
     
     $.ajax({
@@ -626,26 +626,6 @@ function loadEmpRates() {
         evalDiv.empty();
         evalDiv.append(data);
     });
-}
-
-function empDetailLoad(e) {
-    var date = new Date();
-    var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-    var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-
-    refreshDatePickers("#evaluations #startdatepicker","#testresults #startdatepicker","#startdatepicker",firstDay);
-    refreshDatePickers("#evaluations #enddatepicker","#testresults #enddatepicker","#enddatepicker",lastDay);
-}
-
-function refreshDatePickers(dpSelector1,dpSelector2,dpSelector3,dayVal) {
-        $(dpSelector1).datepicker({dateFormat: 'yy-mm-dd'});
-        $(dpSelector1).datepicker('setDate', dayVal);
-
-        $(dpSelector2).datepicker({dateFormat: 'yy-mm-dd'});
-        $(dpSelector2).datepicker('setDate', dayVal);
-
-        $(dpSelector3).datepicker({dateFormat: 'yy-mm-dd'});
-        $(dpSelector3).datepicker('setDate', dayVal);
 }
 
 function empDetailOpen(event) {
@@ -672,6 +652,9 @@ function createOrder() {
         t.find('#'+entId).find('label[name="addr"]').removeClass('fake-link');
         t.find('#'+entId).find('label[name="addr"]').attr('onclick','');
         $('#orderDialog').dialog('close');
+        if($('input[name=activeRadio]:checked', '#entitiesBody').val() === 'Active') {
+            t.find('#'+entId).remove();
+        }
     });
 }
 

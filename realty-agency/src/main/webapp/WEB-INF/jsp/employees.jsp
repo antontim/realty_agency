@@ -29,9 +29,27 @@ $(function(){
         })
         .bind('pagerChange pagerComplete pagerInitialized pageMoved', function(e, c){})
         .tablesorterPager(pagerOptions);
+
+    $("#evalstartdatepicker").datepicker({dateFormat: 'yy-mm-dd'});
+    $("#evalenddatepicker").datepicker({dateFormat: 'yy-mm-dd'});
+    $("#trstartdatepicker").datepicker({dateFormat: 'yy-mm-dd'});
+    $("#trenddatepicker").datepicker({dateFormat: 'yy-mm-dd'});
+
+    function refreshDatePickers(dpSelector1,dpSelector2,dayVal) {
+        $(dpSelector1).datepicker('setDate', dayVal);
+        $(dpSelector2).datepicker('setDate', dayVal);
+    }
     
     $("#empDetailDialog").dialog({ modal: true, autoOpen: false, height: 400, width: 600,
-        open: empDetailLoad, title: "Employee details"});
+        open: function(){
+            var date = new Date();
+            var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+            var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+            refreshDatePickers("#evalstartdatepicker","#trstartdatepicker",firstDay);
+            refreshDatePickers("#evalenddatepicker","#trenddatepicker",lastDay);
+        }, 
+        title: "Employee details"});
 });
 </script>
 
@@ -41,13 +59,10 @@ $(function(){
 <jsp:include page="empDetail.jsp"/>
 
 <div>
-<jsp:include page="pager.jsp">
-    <jsp:param value="emp_pager" name="id"/>
-</jsp:include>
 <table id="empTable" class="tablesorter tablesorter-blue"  cellspacing="1">
         <thead>
         <tr class="tablesorter-headerRow">
-            <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_MANAGER')"><th name="crud" class="remove sorter-false tablesorter-header" data-column="0" width="40px"></th></sec:authorize>
+            <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_MANAGER')"><th name="crud" class="remove sorter-false tablesorter-header" data-column="0" width="45px"></th></sec:authorize>
             <th name="name" class="tablesorter-header" data-column="1"><div class="tablesorter-header-inner">Name</div></th>
             <th name="pos" class="tablesorter-header" data-column="2"><div class="tablesorter-header-inner">Position</div></th>
             <th name="dept" class="tablesorter-header" data-column="3"><div class="tablesorter-header-inner">Department</div></th>
@@ -94,4 +109,7 @@ $(function(){
     </c:forEach>
     </tbody>
 </table>
+<jsp:include page="pager.jsp">
+    <jsp:param value="emp_pager" name="id"/>
+</jsp:include>
 </div>

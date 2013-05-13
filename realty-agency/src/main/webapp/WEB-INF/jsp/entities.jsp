@@ -34,22 +34,19 @@ $(function(){
         .bind('pagerChange pagerComplete pagerInitialized pageMoved', function(e, c){})
         .tablesorterPager(pagerOptions);
     $("#orderDialog").dialog({ modal: true, autoOpen: false, height: 100, width: 230,
-        open: empDetailLoad, title: "Order"});
+        title: "Order"});
 });
 </script>
 <div id = "header">
-    <input type="radio" name="activeRadio" id="activeRadio" onchange="showEnt(false);" <c:if test="${not active}">checked="checked"</c:if>>All</input>
-    <input type="radio" name="activeRadio" id="activeRadio" onchange="showEnt(true);" <c:if test="${active}">checked="checked"</c:if>>Active</input>
+    <input type="radio" name="activeRadio" id="activeRadio" onchange="showEnt(false);" value="All" <c:if test="${not active}">checked="checked"</c:if>>All</input>
+    <input type="radio" name="activeRadio" id="activeRadio" onchange="showEnt(true);" value="Active" <c:if test="${active}">checked="checked"</c:if>>Active</input>
 </div>
 
 <div>
-<jsp:include page="pager.jsp">
-    <jsp:param value="ent_pager" name="id"/>
-</jsp:include>
 <table id="entTable" class="tablesorter tablesorter-blue"  cellspacing="1">
         <thead>
         <tr class="tablesorter-headerRow">
-            <th name="crud" class="remove sorter-false tablesorter-header" data-column="0" width="40px"></th>
+            <th name="crud" class="remove sorter-false tablesorter-header" data-column="0" width="45px"></th>
             <th name="addr" class="tablesorter-header" data-column="1"><div class="tablesorter-header-inner">Address</div></th>
             <th name="type" class="tablesorter-header" data-column="2"><div class="tablesorter-header-inner">Type</div></th>
             <th name="class" class="tablesorter-header" data-column="3"><div class="tablesorter-header-inner">Class</div></th>
@@ -102,6 +99,9 @@ $(function(){
     </c:forEach>
     </tbody>
 </table>
+<jsp:include page="pager.jsp">
+    <jsp:param value="ent_pager" name="id"/>
+</jsp:include>
 </div>
 
 <div id="orderDialog">
