@@ -5,5 +5,6 @@
 -------- change user login setting to simply concat name parts(instead of substringed name parts concatenation)
 -------- allow employee to view only his own activities
 -------- initially show active entities
-make date range components user friendly
-fix empty table add new row issue
+-------- make date range components user friendly
+-------- fix empty table add new row issue
+fix datepicker for testresults and evaluations

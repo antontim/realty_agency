@@ -4,6 +4,7 @@
   <title>Login</title> 
 </head> 
 <body> 
+<center>
 <c:if test='${not empty param.error}'> 
   <font color='red'> 
     Login error. <br /> 
@@ -27,5 +28,6 @@
     </tr> 
   </table> 
 </form> 
+</center>
 </body> 
 </html>

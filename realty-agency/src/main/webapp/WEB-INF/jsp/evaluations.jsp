@@ -1,7 +1,6 @@
-<div id="header">
-    <p>StartDate: <input type="text" id="startdatepicker" /></p> 
-    <p>EndDate: <input type="text" id="enddatepicker" /></p>
-    <p><button onclick="loadEmpEvals();">Load</button></p>
-</div>
+<jsp:include page="dateRange.jsp">
+    <jsp:param value="loadEmpEvals();" name="loadFunc"/>
+    <jsp:param value="eval" name="module"/>
+</jsp:include>
 <div id="evalsBody">
 </div>

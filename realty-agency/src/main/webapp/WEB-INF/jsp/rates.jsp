@@ -32,9 +32,6 @@ $(function(){
 </script>
 
 <div>
-<jsp:include page="pager.jsp">
-    <jsp:param value="rate_pager" name="id"/>
-</jsp:include>
 <table id="rateTable" class="tablesorter tablesorter-blue"  cellspacing="1">
         <thead>
         <tr class="tablesorter-headerRow">
@@ -53,4 +50,7 @@ $(function(){
     </c:forEach>
     </tbody>
 </table>
+<jsp:include page="pager.jsp">
+    <jsp:param value="rate_pager" name="id"/>
+</jsp:include>
 </div>
