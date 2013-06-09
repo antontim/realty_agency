@@ -561,9 +561,9 @@ function delEntity(e) {
     });
 }
 
-function showEnt(val) {
+function showEnt(activeVal) {
     $.ajax({
-        url : "ent/load.do?active=" + val,
+        url : "ent/load.do?active=" + activeVal,
         type: "GET",
     }).done(function(data) {
         var t = $('#entitiesBody');
@@ -695,4 +695,22 @@ function calcMahRes(event) {
     }).done(function(data) {
         $(event.target).attr("disabled", false);
     });
+}
+
+function activateEntity(event,active) {
+    $(event.target).attr("disabled", true);
+    var tr = $(event.target).closest("tr");
+    $.ajax({
+        url : "ent/activate.do?id="+tr.attr("id"),
+        type: "PUT",
+    }).done(function(data) {
+        if(active != 'INACTIVE') {
+            tr.replaceWith(data);
+        } else {
+            tr.remove();
+        }
+        var t = $('#empTable');
+        t.trigger('update');
+    });
+    
 }

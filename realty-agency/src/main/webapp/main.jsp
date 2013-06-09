@@ -132,7 +132,7 @@ td.tablesorter-pager {
     <div id="tabs">
         <ul>
             <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_ADMIN','ROLE_MANAGER','ROLE_ANALYTIC')"><li><a href="emp/load.do">Employees</a></li></sec:authorize>
-            <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_MANAGER','ROLE_SALESMAN','ROLE_RENTER')"><li><a href="ent/load.do?active=true">Entities</a></li></sec:authorize>
+            <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_MANAGER','ROLE_SALESMAN','ROLE_RENTER')"><li><a href="ent/load.do?active=ACTIVE">Entities</a></li></sec:authorize>
             <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_MANAGER','ROLE_SALESMAN','ROLE_RENTER')"><li><a href="#activities" onclick="loadActivities();">Activities</a></li></sec:authorize>
             <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_ANALYTIC')"><li><a href="quest/load.do">Questions</a></li></sec:authorize>
             <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_ANALYTIC')"><li><a href="quest/test/load.do">Tests</a></li></sec:authorize>

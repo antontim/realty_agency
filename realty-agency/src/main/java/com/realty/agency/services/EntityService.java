@@ -95,4 +95,17 @@ public class EntityService implements IEntityService {
         ents.get(0).setActive((byte)0);
         this.entitiesDao.update(ents.get(0));
     }
+
+    @Override
+    public Entities activateEntity(int id) {
+        Entities ent = new Entities();
+        ent.setId(id);
+        List<Entities> ents = this.loadEntities(ent);
+        if(ents.size() == 1) {
+            ents.get(0).setActive((byte)1);
+            this.entitiesDao.update(ents.get(0));
+            return this.loadEntities(ent).get(0);
+        }
+        return null;
+    }
 }

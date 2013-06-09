@@ -20,11 +20,13 @@ public class EntitiesController extends MultiActionController {
     private IEntityService entityService;
 
     @RequestMapping("/load")
-    public ModelAndView load(@RequestParam boolean active) {
+    public ModelAndView load(@RequestParam String active) {
         ModelAndView mav = new ModelAndView("entities");
         Entities criteria = new Entities();
-        if (active) {
+        if ("ACTIVE".equals(active)) {
             criteria.setActive((byte) 1);
+        } else if ("INACTIVE".equals(active)) {
+            criteria.setActive((byte) 0);
         }
         mav.addObject("active",active);
         mav.addObject("entList", this.entityService.loadEntities(criteria));
@@ -60,6 +62,15 @@ public class EntitiesController extends MultiActionController {
 
         mav.addObject("ent", this.entityService.updateEntity(id, addr, classId,
                 typeId, price));
+
+        return mav;
+    }
+
+    @RequestMapping("/activate")
+    public ModelAndView activate(@RequestParam int id) {
+        ModelAndView mav = new ModelAndView("entity");
+
+        mav.addObject("ent", this.entityService.activateEntity(id));
 
         return mav;
     }

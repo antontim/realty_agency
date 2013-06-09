@@ -23,4 +23,6 @@ public interface IEntityService {
     List<ActivityTypes> loadAllActTypes();
 
     void disableEntity(int entId);
+
+    Entities activateEntity(int id);
 }
