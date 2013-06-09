@@ -56,8 +56,16 @@
     display: inline-block; 
 }
 
+.icons {
+    background: url("images/ui-icons_222222_256x240.png");
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+}
 
-
+.revert {
+    background-position: 0px -64px;
+}
 
 
 /* pager wrapper, div */

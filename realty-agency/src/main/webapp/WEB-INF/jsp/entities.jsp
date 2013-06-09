@@ -38,8 +38,9 @@ $(function(){
 });
 </script>
 <div id = "header">
-    <input type="radio" name="activeRadio" id="activeRadio" onchange="showEnt(false);" value="All" <c:if test="${not active}">checked="checked"</c:if>>All</input>
-    <input type="radio" name="activeRadio" id="activeRadio" onchange="showEnt(true);" value="Active" <c:if test="${active}">checked="checked"</c:if>>Active</input>
+    <input type="radio" name="activeRadio" id="activeRadio" onchange="showEnt('ALL');" value="ALL" <c:if test="${active == 'ALL'}">checked="checked"</c:if>>All</input>
+    <input type="radio" name="activeRadio" id="activeRadio" onchange="showEnt('ACTIVE');" value="ACTIVE" <c:if test="${active == 'ACTIVE'}">checked="checked"</c:if>>Active</input>
+    <input type="radio" name="activeRadio" id="activeRadio" onchange="showEnt('INACTIVE');" value="INACTIVE" <c:if test="${active == 'INACTIVE'}">checked="checked"</c:if>>Sold/rented</input>
 </div>
 
 <div>
@@ -85,9 +86,16 @@ $(function(){
         <tr id="${ent.id}">
             <td>
                 <div name="edit">
-                    <div class="delete_icon" onclick="delEntity(event);"></div>
-                    <div class="edit_icon" onclick="preUpdateEnt(this);"></div>
-                    <div class="commit_icon hidden" onclick="updEntity(event);"></div>
+                    <c:choose>
+                        <c:when test="${ent.active == 0}">
+                            <div class="icons revert" onclick="activateEntity(event,'${active}');"></div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="delete_icon" onclick="delEntity(event);"></div>
+                            <div class="edit_icon" onclick="preUpdateEnt(this);"></div>
+                            <div class="commit_icon hidden" onclick="updEntity(event);"></div>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
                 <div class="icon_refresh hidden"></div>
             </td>
