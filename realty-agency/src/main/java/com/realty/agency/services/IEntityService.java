@@ -10,9 +10,12 @@ import com.realty.agency.domain.EntityTypes;
 public interface IEntityService {
     List<Entities> loadEntities(Entities criteria);
 
-    Entities createEntity(String addr, int classId, int typeId, String price);
+    Entities createEntity(String addrCity, String addrStreet, String addrHouse,
+            String addrAppartment, int classId, int typeId, String price);
 
-    Entities updateEntity(int id, String addr, int classId, int typeId, String price);
+    Entities updateEntity(int id, String addrCity, String addrStreet,
+            String addrHouse, String addrAppartment, int classId, int typeId,
+            String price);
 
     void deleteEntity(int id);
 

@@ -46,7 +46,7 @@ $(function(){
     <c:forEach items="${actList}" var="act" varStatus="status">
         <tr id="${act.id}">
             <td>${act.employees.name}</td>
-            <td>${act.entities.address}</td>
+            <td>city: ${act.entities.addrCity}, str: ${act.entities.addrStreet}, house: ${act.entities.addrHouse}, app: ${act.entities.addrAppartment}</td>
             <td>${act.activityTypes.name}</td>
             <td><fmt:formatDate value="${act.orderCreated}"/></td>
         </tr>

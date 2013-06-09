@@ -23,7 +23,6 @@ public class EntitiesDaoTst {
     @Test
     public void testFind() {
         Entities criteria = new Entities();
-        criteria.setAddress("Kharkiv");
         List<Entities> res = this.entitiesDao.find(criteria);
         
         assertTrue(res.size() >= 1);

@@ -45,9 +45,14 @@ public class EntityService implements IEntityService {
     }
 
     @Override
-    public Entities createEntity(String addr, int classId, int typeId, String price) {
+    public Entities createEntity(String addrCity, String addrStreet,
+            String addrHouse, String addrAppartment, int classId, int typeId,
+            String price) {
         Entities ent = new Entities();
-        ent.setAddress(addr);
+        ent.setAddrCity(addrCity);
+        ent.setAddrStreet(addrStreet);
+        ent.setAddrHouse(addrHouse);
+        ent.setAddrAppartment(addrAppartment);
         ent.setEntityClass(new EntityClass(classId));
         ent.setEntityTypes(new EntityTypes(typeId));
         ent.setActive((byte) 1);
@@ -58,7 +63,9 @@ public class EntityService implements IEntityService {
     }
 
     @Override
-    public Entities updateEntity(int id, String addr, int classId, int typeId, String price) {
+    public Entities updateEntity(int id, String addrCity, String addrStreet,
+            String addrHouse, String addrAppartment, int classId, int typeId,
+            String price) {
         Float priceVal = Float.valueOf(price);
         List<Entities> ents = this.entitiesDao.find(new Entities(id));
         if(ents.size() == 1) {
@@ -67,7 +74,10 @@ public class EntityService implements IEntityService {
                 EntityPrices priceObj = new EntityPrices(id, priceVal);
                 this.entitiesPricesDao.add(priceObj);
             }
-            ent.setAddress(addr);
+            ent.setAddrCity(addrCity);
+            ent.setAddrStreet(addrStreet);
+            ent.setAddrHouse(addrHouse);
+            ent.setAddrAppartment(addrAppartment);
             ent.setEntityClass(new EntityClass(classId));
             ent.setEntityTypes(new EntityTypes(typeId));
             this.entitiesDao.update(ent);
