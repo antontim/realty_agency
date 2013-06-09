@@ -48,10 +48,14 @@ $(function(){
         <thead>
         <tr class="tablesorter-headerRow">
             <th name="crud" class="remove sorter-false tablesorter-header" data-column="0" width="45px"></th>
-            <th name="addr" class="tablesorter-header" data-column="1"><div class="tablesorter-header-inner">Address</div></th>
-            <th name="type" class="tablesorter-header" data-column="2"><div class="tablesorter-header-inner">Type</div></th>
-            <th name="class" class="tablesorter-header" data-column="3"><div class="tablesorter-header-inner">Class</div></th>
-            <th name="price" class="tablesorter-header" data-column="4" width="80px"><div class="tablesorter-header-inner">Price</div></th>
+            <th name="id" class="tablesorter-header" data-column="1" width="20px"><div class="tablesorter-header-inner">ID</div></th>
+            <th name="addrCity" class="tablesorter-header" data-column="2" width="90px"><div class="tablesorter-header-inner">City</div></th>
+            <th name="addrStreet" class="tablesorter-header" data-column="3" width="90px"><div class="tablesorter-header-inner">Street</div></th>
+            <th name="addrHouse" class="tablesorter-header" data-column="4" width="20px"><div class="tablesorter-header-inner">H.</div></th>
+            <th name="addrAppartment" class="tablesorter-header" data-column="5" width="20px"><div class="tablesorter-header-inner">A.</div></th>
+            <th name="type" class="tablesorter-header" data-column="6"><div class="tablesorter-header-inner">Type</div></th>
+            <th name="class" class="tablesorter-header" data-column="7"><div class="tablesorter-header-inner">Class</div></th>
+            <th name="price" class="tablesorter-header" data-column="8" width="40px"><div class="tablesorter-header-inner">Price</div></th>
         </tr>
     </thead>
     <tfoot class="footer">
@@ -59,9 +63,11 @@ $(function(){
             <td>
                 <div class="commit_icon" onclick="addEntity(event);" title="Add"></div>
             </td>
-            <td>
-                <input type="text" name="newAddr" id="newAddr" class="tfield required text ui-widget-content ui-corner-all" />
-            </td>
+            <td></td>
+            <td><input type="text" name="newAddrCity" id="newAddrCity" class="tfield required text ui-widget-content ui-corner-all" /></td>
+            <td><input type="text" name="newAddrStreet" id="newAddrStreet" class="tfield required text ui-widget-content ui-corner-all" /></td>
+            <td><input type="text" name="newAddrHouse" id="newAddrHouse" class="tfield required text ui-widget-content ui-corner-all" /></td>
+            <td><input type="text" name="newAddrAppartment" id="newAddrAppartment" class="tfield required text ui-widget-content ui-corner-all" /></td>
             <td>
                 <jsp:include page="entTypes.jsp">
                     <jsp:param value="${entTypes}" name="posList"/>
@@ -99,7 +105,11 @@ $(function(){
                 </div>
                 <div class="icon_refresh hidden"></div>
             </td>
-            <td name="addr"><label name="addr" <c:if test="${ent.active == 1}"> class="fake-link" onclick="order(event);"</c:if>>${ent.address}</label></td>
+            <td name="id" <c:if test="${ent.active == 1}"> class="fake-link" onclick="order(event);"</c:if>><label name="id">${ent.id}</label></td>
+            <td name="addrCity"><label name="addrCity">${ent.addrCity}</label></td>
+            <td name="addrStreet"><label name="addrStreet">${ent.addrStreet}</label></td>
+            <td name="addrHouse"><label name="addrHouse">${ent.addrHouse}</label></td>
+            <td name="addrAppartment"><label name="addrAppartment">${ent.addrAppartment}</label></td>
             <td name="enttype"><label name="enttype">${ent.entityTypes.name}</label></td>
             <td name="entclass"><label name="entclass">${ent.entityClass.name}</label></td>
             <td name="price"><label name="price">${ent.entityPriceses[0].price}</label></td>

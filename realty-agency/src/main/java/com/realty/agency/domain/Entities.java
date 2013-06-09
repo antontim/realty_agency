@@ -26,7 +26,10 @@ public class Entities extends BaseEntity<Integer> implements java.io.Serializabl
     private EntityClass entityClass;
     private List<EntityPrices> entityPriceses = new ArrayList<EntityPrices>(0);
     private Set<Activities> activitieses = new HashSet<Activities>(0);
-    private String address;
+    private String addrCity;
+    private String addrStreet;
+    private String addrHouse;
+    private String addrAppartment;
     private Byte active;
 
     public Entities() {
@@ -87,15 +90,6 @@ public class Entities extends BaseEntity<Integer> implements java.io.Serializabl
         this.activitieses = activitieses;
     }
 
-    @Column(name = "address", nullable = false, length = 45)
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     @Column(name = "active", nullable = false)
     public Byte getActive() {
         return active;
@@ -105,4 +99,39 @@ public class Entities extends BaseEntity<Integer> implements java.io.Serializabl
         this.active = active;
     }
 
+    @Column(name = "addr_city", nullable = false, length = 20)
+    public String getAddrCity() {
+        return addrCity;
+    }
+
+    public void setAddrCity(String addrCity) {
+        this.addrCity = addrCity;
+    }
+
+    @Column(name = "addr_street", nullable = false, length = 25)
+    public String getAddrStreet() {
+        return addrStreet;
+    }
+
+    public void setAddrStreet(String addrStreet) {
+        this.addrStreet = addrStreet;
+    }
+
+    @Column(name = "addr_house", nullable = false, length = 10)
+    public String getAddrHouse() {
+        return addrHouse;
+    }
+
+    public void setAddrHouse(String addrHouse) {
+        this.addrHouse = addrHouse;
+    }
+
+    @Column(name = "addr_appartment", nullable = false, length = 10)
+    public String getAddrAppartment() {
+        return addrAppartment;
+    }
+
+    public void setAddrAppartment(String addrAppartment) {
+        this.addrAppartment = addrAppartment;
+    }
 }

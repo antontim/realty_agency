@@ -246,12 +246,19 @@ function addTest(event) {
 
 function addEntity(event) {
     var tr = $(event.target).closest('tr');
-    if(tr.find("#newAddr").val() === '' || tr.find("#price").val() === '' ) {
-        alert('Address and Price value should be specified.');
+    if(tr.find("#newAddrCity").val() === '' ||
+            tr.find("#newAddrStreet").val() === '' ||
+            tr.find("#newAddrHouse").val() === '' ||
+            tr.find("#newAddrAppartment").val() === '' || 
+            tr.find("#price").val() === '' ) {
+        alert('Address and Price values should be specified.');
         return;
     }
     $.ajax({
-        url : "ent/add.do?addr="+tr.find("#newAddr").val()
+        url : "ent/add.do?addrCity="+tr.find("#newAddrCity").val()
+        +"&addrStreet="+tr.find("#newAddrStreet").val()
+        +"&addrHouse="+tr.find("#newAddrHouse").val()
+        +"&addrAppartment="+tr.find("#newAddrAppartment").val()
             +"&classId="+tr.find("#entclass option:selected").val()
             +"&typeId="+tr.find("#enttype option:selected").val()
             +"&price="+tr.find("#price").val(),
@@ -475,10 +482,29 @@ function preUpdateEnt(val) {
     $(clCB).find(":contains('"+ text + "')").attr("selected", "selected");
     tr.children('td[name="entclass"]').append(clCB);
     
-    tr.find('label[name="addr"]').addClass('hidden');
-    var addrTF = $('#newAddr').clone();
-    addrTF.val(tr.find('label[name="addr"]').text());
-    tr.children('td[name="addr"]').append(addrTF);
+    
+    
+    tr.find('label[name="addrCity"]').addClass('hidden');
+    var addrCityTF = $('#newAddrCity').clone();
+    addrCityTF.val(tr.find('label[name="addrCity"]').text());
+    tr.children('td[name="addrCity"]').append(addrCityTF);
+
+    tr.find('label[name="addrStreet"]').addClass('hidden');
+    var addrStreetTF = $('#newAddrStreet').clone();
+    addrStreetTF.val(tr.find('label[name="addrStreet"]').text());
+    tr.children('td[name="addrStreet"]').append(addrStreetTF);
+
+    tr.find('label[name="addrHouse"]').addClass('hidden');
+    var addrHouseTF = $('#newAddrHouse').clone();
+    addrHouseTF.val(tr.find('label[name="addrHouse"]').text());
+    tr.children('td[name="addrHouse"]').append(addrHouseTF);
+
+    tr.find('label[name="addrAppartment"]').addClass('hidden');
+    var addrAppartmentTF = $('#newAddrAppartment').clone();
+    addrAppartmentTF.val(tr.find('label[name="addrAppartment"]').text());
+    tr.children('td[name="addrAppartment"]').append(addrAppartmentTF);
+    
+    
     
     tr.find('label[name="price"]').addClass('hidden');
     var addrTF = $('#price').clone();
@@ -491,8 +517,14 @@ function preUpdateEnt(val) {
         $(val).removeClass("hidden");
         $(val).siblings('.commit_icon').addClass('hidden');
         
-        tr.find('#newAddr').remove();
-        tr.find('label[name="addr"]').removeClass('hidden');
+        tr.find('#newAddrCity').remove();
+        tr.find('label[name="addrCity"]').removeClass('hidden');
+        tr.find('#newAddrStreet').remove();
+        tr.find('label[name="addrStreet"]').removeClass('hidden');
+        tr.find('#newAddrHouse').remove();
+        tr.find('label[name="addrHouse"]').removeClass('hidden');
+        tr.find('#newAddrAppartment').remove();
+        tr.find('label[name="addrAppartment"]').removeClass('hidden');
         
         tr.find('#enttype').remove();
         tr.find('label[name="enttype"]').removeClass('hidden');
@@ -513,7 +545,10 @@ function updEntity(e) {
     tr.find('div[name="edit"]').addClass("hidden");
     tr.find('div.icon_refresh').removeClass("hidden");
     $.ajax({
-        url : "ent/upd.do?id="+id+"&addr="+tr.find("#newAddr").val()
+        url : "ent/upd.do?id="+id+"&addrCity="+tr.find("#newAddrCity").val()
+            +"&addrStreet="+tr.find("#newAddrStreet").val()
+            +"&addrHouse="+tr.find("#newAddrHouse").val()
+            +"&addrAppartment="+tr.find("#newAddrAppartment").val()
                 +"&classId="+tr.find("#entclass").val()
                 +"&typeId="+tr.find("#enttype").val()
                 +"&price="+tr.find("#price").val(),

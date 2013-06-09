@@ -28,7 +28,7 @@ public class EntitiesController extends MultiActionController {
         } else if ("INACTIVE".equals(active)) {
             criteria.setActive((byte) 0);
         }
-        mav.addObject("active",active);
+        mav.addObject("active", active);
         mav.addObject("entList", this.entityService.loadEntities(criteria));
         mav.addObject("entTypes", this.entityService.loadAllTypes());
         mav.addObject("entClasses", this.entityService.loadAllClasses());
@@ -37,13 +37,14 @@ public class EntitiesController extends MultiActionController {
     }
 
     @RequestMapping("/add")
-    public ModelAndView add(@RequestParam String addr,
-            @RequestParam int classId, @RequestParam int typeId,
-            @RequestParam String price) {
+    public ModelAndView add(@RequestParam String addrCity,
+            @RequestParam String addrStreet, @RequestParam String addrHouse,
+            @RequestParam String addrAppartment, @RequestParam int classId,
+            @RequestParam int typeId, @RequestParam String price) {
         ModelAndView mav = new ModelAndView("entity");
 
-        mav.addObject("ent",
-                this.entityService.createEntity(addr, classId, typeId, price));
+        mav.addObject("ent", this.entityService.createEntity(addrCity,
+                addrStreet, addrHouse, addrAppartment, classId, typeId, price));
 
         return mav;
     }
@@ -55,13 +56,15 @@ public class EntitiesController extends MultiActionController {
     }
 
     @RequestMapping("/upd")
-    public ModelAndView update(@RequestParam int id, @RequestParam String addr,
-            @RequestParam int classId, @RequestParam int typeId,
-            @RequestParam String price) {
+    public ModelAndView update(@RequestParam int id,
+            @RequestParam String addrCity, @RequestParam String addrStreet,
+            @RequestParam String addrHouse,
+            @RequestParam String addrAppartment, @RequestParam int classId,
+            @RequestParam int typeId, @RequestParam String price) {
         ModelAndView mav = new ModelAndView("entity");
 
-        mav.addObject("ent", this.entityService.updateEntity(id, addr, classId,
-                typeId, price));
+        mav.addObject("ent", this.entityService.updateEntity(id, addrCity,
+                addrStreet, addrHouse, addrAppartment, classId, typeId, price));
 
         return mav;
     }
