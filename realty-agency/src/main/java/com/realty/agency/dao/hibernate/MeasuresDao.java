@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.realty.agency.dao.IMeasuresDao;
+import com.realty.agency.domain.MeasureTarget;
 import com.realty.agency.domain.Measures;
 import com.realty.agency.domain.Rates;
 
@@ -51,6 +52,7 @@ public class MeasuresDao extends HibernateDao<Measures> implements IMeasuresDao 
                 crit.add(Restrictions.disjunction()
                         .add(Subqueries.propertyEq("rt.id.created", maxDateQuery))
                         .add(Restrictions.isNull("rt.id.created")));
+                crit.add(Restrictions.eq("measureTargetId", MeasureTarget.EMPLOYEE.getVal()));
 
                 @SuppressWarnings("unchecked")
                 List<Measures> results = crit.list();
@@ -65,11 +67,16 @@ public class MeasuresDao extends HibernateDao<Measures> implements IMeasuresDao 
 
     @Override
     public List<Measures> find(Measures criteria) {
-        return this.find(criteria, true);
+        return this.findEmpMeasures(criteria, true, MeasureTarget.EMPLOYEE);
     }
 
     @Override
-    public List<Measures> find(Measures criteria, boolean isEarningsReq) {
+    public List<Measures> find(Measures criteria, MeasureTarget mt) {
+        return this.findEmpMeasures(criteria, true, mt);
+    }
+
+    @Override
+    public List<Measures> findEmpMeasures(Measures criteria, boolean isEarningsReq, MeasureTarget mt) {
         logger.debug("finding instance by example");
         try {
             Criteria crit = this.getSession()
@@ -79,6 +86,7 @@ public class MeasuresDao extends HibernateDao<Measures> implements IMeasuresDao 
             }
             if(!isEarningsReq)
                 crit.add(Expression.ne("id", 3));
+            crit.add(Restrictions.eq("measureTargetId", mt.getVal()));
             crit.addOrder(Order.asc("id"));
             
             @SuppressWarnings("unchecked")
@@ -91,5 +99,4 @@ public class MeasuresDao extends HibernateDao<Measures> implements IMeasuresDao 
             throw re;
         }
     }
-
 }

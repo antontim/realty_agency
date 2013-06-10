@@ -27,4 +27,5 @@
     <bean id="questionnaireController" class="com.realty.agency.controllers.QuestionnaireController"/>
     <bean id="mahController" class="com.realty.agency.controllers.MahController"/>
     <bean id="measureController" class="com.realty.agency.controllers.MeasureController"/>
+    <bean id="deptController" class="com.realty.agency.controllers.DeptController"/>
 </beans>

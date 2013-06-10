@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.realty.agency.domain.MeasureTarget;
 import com.realty.agency.services.IMeasureService;
 
 @Controller
@@ -18,9 +19,32 @@ public class MeasureController {
     public ModelAndView loadImportances() {
         ModelAndView mav = new ModelAndView("mimportance");
 
-        mav.addObject("mimpList", this.measureService.loadMeasureImportances());
-        mav.addObject("mList", this.measureService.loadMeasures());
+        mav.addObject("mimpList", this.measureService.loadMeasureImportances(MeasureTarget.EMPLOYEE));
+        mav.addObject("mList", this.measureService.loadMeasures(MeasureTarget.EMPLOYEE));
+        mav.addObject("target", MeasureTarget.EMPLOYEE.getVal());
 
+        return mav;
+    }
+    
+    @RequestMapping("/imp/dept/load")
+    public ModelAndView loadDeptImportances() {
+        ModelAndView mav = new ModelAndView("mimportance");
+        
+        mav.addObject("mimpList", this.measureService.loadMeasureImportances(MeasureTarget.DEPT));
+        mav.addObject("mList", this.measureService.loadMeasures(MeasureTarget.DEPT));
+        mav.addObject("target", MeasureTarget.DEPT.getVal());
+        
+        return mav;
+    }
+    
+    @RequestMapping("/imp/comp/load")
+    public ModelAndView loadCompanyImportances() {
+        ModelAndView mav = new ModelAndView("mimportance");
+        
+        mav.addObject("mimpList", this.measureService.loadMeasureImportances(MeasureTarget.COMPANY));
+        mav.addObject("mList", this.measureService.loadMeasures(MeasureTarget.COMPANY));
+        mav.addObject("target", MeasureTarget.COMPANY.getVal());
+        
         return mav;
     }
 

@@ -9,6 +9,7 @@ import java.util.List;
 import org.hibernate.Query;
 
 import com.realty.agency.dao.IRatesDao;
+import com.realty.agency.domain.MeasureTarget;
 import com.realty.agency.domain.Rates;
 
 /**
@@ -26,13 +27,15 @@ public class RatesDao extends HibernateDao<Rates> implements IRatesDao {
     @SuppressWarnings("unchecked")
     @Override
     public List<Rates> findLastMonthEmpMeasureRates(Date startDate, Date endDate) {
-        String query = "from Rates r"
-                        + " where r.id.created between :startDate and :endDate"
+        String query = "from Rates r "
+                        + " where  "
+                        +   " r.id.created between :startDate and :endDate"
                         +   " and r.id.created = ("
                         +       " select max(r_.id.created)" 
                         +           " from Rates r_ "
                         +           " where r_.id.employeeId = r.id.employeeId" 
                         +               " and r_.id.measureId = r.id.measureId)"
+                        // +    " and m.measureTargetId = " + MeasureTarget.EMPLOYEE.getVal()
                         +" order by r.id.measureId, r.id.employeeId";
         Query hqlQuery = this.getSession().createQuery(query);
         hqlQuery.setString("startDate", df.format(startDate));
@@ -73,7 +76,7 @@ public class RatesDao extends HibernateDao<Rates> implements IRatesDao {
                 +             " from agency.test_results tr1" 
                 +             " where tr1.employee_id = emp.id" 
                 +                 " and tr1.test_id = t.id)"
-                +     " ) or tr.passed is null) and m.id <> 3"
+                +     " ) or tr.passed is null) and m.id <> 3 and m.measure_target_id = " + MeasureTarget.EMPLOYEE.getVal()
                 + " group by m.id,emp.id" +
                 " union all "
                 + " select 3, earnings.eId, SYSDATE(), avg(earnings.res) from"

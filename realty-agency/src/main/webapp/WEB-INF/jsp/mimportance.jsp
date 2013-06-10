@@ -27,30 +27,32 @@ $(function(){
         .tablesorterPager(pagerOptions);
 });
 </script>
-<div id="importances">
-<table id="impTable" class="tablesorter tablesorter-blue"  cellspacing="1">
-        <thead>
-        <tr class="tablesorter-headerRow">
-            <th></th>
-            <c:forEach items="${mList}" var="m" varStatus="stat">
-                <th id="${m.id}">${m.name}</th>
+    <div id="importances">
+    <table id="impTable" class="tablesorter tablesorter-blue"  cellspacing="1">
+            <thead>
+            <tr class="tablesorter-headerRow">
+                <th></th>
+                <c:forEach items="${mList}" var="m" varStatus="stat">
+                    <th id="${m.id}">${m.name}</th>
+                </c:forEach>
+            </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${mList}" var="m" varStatus="stat">
+            <tr><td m1="${m.id}">${m.name}</td>
+            <c:forEach items="${mList}" var="secM" varStatus="secStat">
+                <td m1="${m.id}" m2="${secM.id}" <c:if test="${stat.index+1 gt secStat.index}">style="background-color: gray;"</c:if>>
+                    <label <c:if test="${stat.index lt secStat.index}">onclick="editVal(event);"</c:if>>${mimpList[stat.index * fn:length(mList) + secStat.index].importance}</label>
+                    <c:if test="${stat.index lt secStat.index}"><input type="text" style="width:20px;" class="hidden" onkeypress="processKey(event);" value="${mimpList[stat.index * fn:length(mList) + secStat.index].importance}"/></c:if>
+                </td>
             </c:forEach>
-        </tr>
-    </thead>
-    <tbody>
-    <c:forEach items="${mList}" var="m" varStatus="stat">
-        <tr><td m1="${m.id}">${m.name}</td>
-        <c:forEach items="${mList}" var="secM" varStatus="secStat">
-            <td m1="${m.id}" m2="${secM.id}" <c:if test="${stat.index+1 gt secStat.index}">style="background-color: gray;"</c:if>>
-                <label <c:if test="${stat.index lt secStat.index}">onclick="editVal(event);"</c:if>>${mimpList[stat.index * fn:length(mList) + secStat.index].importance}</label>
-                <c:if test="${stat.index lt secStat.index}"><input type="text" style="width:20px;" class="hidden" onkeypress="processKey(event);" value="${mimpList[stat.index * fn:length(mList) + secStat.index].importance}"/></c:if>
-            </td>
+            </tr>
         </c:forEach>
-        </tr>
-    </c:forEach>
-    </tbody>
-</table>
-<button id="calcMah" onclick="calcMahRes(event);">
-Calculate MAH results
-</button>
-</div>
+        </tbody>
+    </table>
+    <c:if test="${target == 0 }">
+    <button id="calcMah" onclick="calcMahRes(event);">
+    Calculate MAH results
+    </button>
+    </c:if>
+    </div>

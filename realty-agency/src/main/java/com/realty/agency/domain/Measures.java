@@ -22,6 +22,7 @@ import javax.persistence.Table;
 @Table(name = "measures", catalog = "agency")
 public class Measures extends BaseEntity<Integer> implements java.io.Serializable, IEntity<Integer> {
 
+    private Integer measureTargetId;
     private MeasureTypes measureTypes;
     private String name;
     private Set<Questions> questionses = new HashSet<Questions>(0);
@@ -113,4 +114,12 @@ public class Measures extends BaseEntity<Integer> implements java.io.Serializabl
         this.rateses = rateses;
     }
 
+    @Column(name = "measure_target_id", nullable = false)
+    public Integer getMeasureTargetId() {
+        return this.measureTargetId;
+    }
+
+    public void setMeasureTargetId(Integer measureTargetId) {
+        this.measureTargetId = measureTargetId;
+    }
 }
