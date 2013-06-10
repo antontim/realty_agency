@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.realty.agency.domain.MeasureImportances;
+import com.realty.agency.domain.MeasureTarget;
 import com.realty.agency.domain.Measures;
 import com.realty.agency.domain.Rates;
 
@@ -64,7 +65,7 @@ public class MahService implements IMahService {
     private Map<Integer,Float> calcAvgMeasuresImp() {
         Map<Integer, Map<Integer,Float>> mimpMatrix = new HashMap<Integer, Map<Integer,Float>>();
         
-        final List<MeasureImportances> mimpList = this.measureService.loadMeasureImportances();
+        final List<MeasureImportances> mimpList = this.measureService.loadMeasureImportances(MeasureTarget.EMPLOYEE);
         for(int i = 0; i < mimpList.size(); i++) {
             final int j = i;
             if(mimpMatrix.get(mimpList.get(i).getId().getMeasure1Id()) == null) {
@@ -88,7 +89,7 @@ public class MahService implements IMahService {
     // Map<Measure_id, <Map<Employee_id, measure_val>>
     private Map<Integer, Map<Integer, Float>> calcEmpMeasures() {
         Map<Integer, Map<Integer, Float>> res = new HashMap<Integer, Map<Integer,Float>>();
-        List<Measures> measures = this.measureService.loadMeasures();
+        List<Measures> measures = this.measureService.loadMeasures(MeasureTarget.EMPLOYEE);
         List<Rates> rates = this.employeeService.calculateMonthEmpRates();
         for(int i = 0; i < measures.size(); i++) {
             res.put(measures.get(i).getId(), this.calcMeasureRate(measures.get(i).getId(),rates));

@@ -136,7 +136,8 @@ td.tablesorter-pager {
             <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_MANAGER','ROLE_SALESMAN','ROLE_RENTER')"><li><a href="#activities" onclick="loadActivities();">Activities</a></li></sec:authorize>
             <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_ANALYTIC')"><li><a href="quest/load.do">Questions</a></li></sec:authorize>
             <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_ANALYTIC')"><li><a href="quest/test/load.do">Tests</a></li></sec:authorize>
-            <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_ANALYTIC','ROLE_MANAGER')"><li><a href="measure/imp/load.do">MAH values</a></li></sec:authorize>
+            <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_ANALYTIC','ROLE_MANAGER')"><li><a href="#MAH">MAH values</a></li></sec:authorize>
+            <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_ANALYTIC','ROLE_MANAGER')"><li><a href="dept/load.do">Departments</a></li></sec:authorize>
             <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_MANAGER')"><li><a href="act/norm/load.do">Norms</a></li></sec:authorize>
             <li><a href="#info">About</a></li>
         </ul>
@@ -150,6 +151,9 @@ td.tablesorter-pager {
             </jsp:include>
             <div id="body">
             </div>
+        </div></sec:authorize>
+        <sec:authorize access="hasAnyRole('ROLE_TEST','ROLE_ANALYTIC','ROLE_MANAGER')"><div id="MAH">
+            <jsp:include page="WEB-INF/jsp/importancesMain.jsp"/>
         </div></sec:authorize>
     </div>
 </body>

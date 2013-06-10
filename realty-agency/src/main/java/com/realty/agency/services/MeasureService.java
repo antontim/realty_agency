@@ -9,6 +9,7 @@ import com.realty.agency.dao.IMeasureImportancesDao;
 import com.realty.agency.dao.IMeasuresDao;
 import com.realty.agency.domain.MeasureImportances;
 import com.realty.agency.domain.MeasureImportancesId;
+import com.realty.agency.domain.MeasureTarget;
 import com.realty.agency.domain.Measures;
 
 public class MeasureService implements IMeasureService {
@@ -18,13 +19,13 @@ public class MeasureService implements IMeasureService {
     private IMeasuresDao measuresDao;
 
     @Override
-    public List<MeasureImportances> loadMeasureImportances() {
-        return this.measureImportancesDao.find(new MeasureImportances());
+    public List<MeasureImportances> loadMeasureImportances(MeasureTarget mt) {
+        return this.measureImportancesDao.find(new MeasureImportances(),mt);
     }
 
     @Override
-    public List<Measures> loadMeasures() {
-        return this.measuresDao.find(new Measures());
+    public List<Measures> loadMeasures(MeasureTarget mt) {
+        return this.measuresDao.find(new Measures(),mt);
     }
 
     @Override

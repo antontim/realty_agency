@@ -19,6 +19,7 @@ import javax.persistence.Table;
 public class Depts extends BaseEntity<Integer> implements java.io.Serializable, IEntity<Integer> {
 
     private String name;
+    private Float mahResult;
     private Set<Positions> positionses = new HashSet<Positions>(0);
 
     public Depts() {
@@ -49,6 +50,15 @@ public class Depts extends BaseEntity<Integer> implements java.io.Serializable, 
 
     public void setPositionses(Set<Positions> positionses) {
         this.positionses = positionses;
+    }
+
+    @Column(name = "mah_result", nullable = false)
+    public Float getMahResult() {
+        return mahResult;
+    }
+
+    public void setMahResult(Float mahResult) {
+        this.mahResult = mahResult;
     }
 
 }

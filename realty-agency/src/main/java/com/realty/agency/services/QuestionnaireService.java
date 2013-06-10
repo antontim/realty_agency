@@ -9,6 +9,7 @@ import org.springframework.util.CollectionUtils;
 import com.realty.agency.dao.IMeasuresDao;
 import com.realty.agency.dao.IQuestionsDao;
 import com.realty.agency.dao.ITestsDao;
+import com.realty.agency.domain.MeasureTarget;
 import com.realty.agency.domain.Measures;
 import com.realty.agency.domain.Questions;
 import com.realty.agency.domain.Tests;
@@ -53,7 +54,7 @@ public class QuestionnaireService implements IQuestionnaireService {
 
     @Override
     public List<Measures> loadAllMeasures() {
-        return this.measuresDao.find(new Measures(),false);
+        return this.measuresDao.findEmpMeasures(new Measures(),false,MeasureTarget.EMPLOYEE);
     }
 
     @Override
