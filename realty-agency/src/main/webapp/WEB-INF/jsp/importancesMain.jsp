@@ -21,3 +21,6 @@ $(function() {
     </ul>
 </div>
 </div>
+    <button id="calcMah" onclick="calcMahRes(event);" style="float:right;">
+    Calculate MAH results
+    </button>
