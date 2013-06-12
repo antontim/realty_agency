@@ -1,11 +1,13 @@
 package com.realty.agency.services;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.realty.agency.dao.IRatesDao;
 import com.realty.agency.domain.MeasureImportances;
 import com.realty.agency.domain.MeasureTarget;
 import com.realty.agency.domain.Measures;
@@ -17,6 +19,8 @@ public class MahService implements IMahService {
     private IMeasureService measureService;
     @Autowired
     private IEmployeeService employeeService;
+    @Autowired
+    private IRatesDao ratesDao;
 
     private float calcColSum(Map<Integer,Map<Integer,Float>> values, Integer col) {
         float res = 0f;
@@ -62,10 +66,10 @@ public class MahService implements IMahService {
     }
 
     @SuppressWarnings("serial")
-    private Map<Integer,Float> calcAvgMeasuresImp() {
+    private Map<Integer,Float> calcAvgMeasuresImp(MeasureTarget mt) {
         Map<Integer, Map<Integer,Float>> mimpMatrix = new HashMap<Integer, Map<Integer,Float>>();
         
-        final List<MeasureImportances> mimpList = this.measureService.loadMeasureImportances(MeasureTarget.EMPLOYEE);
+        final List<MeasureImportances> mimpList = this.measureService.loadMeasureImportances(mt);
         for(int i = 0; i < mimpList.size(); i++) {
             final int j = i;
             if(mimpMatrix.get(mimpList.get(i).getId().getMeasure1Id()) == null) {
@@ -87,10 +91,21 @@ public class MahService implements IMahService {
     }
     
     // Map<Measure_id, <Map<Employee_id, measure_val>>
-    private Map<Integer, Map<Integer, Float>> calcEmpMeasures() {
+    private Map<Integer, Map<Integer, Float>> calcEmpMeasures(MeasureTarget mt) {
         Map<Integer, Map<Integer, Float>> res = new HashMap<Integer, Map<Integer,Float>>();
-        List<Measures> measures = this.measureService.loadMeasures(MeasureTarget.EMPLOYEE);
-        List<Rates> rates = this.employeeService.calculateMonthEmpRates();
+        List<Measures> measures = this.measureService.loadMeasures(mt);
+        List<Rates> rates = new ArrayList<Rates>();
+        switch (mt) {
+            case EMPLOYEE:
+                rates = this.employeeService.calculateMonthEmpRates();
+                break;
+            case DEPT:
+                rates = this.ratesDao.calculateLastMonthDeptRates();
+                break;
+            case COMPANY:
+                rates = this.ratesDao.calculateLastMonthCompanyRates();
+                break;
+        }
         for(int i = 0; i < measures.size(); i++) {
             res.put(measures.get(i).getId(), this.calcMeasureRate(measures.get(i).getId(),rates));
         }
@@ -132,13 +147,13 @@ public class MahService implements IMahService {
     }
     
     @Override
-    public Map<Integer, Float> calcMahResults() {
+    public Map<Integer, Float> calcMahResults(MeasureTarget mt) {
         Map<Integer, Float> res = new HashMap<Integer, Float>();
         
         // Measure_id, Value
-        Map<Integer,Float> normMeasures = this.calcAvgMeasuresImp();
+        Map<Integer,Float> normMeasures = this.calcAvgMeasuresImp(mt);
         // Measure_id, Map<Employee_id, value>
-        Map<Integer, Map<Integer, Float>> normEmpMeasures = this.calcEmpMeasures();
+        Map<Integer, Map<Integer, Float>> normEmpMeasures = this.calcEmpMeasures(mt);
         for(Map.Entry<Integer, Map<Integer, Float>> each : normEmpMeasures.entrySet()) {
             for(Map.Entry<Integer, Float> secEach : each.getValue().entrySet()) {
                 if(res.get(secEach.getKey()) == null) {

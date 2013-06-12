@@ -17,6 +17,7 @@ import com.realty.agency.dao.IRatesDao;
 import com.realty.agency.dao.ITestResultsDao;
 import com.realty.agency.domain.EmployeeEvaluations;
 import com.realty.agency.domain.Employees;
+import com.realty.agency.domain.MeasureTarget;
 import com.realty.agency.domain.Measures;
 import com.realty.agency.domain.Positions;
 import com.realty.agency.domain.Questions;
@@ -205,7 +206,7 @@ public class EmployeeService implements IEmployeeService {
 
     @Override
     public void updateEmployeeMah() {
-        Map<Integer, Float> empMahResults = this.mahService.calcMahResults();
+        Map<Integer, Float> empMahResults = this.mahService.calcMahResults(MeasureTarget.EMPLOYEE);
         for(Map.Entry<Integer, Float> each : empMahResults.entrySet()) {
             Employees rec = new Employees();
             rec.setId(each.getKey());

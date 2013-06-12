@@ -108,4 +108,98 @@ public class RatesDao extends HibernateDao<Rates> implements IRatesDao {
             throw re;
         }
     }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Rates> calculateLastMonthDeptRates() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        cal.set(Calendar.MILLISECOND, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.HOUR, 0);
+        Date startDate = cal.getTime();
+        cal.add(Calendar.DAY_OF_MONTH, 33);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        Date endDate = cal.getTime();
+        String query = 
+                "select 6 measure_id, dept.id employee_id, COALESCE(sum(entp.price),:defVal) value, :startDate created" +
+                " from agency.depts dept" +
+                    " left outer join agency.positions pos on dept.id = pos.dept_id " +
+                    " left outer join agency.employees emp on emp.position_id = pos.id" +
+                    " left outer join agency.activities act on act.employee_id = emp.id" +
+                        " and act.order_created between :startDate and :endDate " +
+                    " left outer join agency.entities ent on ent.id = act.entity_id " +
+                    " left outer join agency.entity_prices entp on entp.id = ent.id" +
+                        " and entp.created = (select max(ep.created) from agency.entity_prices ep where ep.id = ent.id) " +
+                    " group by dept.id" +
+                " union all " +
+                " select 7 measure_id, dept.id employee_id, count(act.id) + :defVal value, :startDate created" +
+                " from agency.depts dept" +
+                    " left outer join agency.positions pos on dept.id = pos.dept_id " +
+                    " left outer join agency.employees emp on emp.position_id = pos.id" +
+                    " left outer join agency.activities act on act.employee_id = emp.id" +
+                        " and act.order_created between :startDate and :endDate " +
+                    " group by dept.id" +
+                " union all " +
+                " select 8 measure_id, dept.id employee_id, count(emp.id) + :defVal value, :startDate created" +
+                " from agency.depts dept" +
+                    " left outer join agency.positions pos on dept.id = pos.dept_id " +
+                    " left outer join agency.employees emp on emp.position_id = pos.id" +
+                    " group by dept.id" +
+                " union all " +
+                " select 9 measure_id, dept.id employee_id, COALESCE(avg(emp.mah_result),:defVal) value, :startDate created " +
+                " from agency.depts dept" +
+                    " left outer join agency.positions pos on dept.id = pos.dept_id " +
+                    " left outer join agency.employees emp on emp.position_id = pos.id" +
+                    " group by dept.id";
+        float defVal = 0.1f;
+        Query sqlQuery = this.getSession().createSQLQuery(query).addEntity(Rates.class);
+        sqlQuery.setString("startDate", df.format(startDate));
+        sqlQuery.setString("endDate", df.format(endDate));
+        sqlQuery.setFloat("defVal", defVal);
+
+        return sqlQuery.list();
+    }
+
+    @Override
+    public List<Rates> calculateLastMonthCompanyRates() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        cal.set(Calendar.MILLISECOND, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.HOUR, 0);
+        Date startDate = cal.getTime();
+        cal.add(Calendar.DAY_OF_MONTH, 33);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        Date endDate = cal.getTime();
+        String query = 
+                " select 10 measure_id, 0 employee_id, COALESCE(avg(dept.mah_result),:defVal) value, :startDate created " +
+                " from agency.depts dept" +
+                " union all " +
+                " select 11 measure_id, 0 employee_id, COUNT(ent.id) + :defVal value, :startDate created " +
+                    " from agency.entities ent " +
+                    " where ent.created  between :startDate and :endDate " +
+                " union all " +
+                "select 12 measure_id, 0 employee_id, COALESCE(sum(entp.price),:defVal) value, :startDate created" +
+                " from  agency.activities act " +
+                    " left outer join agency.entities ent on ent.id = act.entity_id " +
+                    " left outer join agency.entity_prices entp on entp.id = ent.id" +
+                        " and entp.created = (select max(ep.created) from agency.entity_prices ep where ep.id = ent.id) " +
+                    " where act.order_created between :startDate and :endDate ";
+        float defVal = 0.1f;
+        Query sqlQuery = this.getSession().createSQLQuery(query).addEntity(Rates.class);
+        sqlQuery.setString("startDate", df.format(startDate));
+        sqlQuery.setString("endDate", df.format(endDate));
+        sqlQuery.setFloat("defVal", defVal);
+        try{
+List l = sqlQuery.list();
+        return l;
+        }
+        catch(Exception ex) {
+            System.out.println(ex);;
+        }
+        return null;
+    }
 }

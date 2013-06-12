@@ -12,4 +12,8 @@ public interface IRatesDao extends IDao<Rates> {
     List<Rates> findLastMonthEmpMeasureRates(Date startDate, Date endDate);
 
     List<Rates> calculateLastMonthEmpRates();
+
+    List<Rates> calculateLastMonthDeptRates();
+
+    List<Rates> calculateLastMonthCompanyRates();
 }
