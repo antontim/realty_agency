@@ -740,12 +740,12 @@ function activateEntity(event,active) {
         url : "ent/activate.do?id="+tr.attr("id"),
         type: "PUT",
     }).done(function(data) {
+        var t = $('#entTable');
         if(active != 'INACTIVE') {
             tr.replaceWith(data);
         } else {
             tr.remove();
         }
-        var t = $('#empTable');
         t.trigger('update');
     });
     
