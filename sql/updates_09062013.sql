@@ -44,6 +44,7 @@ INSERT INTO `agency`.`measures` (`id`, `measure_type_id`, `name`, `measure_targe
 INSERT INTO `agency`.`measures` (`id`, `measure_type_id`, `name`, `measure_target_id`) VALUES (12, 1, 'earnings', 2);
 
 
+ALTER TABLE `agency`.`entities` ADD COLUMN `created` DATETIME NOT NULL  AFTER `addr_city` ;
 
 
 

@@ -2,11 +2,11 @@ package com.realty.agency.dao.hibernate;
 
 import static org.hibernate.criterion.Example.create;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Subqueries;
@@ -58,5 +58,11 @@ public class EntitiesDao extends HibernateDao<Entities> implements IEntitiesDao 
             logger.error("find by example failed", re);
             throw re;
         }
+    }
+
+    @Override
+    public void add(Entities rec) {
+        rec.setCreated(new Date());
+        super.add(rec);
     }
 }

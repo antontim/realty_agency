@@ -3,6 +3,7 @@ package com.realty.agency.domain;
 // Generated Apr 1, 2013 12:12:11 AM by Hibernate Tools 3.4.0.CR1
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -30,6 +31,7 @@ public class Entities extends BaseEntity<Integer> implements java.io.Serializabl
     private String addrStreet;
     private String addrHouse;
     private String addrAppartment;
+    private Date created;
     private Byte active;
 
     public Entities() {
@@ -134,4 +136,14 @@ public class Entities extends BaseEntity<Integer> implements java.io.Serializabl
     public void setAddrAppartment(String addrAppartment) {
         this.addrAppartment = addrAppartment;
     }
+
+    @Column(name = "created", nullable = false)
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
 }

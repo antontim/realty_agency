@@ -23,7 +23,7 @@ public class RatesDaoTst {
     @Test
     public void test() {
         @SuppressWarnings("unused")
-        List<Rates> res = this.ratesDao.calculateLastMonthEmpRates();
+        List<Rates> res = this.ratesDao.calculateLastMonthCompanyRates();
         
         logger.info("test");
     }

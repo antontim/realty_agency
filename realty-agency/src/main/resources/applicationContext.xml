@@ -75,5 +75,6 @@
     <bean id="measureService" class="com.realty.agency.services.MeasureService"/>
     <bean id="mahService" class="com.realty.agency.services.MahService"/>
     <bean id="deptService" class="com.realty.agency.services.DeptService"/>
+    <bean id="companyService" class="com.realty.agency.services.CompanyService"/>
 
 </beans>

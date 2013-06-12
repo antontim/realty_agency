@@ -6,4 +6,5 @@ import com.realty.agency.domain.Depts;
 
 public interface IDeptService {
     List<Depts> loadDepts();
+    void updateDeptMah();
 }

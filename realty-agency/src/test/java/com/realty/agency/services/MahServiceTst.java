@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.realty.agency.domain.MeasureTarget;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/applicationContext.xml" })
 public class MahServiceTst {
@@ -19,7 +21,7 @@ public class MahServiceTst {
 
     @Test
     public void test() {
-        Map<Integer, Float> res = this.mahService.calcMahResults();
+        Map<Integer, Float> res = this.mahService.calcMahResults(MeasureTarget.EMPLOYEE);
 
       assertEquals(5,res.size());
     }
