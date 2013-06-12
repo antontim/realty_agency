@@ -50,9 +50,4 @@ $(function(){
         </c:forEach>
         </tbody>
     </table>
-    <c:if test="${target == 0 }">
-    <button id="calcMah" onclick="calcMahRes(event);">
-    Calculate MAH results
-    </button>
-    </c:if>
     </div>
