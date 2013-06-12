@@ -193,13 +193,6 @@ public class RatesDao extends HibernateDao<Rates> implements IRatesDao {
         sqlQuery.setString("startDate", df.format(startDate));
         sqlQuery.setString("endDate", df.format(endDate));
         sqlQuery.setFloat("defVal", defVal);
-        try{
-List l = sqlQuery.list();
-        return l;
-        }
-        catch(Exception ex) {
-            System.out.println(ex);;
-        }
-        return null;
+        return sqlQuery.list();
     }
 }

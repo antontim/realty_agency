@@ -15,7 +15,7 @@
                 </div>
                 <div class="icon_refresh hidden"></div>
             </td>
-            <td name="id" <c:if test="${ent.active == 1}"> class="fake-link" onclick="order(event);"</c:if>><label name="id">${ent.id}</label></td>
+            <td name="id"><label name="id"<c:if test="${ent.active == 1}"> class="fake-link" onclick="order(event);"</c:if>>${ent.id}</label></td>
             <td name="addrCity"><label name="addrCity">${ent.addrCity}</label></td>
             <td name="addrStreet"><label name="addrStreet">${ent.addrStreet}</label></td>
             <td name="addrHouse"><label name="addrHouse">${ent.addrHouse}</label></td>

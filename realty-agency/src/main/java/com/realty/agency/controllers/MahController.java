@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.realty.agency.services.ICompanyService;
 import com.realty.agency.services.IDeptService;
@@ -21,19 +22,20 @@ public class MahController {
     @Autowired
     private ICompanyService companyService;
 
-    @ResponseStatus(HttpStatus.OK)
     @RequestMapping("/calc")
-    public void calc() {
+    public ModelAndView calc() {
+        ModelAndView mav = new ModelAndView("mahRes");
         if(isInProgress)
             throw new IllegalAccessError("MAH result is currently calculating.");
         isInProgress = true;
         try {
             this.employeeService.updateEmployeeMah();
             this.deptService.updateDeptMah();
-            this.companyService.calcMah();
+            mav.addObject("companyMAH", this.companyService.calcMah());
         }
         finally {
             isInProgress = false;
         }
+        return mav;
     }
 }

@@ -684,8 +684,8 @@ function createOrder() {
         type: "PUT",
     }).done(function(data) {
         var t = $('#entTable');
-        t.find('#'+entId).find('label[name="addr"]').removeClass('fake-link');
-        t.find('#'+entId).find('label[name="addr"]').attr('onclick','');
+        t.find('#'+entId).find('label[name="id"]').removeClass('fake-link');
+        t.find('#'+entId).find('label[name="id"]').attr('onclick','');
         $('#orderDialog').dialog('close');
         if($('input[name=activeRadio]:checked', '#entitiesBody').val() === 'Active') {
             t.find('#'+entId).remove();
