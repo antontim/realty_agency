@@ -729,6 +729,7 @@ function calcMahRes(event) {
         type: "PUT",
     }).done(function(data) {
         $(event.target).attr("disabled", false);
+        alert("Company MAH result is: " + data);
     });
 }
 
